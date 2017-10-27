@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/base_top" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_bg"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <Spinner
+            android:id="@+id/spin_time"
+            android:layout_width="@dimen/dp_72"
+            android:layout_height="@dimen/dp_36"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:layout_marginLeft="@dimen/dp_8"
+            android:layout_marginRight="@dimen/dp_8"
+            android:layout_marginTop="@dimen/dp_8"
+            android:background="@color/colorDark"
+            android:dropDownVerticalOffset="@dimen/dp_36"
+            android:dropDownWidth="@dimen/dp_72"
+            android:gravity="center"
+            android:spinnerMode="dropdown"
+            android:visibility="gone" />
+
+        <include layout="@layout/recycler_view" />
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

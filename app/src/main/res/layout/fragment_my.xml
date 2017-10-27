@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    android:orientation="vertical">
+
+    <include layout="@layout/base_top" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_bg"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_12"
+            android:background="@color/white">
+
+            <com.cqyanyu.backing.ui.widget.app.XImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="@dimen/dp_64"
+                android:layout_height="@dimen/dp_64"
+                android:layout_margin="@dimen/common_margin"
+                android:src="@mipmap/pic_touxiang" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/common_margin"
+                android:layout_toRightOf="@+id/iv_avatar"
+                android:orientation="vertical">
+
+                <com.cqyanyu.backing.ui.widget.app.XTextView
+                    android:id="@+id/tv_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:textColor="@color/color_text"
+                    android:textSize="@dimen/text_size_15"
+                    app:x_null_show="@string/hint_no_set" />
+
+                <com.cqyanyu.backing.ui.widget.app.XTextView
+                    android:id="@+id/tv_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:maxLines="2"
+                    android:textColor="@color/color_text"
+                    android:textSize="@dimen/text_size_13"
+                    app:x_front_value="账户  "
+                    app:x_null_show="@string/hint_no_set"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_12"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.cqyanyu.mvpframework.view.ItemOptionView
+                    android:id="@+id/iov_organization"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_item"
+                    android:layout_weight="1"
+                    app:icon="@mipmap/ic_jigou"
+                    app:isShowRight="false"
+                    app:rightIconColor="@color/color_arrow"
+                    app:rightIconSize="@dimen/common_margin"
+                    app:title="@string/text_affiliated_institution"
+                    app:titleColor="@color/color_text"
+                    app:titleSize="@dimen/text_size_14" />
+
+                <com.cqyanyu.backing.ui.widget.app.XTextView
+                    android:id="@+id/tv_unit_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/common_item"
+                    android:layout_marginRight="@dimen/common_margin"
+                    android:gravity="center"
+                    android:textColor="@color/color_text"
+                    android:textSize="@dimen/text_size_14" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="@dimen/common_margin"
+                android:layout_marginRight="@dimen/common_margin"
+                android:background="@color/color_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.cqyanyu.mvpframework.view.ItemOptionView
+                    android:id="@+id/iov_tel_number"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_item"
+                    android:layout_weight="1"
+                    app:icon="@mipmap/ic_shouji2"
+                    app:isShowRight="false"
+                    app:rightIconColor="@color/color_arrow"
+                    app:rightIconSize="@dimen/common_margin"
+                    app:title="@string/text_telephone_number"
+                    app:titleColor="@color/color_text"
+                    app:titleSize="@dimen/text_size_14" />
+
+                <com.cqyanyu.backing.ui.widget.app.XTextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/common_item"
+                    android:layout_marginRight="@dimen/common_margin"
+                    android:gravity="center"
+                    android:textColor="@color/color_text"
+                    android:textSize="@dimen/text_size_14" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="@dimen/common_margin"
+                android:layout_marginRight="@dimen/common_margin"
+                android:background="@color/color_line" />
+
+            <com.cqyanyu.mvpframework.view.ItemOptionView
+                android:id="@+id/iov_modify_password"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_item"
+                app:icon="@mipmap/ic_mima2"
+                app:rightIconColor="@color/color_arrow"
+                app:rightIconSize="@dimen/common_margin"
+                app:title="@string/text_modify_password"
+                app:titleColor="@color/color_text"
+                app:titleSize="@dimen/text_size_14" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="@dimen/common_margin"
+                android:layout_marginRight="@dimen/common_margin"
+                android:background="@color/color_line" />
+
+            <com.cqyanyu.mvpframework.view.ItemOptionView
+                android:id="@+id/iov_about_us"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_item"
+                app:icon="@mipmap/ic_guanyuwomen"
+                android:visibility="gone"
+                app:isShowRight="true"
+                app:rightIconColor="@color/color_arrow"
+                app:rightIconSize="@dimen/common_margin"
+                app:title="@string/text_about_us"
+                app:titleColor="@color/color_text"
+                app:titleSize="@dimen/text_size_14" />
+
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1px"-->
+            <!--android:layout_marginLeft="@dimen/common_margin"-->
+            <!--android:layout_marginRight="@dimen/common_margin"-->
+            <!--android:background="@color/color_line" />-->
+
+            <com.cqyanyu.mvpframework.view.ItemOptionView
+                android:id="@+id/iov_msg_center"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_item"
+                app:icon="@mipmap/ic_xiaoxi"
+                app:rightIconColor="@color/color_arrow"
+                app:rightIconSize="@dimen/common_margin"
+                app:title="@string/text_msg_center"
+                app:titleColor="@color/color_text"
+                app:titleSize="@dimen/text_size_14" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="@dimen/common_margin"
+                android:layout_marginRight="@dimen/common_margin"
+                android:background="@color/color_line" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_exit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_item"
+            android:layout_marginTop="@dimen/dp_12"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="@string/text_sign_out"
+            android:textColor="@color/color_text"
+            android:textSize="@dimen/text_size_17" />
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

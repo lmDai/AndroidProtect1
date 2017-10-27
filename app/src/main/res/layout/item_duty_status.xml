@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_4"
+        android:layout_marginLeft="@dimen/dp_4"
+        android:layout_marginRight="@dimen/dp_4"
+        android:layout_marginTop="@dimen/dp_4"
+        android:background="@drawable/bg_white_radius_solid_five"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dp_4"
+        android:paddingTop="@dimen/dp_4">
+
+        <com.cqyanyu.mvpframework.view.ItemOptionView
+            android:id="@+id/iov_unit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_32"
+            app:contentColor="@color/color_text"
+            app:contentGravity="left"
+            app:isShowRight="false"
+            app:title="所属单位："
+            app:titleColor="@color/color_hint" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/common_margin"
+            android:layout_marginRight="@dimen/common_margin"
+            android:background="@color/color_line" />
+
+        <com.cqyanyu.mvpframework.view.ItemOptionView
+            android:id="@+id/iov_username"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_32"
+            app:contentColor="@color/color_text"
+            app:contentGravity="left"
+            app:isShowRight="false"
+            app:title="姓\u3000\u3000名："
+            app:titleColor="@color/color_hint" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/common_margin"
+            android:layout_marginRight="@dimen/common_margin"
+            android:background="@color/color_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_36"
+            android:orientation="horizontal">
+
+            <com.cqyanyu.mvpframework.view.ItemOptionView
+                android:id="@+id/iov_check_num"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:contentColor="@color/color_text"
+                app:contentGravity="left"
+                app:isShowRight="false"
+                app:title="被查次数："
+                app:titleColor="@color/color_hint" />
+
+            <com.cqyanyu.mvpframework.view.ItemOptionView
+                android:id="@+id/iov_reply_num"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:contentColor="@color/color_text"
+                app:contentGravity="left"
+                app:isShowRight="false"
+                app:title="回复次数："
+                app:titleColor="@color/color_hint" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/common_margin"
+            android:layout_marginRight="@dimen/common_margin"
+            android:background="@color/color_line" />
+
+        <com.cqyanyu.mvpframework.view.ItemOptionView
+            android:id="@+id/iov_date"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_32"
+            app:contentColor="@color/color_text"
+            app:contentGravity="left"
+            app:isShowRight="false"
+            app:title="时\u3000\u3000间："
+            app:titleColor="@color/color_hint" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/common_margin"
+            android:layout_marginRight="@dimen/common_margin"
+            android:background="@color/color_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/dp_36"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/common_margin"
+            android:paddingRight="@dimen/dp_12">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:gravity="center_vertical"
+                android:text="位\u3000\u3000置："
+                android:textColor="@color/color_hint"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:id="@+id/iov_position"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/common_margin"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:singleLine="false"
+                android:textColor="@color/color_text"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:id="@+id/tv_regulatory_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/common_margin"
+                android:background="@color/transparent"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/color_text"
+                android:textSize="@dimen/text_size_14" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

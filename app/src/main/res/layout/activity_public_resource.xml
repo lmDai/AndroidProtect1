@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/base_top" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_bg"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <com.baidu.mapapi.map.TextureMapView
+            android:id="@+id/map_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+        <Button
+            android:id="@+id/btn_water"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/dp_12"
+            android:background="@drawable/bg_btn_public_resource"
+            android:gravity="center"
+            android:text="水源"
+            android:textColor="@color/color_text"
+            android:textSize="@dimen/text_size_14"
+            android:visibility="gone" />
+
+        <CheckBox
+            android:id="@+id/btn_other"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_36"
+            android:layout_alignParentBottom="true"
+            android:layout_alignTop="@+id/btn_water"
+            android:layout_margin="@dimen/dp_8"
+            android:layout_toRightOf="@+id/btn_water"
+            android:button="@null"
+            android:background="@drawable/check_box"
+            android:gravity="center"
+            android:text="&#160;&#160;应急资源&#160;&#160;"
+            android:textColor="@color/color_text"
+            android:textSize="@dimen/text_size_14" />
+
+        <CheckBox
+            android:id="@+id/btn_build"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_36"
+            android:layout_alignParentBottom="true"
+            android:layout_alignTop="@+id/btn_water"
+            android:layout_margin="@dimen/dp_8"
+            android:layout_toRightOf="@+id/btn_other"
+            android:button="@null"
+            android:background="@drawable/check_box"
+            android:gravity="center"
+            android:text="&#160;&#160;楼\u3000\u3000宇&#160;&#160;"
+            android:textColor="@color/color_text"
+            android:textSize="@dimen/text_size_14" />
+
+        <CheckBox
+            android:id="@+id/btn_fire"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_36"
+            android:layout_alignParentBottom="true"
+            android:layout_alignTop="@+id/btn_water"
+            android:layout_margin="@dimen/dp_8"
+            android:layout_toRightOf="@+id/btn_build"
+            android:button="@null"
+            android:background="@drawable/check_box"
+            android:gravity="center"
+            android:text="&#160;&#160;消&#160;&#160;防&#160;&#160;栓&#160;&#160;"
+            android:textColor="@color/color_text"
+            android:textSize="@dimen/text_size_14" />
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

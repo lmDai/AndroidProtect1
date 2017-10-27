@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.cqyanyu.backing">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 获取网络状态 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 网络通信 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 获取设备信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 获取MAC地址 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 读写sdcard，storage等等 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 读写sdcard，storage等等 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 允许程序录制音频 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" /> <!-- 允许程序读取联系人权限 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 录制视频/音频 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" /> <!-- 挂载sd卡 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- 唤醒屏幕 -->
+    <uses-feature android:name="android.hardware.Camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+
+    <!-- 阿里移动推送相关权限 -->
+    <!-- Android 6.0版本可去除，用于选举信息（通道复用）的同步 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!-- 进行网络访问和网络状态监控相关的权限声明 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 允许对sd卡进行读写操作 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 网络库使用，当网络操作时需要确保事务完成不被杀掉 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 用于读取手机硬件信息等，用于机型过滤 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 选举使用，当应用有删除或者更新时需要重新选举，复用推送通道 -->
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_CHANGED" />
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_REPLACED" />
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+    <!-- 补偿通道小米PUSH使用，不用可去除 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <!-- 补偿通道GCM使用，不使用可去除 -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- 允许监听启动完成事件 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- 允许访问震动器 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- 允许task重排序 -->
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+
+    <!-- 小米通道相关权限 -->
+    <permission
+        android:name="${applicationId}.permission.MIPUSH_RECEIVE"
+        android:protectionLevel="signatureOrSystem" />
+    <permission
+        android:name="${applicationId}.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="${applicationId}.permission.MIPUSH_RECEIVE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="${applicationId}.permission.C2D_MESSAGE" />
+
+    <application
+        android:name=".MyApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".ui.activity.login.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.activity.login.MainActivity"
+            android:label=""
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.guide.GuideActivity"
+            android:label=""
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.login.LoginActivity"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".ui.activity.home.PublicResourceActivity"
+            android:label="@string/title_public_resource"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.home.ChoicePositionActivity"
+            android:label="@string/title_position"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".ui.activity.home.ChildAlarmDeviceActivity"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".ui.activity.login.ForgetPasswordActivity"
+            android:label="@string/title_reset_password"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".ui.activity.home.TotalSetActivity"
+            android:label="@string/title_total_set"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.home.PrefectRateActivity"
+            android:label="@string/title_prefect_rate"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.home.PerfectSecondActivity"
+            android:label="@string/title_prefect_rate"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".ui.activity.home.CheckRateActivity"
+            android:label="@string/title_task_list"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.home.FireActivity"
+            android:label="@string/title_fire"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.home.WarningActivity"
+            android:label="@string/title_wraning"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.home.FaultActivity"
+            android:label="@string/title_fault"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.statistics.CountFaultActivity"
+            android:label="@string/title_fault"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.statistics.CountWarnActivity"
+            android:label="@string/title_wraning"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.home.SystemManagementActivity"
+            android:label="@string/title_system_management"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.home.MyTaskActivity"
+            android:label="@string/title_my_task"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.home.DutyStatusActivity"
+            android:label="@string/title_duty_status"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.home.PropagandaTrainingActivity"
+            android:label="@string/title_propaganda_training"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.home.DetailsResourceActivity"
+            android:label="@string/title_resource"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.home.AddUnitActivity"
+            android:label="@string/title_add_unit"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateHidden|adjustResize" />
+        <activity
+            android:name=".ui.activity.home.AddSetActivity"
+            android:configChanges="keyboard|orientation"
+            android:label="@string/title_add_set"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".ui.activity.home.SearchActivity"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateHidden|adjustResize" />
+        <activity
+            android:name=".ui.activity.home.AddUserActivity"
+            android:label="@string/title_add_user"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateHidden|adjustResize" />
+        <activity
+            android:name=".ui.activity.home.ProvinceActivity"
+            android:label="省市"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.statistics.SafeTrendActivity"
+            android:label="@string/title_safe_trend"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.my.MsgCenterActivity"
+            android:label="@string/text_msg_center"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.my.ModifyPasswordActivity"
+            android:label="@string/text_modify_password"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.my.AboutUsActivity"
+            android:label="@string/text_about_us"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.home.OnLineAnswerActivity"
+            android:label="@string/text_online_answer"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.my.DownLoadActivity"
+            android:label="@string/text_scan_download"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.alarm.HandleActivity"
+            android:label="@string/text_handle"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateHidden" />
+        <activity
+            android:name=".ui.activity.home.CheckPostActivity"
+            android:label="@string/title_check_post"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.home.LocalActivity"
+            android:label="@string/title_local"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.home.FireKnowledgeActivity"
+            android:label=""
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.home.KnowledgeDetailActivity"
+            android:label=""
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.home.SetDetailsActivity"
+            android:label="@string/title_set_details"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateHidden|adjustResize" />
+        <activity
+            android:name=".ui.activity.home.TaskDetailsActivity"
+            android:label="@string/title_task_details"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.home.EntryActivity"
+            android:label=""
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.my.ConsulationDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.home.AddChildSetActivity"
+            android:label="@string/title_add_child_set"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateHidden|adjustResize" />
+        <activity
+            android:name=".ui.activity.home.ChildAlarmActivity"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateHidden" />
+        <activity
+            android:name=".ui.activity.statistics.FireFacilitiesActivity"
+            android:label="@string/title_fire_facilities"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.statistics.AlarmActivity"
+            android:label="@string/title_alarm_data"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.statistics.GriderActivity"
+            android:label="@string/title_grider"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.statistics.GridSatisticsActivity"
+            android:label="@string/title_grid_statistics"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.statistics.InspectionTaskActivity"
+            android:label="@string/title_inspection_task"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.alarm.PositionActivity" />
+        <activity
+            android:name=".ui.activity.home.SetManageActivity"
+            android:label="设备管理"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateHidden|adjustResize" />
+        <activity
+            android:name=".ui.activity.home.ChildSetActivity"
+            android:label="子设备"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateHidden|adjustResize" />
+        <activity
+            android:name=".ui.activity.home.WarnReportActivity"
+            android:label="上报详情"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateHidden|adjustResize" />
+        <activity
+            android:name=".ui.activity.home.WaterSystemReportActivity"
+            android:label="上报详情"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateHidden|adjustResize" />
+        <activity
+            android:name=".ui.activity.statistics.CountFireActivity"
+            android:label="@string/title_fire"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.home.WarnListReportActivity"
+            android:label=""
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name=".ui.server.MyServer"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".ui.socket.SocketServer"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver android:name=".ui.socket.NotificationFireReceiver" />
+        <receiver android:name=".ui.socket.NotificationWFaultReceiver" />
+        <receiver android:name=".ui.socket.NotificationWarnReceiver" />
+        <receiver android:name=".ui.socket.NotificationOtherReceiver" />
+
+        <!-- __________________________________________________服务器地址______________________________________________ -->
+
+
+        <!-- 服务器地址配置·HOST_TYPE:0：测试地址；1：RAP地址：2：正式地址 -->
+        <meta-data
+            android:name="HOST_TYPE"
+            android:value="3" />
+        <meta-data
+            android:name="HOST_TEST_URL"
+            android:value="http://test.cqtss.net:8088/hdInterface" />
+        <meta-data
+            android:name="HOST_RAP_URL"
+            android:value="" />
+        <meta-data
+            android:name="HOST_URL"
+            android:value="http://security.cqtss.net:13017/hdInterface" />
+
+        <!--<meta-data-->
+        <!--android:name="HOST_URL"-->
+        <!--android:value="http://192.168.0.2:8098/hdInterface" />-->
+
+        <!-- ___________________________________________________阿里推送______________________________________________ -->
+        <!-- 请填写你自己的- appKey-appSecret -->
+        <meta-data
+            android:name="com.alibaba.app.appkey"
+            android:value="24568369" /> <!-- 请填写你自己的- appKey -->
+        <meta-data
+            android:name="com.alibaba.app.appsecret"
+            android:value="4dbd756801b4974245e386c714b43fac" /> <!-- 请填写你自己的appSecret -->
+
+
+        <!-- 消息接收监听器 （用户可自主扩展） -->
+        <receiver
+            android:name=".ui.server.MyMessageReceiver"
+            android:exported="true">
+            <intent-filter>
+                 
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED" />
+            </intent-filter>
+            <intent-filter>
+                     
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_REMOVED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.COMMAND" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.taobao.taobao.intent.action.COMMAND" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.alibaba.sdk.android.push.RECEIVE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.xiaomi.mipush.sdk.PushMessageHandler"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name="com.xiaomi.mipush.sdk.MessageHandleService"
+            android:enabled="true" />
+
+        <receiver
+            android:name="com.alibaba.sdk.android.push.MiPushBroadcastReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.ERROR" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.xiaomi.push.service.receivers.NetworkStatusReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 华为通道官方配置 -->
+        <receiver android:name="com.alibaba.sdk.android.push.HuaWeiReceiver">
+            <intent-filter>
+                <action android:name="com.huawei.android.push.intent.REGISTRATION" />
+                <action android:name="com.huawei.android.push.intent.RECEIVE" />
+                <action android:name="com.huawei.intent.action.PUSH" />
+                <action android:name="com.huawei.intent.action.PUSH_STATE" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.alibaba.sdk.android.push.channel.KeepChannelService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:process=":channel" />
+
+        <receiver
+            android:name="com.alibaba.sdk.android.push.SystemEventReceiver"
+            android:process=":channel">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.alibaba.sdk.android.push.MsgService"
+            android:exported="false">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="com.taobao.accs.intent.action.RECEIVE" /> -->
+            <!-- </intent-filter> -->
+            <intent-filter>
+                <action android:name="com.alibaba.sdk.android.push.NOTIFY_ACTION" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.alibaba.sdk.android.push.channel.CheckService"
+            android:process=":channel">
+            <intent-filter>
+                <action android:name="com.alibaba.sdk.android.push.CHECK_SERVICE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.taobao.accs.ChannelService"
+            android:exported="true"
+            android:process=":channel">
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.SERVICE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.taobao.accs.ChannelService$KernelService"
+            android:exported="false"
+            android:process=":channel" />
+        <service
+            android:name="com.taobao.accs.data.MsgDistributeService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.RECEIVE" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name="com.taobao.accs.EventReceiver"
+            android:process=":channel">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.taobao.accs.ServiceReceiver"
+            android:process=":channel">
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.COMMAND" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.START_FROM_AGOO" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="org.android.agoo.accs.AgooService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.RECEIVE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.alibaba.sdk.android.push.AliyunPushIntentService"
+            android:exported="true">
+            <intent-filter android:priority="1000">
+                <action android:name="org.agoo.android.intent.action.RECEIVE" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name="com.taobao.agoo.AgooCommondReceiver"
+            android:exported="true"
+            android:process=":channel">
+            <intent-filter>
+                <action android:name="${applicationId}.intent.action.COMMAND" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".ui.socket.UpdateAppReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+                <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.alibaba.sdk.android.push.channel.TaobaoRecvService"
+            android:exported="true"
+            android:process=":channel">
+            <intent-filter>
+                <action android:name="org.android.agoo.client.MessageReceiverService" />
+            </intent-filter>
+        </service>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:replace="name,authorities,exported,grantUriPermissions">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"
+                tools:replace="name,resource" />
+        </provider>
+
+    </application>
+
+</manifest>

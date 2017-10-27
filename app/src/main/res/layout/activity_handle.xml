@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/base_top" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_bg"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white"
+                    android:orientation="vertical">
+
+                    <com.cqyanyu.backing.ui.widget.app.XTextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item"
+                        android:drawableLeft="@mipmap/ic_danwei"
+                        android:drawablePadding="@dimen/dp_8"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/dp_8"
+                        android:paddingRight="@dimen/dp_8"
+                        android:text="温感"
+                        android:textColor="@color/color_text"
+                        android:textSize="@dimen/text_size_14" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/color_line" />
+
+                    <TextView
+                        android:id="@+id/tv_local"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item"
+                        android:drawableLeft="@mipmap/ic_dizhi_xxx"
+                        android:drawablePadding="@dimen/dp_8"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/dp_8"
+                        android:paddingRight="@dimen/dp_8"
+                        android:text="位置"
+                        android:textColor="@color/color_text"
+                        android:textSize="@dimen/text_size_14" />
+
+                    <TextView
+                        android:id="@+id/tv_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item"
+                        android:drawableLeft="@mipmap/ic_shijian"
+                        android:drawablePadding="@dimen/dp_8"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/dp_8"
+                        android:paddingRight="@dimen/dp_8"
+                        android:text="时间"
+                        android:textColor="@color/color_text"
+                        android:textSize="@dimen/text_size_14" />
+
+                    <TextView
+                        android:id="@+id/tv_fault_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item"
+                        android:drawableLeft="@mipmap/ic_guzhang"
+                        android:drawablePadding="@dimen/dp_8"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/dp_8"
+                        android:paddingRight="@dimen/dp_8"
+                        android:text="故障类型   "
+                        android:textColor="@color/color_text"
+                        android:textSize="@dimen/text_size_14" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:background="@color/color_white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item"
+                        android:drawableLeft="@mipmap/ic_chuli"
+                        android:drawablePadding="@dimen/dp_8"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/dp_8"
+                        android:paddingRight="@dimen/dp_8"
+                        android:text="@string/text_handler"
+                        android:textColor="@color/color_text"
+                        android:textSize="@dimen/text_size_14" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/color_line" />
+
+                    <com.cqyanyu.backing.ui.widget.app.ProblemRecycler
+                        android:id="@+id/problem_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_item"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:background="@color/color_white"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/common_item"
+                        android:drawableLeft="@mipmap/ic_beizhu"
+                        android:drawablePadding="@dimen/dp_8"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/dp_8"
+                        android:paddingRight="@dimen/dp_8"
+                        android:text="@string/text_remark"
+                        android:textColor="@color/color_text"
+                        android:textSize="@dimen/text_size_14" />
+
+                    <EditText
+                        android:id="@+id/et_remark"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item"
+                        android:background="@color/color_white"
+                        android:drawablePadding="@dimen/dp_8"
+                        android:hint="@string/text_input_content"
+                        android:paddingLeft="@dimen/dp_8"
+                        android:paddingRight="@dimen/dp_8"
+                        android:singleLine="true"
+                        android:textColor="@color/color_text"
+                        android:textColorHint="@color/color_hint"
+                        android:textSize="@dimen/text_size_14" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

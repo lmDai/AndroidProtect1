@@ -1,0 +1,126 @@
+apply plugin: 'com.android.application'
+
+def releaseTime() {
+    return new Date().format("yyMMdd", TimeZone.getTimeZone("UTC"))
+}
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION as int
+    buildToolsVersion BUILD_TOOLS_VERSION
+    defaultPublishConfig "debug"
+    defaultConfig {
+        applicationId "yjxt.cqtss.net"
+        minSdkVersion MIN_SDK_VERSION as int
+        targetSdkVersion TARGET_SDK_VERSION as int
+        versionCode VERSION_CODE as int
+        versionName VERSION_NAME
+        multiDexEnabled true
+        ndk {
+            //打包发布so文件对应的平台，这里不能换行
+            abiFilters "armeabi"
+        }
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        myConfig {
+            storeFile file("yanyu.jks")
+            storePassword "yanyu2016"
+            keyAlias "yanyu"
+            keyPassword "yanyu2016"
+            v2SigningEnabled false
+        }
+    }
+    buildTypes {
+        debug {
+            //混淆
+            minifyEnabled false
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources false
+            signingConfig signingConfigs.myConfig
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            //混淆
+            minifyEnabled false
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources false
+            signingConfig signingConfigs.myConfig
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    //定义各个渠道所不同的属性(包名、版本号、签名等等)
+    productFlavors {
+        //腾讯
+        channel_tencent
+        //360
+        channel_360
+        //百度
+        channel_baidu
+    }
+    android.applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                //这里修改apk文件名
+                def fileName = "cqtss-${buildType.name}${releaseTime()}${defaultConfig.versionName}.apk"
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+        }
+    }
+    productFlavors.all {
+        flavor ->
+            flavor.manifestPlaceholders = [CHANNEL_VALUE: name,
+                                           JPUSH_CHANNEL: name]
+    }
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    //公司框架
+    //导航栏
+    //图片轮播
+    //作图
+    //扫描二维码
+    compile project(path: ':libzxing')
+    //百度地图
+    compile project(path: ':baidumap')
+    //更新
+    //socket通讯
+    //compile 'com.github.vilyever:AndroidSocketClient:3.0.3'
+    compile project(path: ':socketclient')
+    //pdf显示
+    //阿里推送老版本依赖
+    //compile project(path: ':pushal')
+    //调用拍照/相册/截屏
+    //compile 'me.lxz.photopicker:PhotoPicker-Packages:1.4'
+    compile project(path: ':pictureselect')
+    //compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
+    compile 'com.android.support:design:24.1.1'
+    compile 'com.android.support:appcompat-v7:25.0.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.cqyanyu.mvpframework:mvpframework:0.1.22'
+    compile 'com.ashokvarma.android:bottom-navigation-bar:1.3.0'
+    compile 'com.youth.banner:banner:1.4.9'
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+    compile 'com.lidong.pdf:android_pdf:1.0.1'
+    compile 'com.aliyun.ams:alicloud-android-push:3.0.9@aar'
+    compile 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'
+    compile 'com.aliyun.ams:alicloud-android-ut:5.0.0'
+    compile 'com.aliyun.ams:alicloud-android-third-push:3.0.3@aar'
+    testCompile 'junit:junit:4.12'
+}

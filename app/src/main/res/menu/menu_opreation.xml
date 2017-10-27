@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_delete"
+        android:icon="@mipmap/ic_sanchu"
+        android:title="删除"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_finish"
+        android:icon="@mipmap/ic_wancheng"
+        android:title="完成"
+        app:showAsAction="ifRoom" />
+</menu>

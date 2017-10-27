@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--字体大小-->
+    <dimen name="text_size_12">14dp</dimen>
+    <dimen name="text_size_13">13dp</dimen>
+    <dimen name="text_size_14">16dp</dimen>
+    <dimen name="text_size_15">15dp</dimen>
+    <dimen name="text_size_16">18dp</dimen>
+    <dimen name="text_size_17">17dp</dimen>
+    <dimen name="text_size_18">18dp</dimen>
+    <!--间距-->
+    <dimen name="common_item">48dp</dimen>
+    <dimen name="common_list">40dp</dimen>
+    <dimen name="common_margin">16dp</dimen>
+    <dimen name="common_radius">5dp</dimen>
+    <dimen name="dp_4">4dp</dimen>
+    <dimen name="dp_8">8dp</dimen>
+    <dimen name="dp_64">64dp</dimen>
+    <dimen name="dp_72">72dp</dimen>
+    <dimen name="dp_12">12dp</dimen>
+    <dimen name="dp_2">2dp</dimen>
+    <dimen name="dp_24">24dp</dimen>
+    <dimen name="dp_28">28dp</dimen>
+    <dimen name="dp_36">36dp</dimen>
+    <dimen name="dp_32">32dp</dimen>
+    <dimen name="dp_220">220dp</dimen>
+</resources>

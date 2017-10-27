@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp_4"
+    android:background="@drawable/bg_white_radius_solid_five"
+    android:orientation="vertical">
+
+    <com.cqyanyu.backing.ui.widget.app.XTextView
+        android:id="@+id/tv_date"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_28"
+        android:background="@color/color_bg"
+        android:gravity="center"
+        android:text="2017年"
+        android:textColor="@color/colorDark"
+        android:textSize="@dimen/text_size_14" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/color_line" />
+
+    <LinearLayout
+        android:id="@+id/ll_alarm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!--报警总数-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <com.cqyanyu.backing.ui.widget.app.XTextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_36"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="火警"
+                android:textColor="@color/color_text"
+                android:textSize="@dimen/text_size_14" />
+
+            <com.cqyanyu.backing.ui.widget.app.XTextView
+                android:id="@+id/tv_alarmcount"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_36"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="20" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/color_line" />
+        <!--报警未处理-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center|start"
+            android:orientation="horizontal">
+
+            <com.cqyanyu.backing.ui.widget.app.XTextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_36"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="未处理"
+                android:textColor="@color/color_text"
+                android:textSize="@dimen/text_size_14" />
+
+            <com.cqyanyu.backing.ui.widget.app.XTextView
+                android:id="@+id/tv_alarmunhandle"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_36"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="1" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/color_line" />
+
+    <LinearLayout
+        android:id="@+id/ll_problem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!-- 故障总数-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <com.cqyanyu.backing.ui.widget.app.XTextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_36"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="故障"
+                android:textColor="@color/color_text"
+                android:textSize="@dimen/text_size_14" />
+
+            <com.cqyanyu.backing.ui.widget.app.XTextView
+                android:id="@+id/tv_problemcount"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_36"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="15" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/color_line" />
+        <!--故障未处理-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.cqyanyu.backing.ui.widget.app.XTextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_36"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="未处理"
+                android:textColor="@color/color_text"
+                android:textSize="@dimen/text_size_14" />
+
+            <com.cqyanyu.backing.ui.widget.app.XTextView
+                android:id="@+id/tv_problemunhandle"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_36"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="3" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/color_line" />
+
+    <LinearLayout
+        android:id="@+id/ll_other"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!--报警总数-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <com.cqyanyu.backing.ui.widget.app.XTextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_36"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="其他"
+                android:textColor="@color/color_text"
+                android:textSize="@dimen/text_size_14" />
+
+            <com.cqyanyu.backing.ui.widget.app.XTextView
+                android:id="@+id/tv_other_count"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_36"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="20" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/color_line" />
+        <!--报警未处理-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center|start"
+            android:orientation="horizontal">
+
+            <com.cqyanyu.backing.ui.widget.app.XTextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_36"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="未处理"
+                android:textColor="@color/color_text"
+                android:textSize="@dimen/text_size_14" />
+
+            <com.cqyanyu.backing.ui.widget.app.XTextView
+                android:id="@+id/tv_other_unhandle"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_36"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="1" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/color_line" />
+
+    <LinearLayout
+        android:id="@+id/ll_warn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!--预警总数  -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <com.cqyanyu.backing.ui.widget.app.XTextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_36"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="预警"
+                android:textColor="@color/color_text"
+                android:textSize="@dimen/text_size_14" />
+
+            <com.cqyanyu.backing.ui.widget.app.XTextView
+                android:id="@+id/tv_warncount"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_36"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="8" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/color_line" />
+        <!--预警未处理-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

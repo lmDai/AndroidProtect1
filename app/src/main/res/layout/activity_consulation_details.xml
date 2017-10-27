@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/base_top" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_bg"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <com.cqyanyu.backing.ui.widget.app.XTextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_item"
+            android:gravity="center|start"
+            android:paddingLeft="@dimen/common_margin"
+            android:paddingRight="@dimen/common_margin"
+            android:text="重庆建设医院召开夏季消防安全工作部署会"
+            android:textSize="@dimen/text_size_18" />
+
+        <com.cqyanyu.backing.ui.widget.app.XTextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dp_4"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/common_margin"
+            android:paddingRight="@dimen/common_margin"
+            android:text="    华龙网6月12日17时02分讯（通讯员 余佳）为了认真贯彻落实消防安全责任，深刻吸取近年来重特大火灾事故教训，扎实开展火灾防控工作，6月7日，重庆建设医院组织召开了夏季消防安全工作部署会。"
+            android:textSize="@dimen/text_size_18" />
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

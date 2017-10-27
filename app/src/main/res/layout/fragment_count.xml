@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    android:orientation="vertical">
+
+    <include layout="@layout/base_top" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_bg"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_item"
+            android:background="@color/color_white"
+            android:paddingLeft="@dimen/common_margin"
+            android:paddingRight="@dimen/common_margin">
+
+            <View
+                android:layout_width="@dimen/dp_2"
+                android:layout_height="@dimen/dp_24"
+                android:layout_gravity="center"
+                android:background="@color/colorDark" />
+
+            <com.cqyanyu.backing.ui.widget.app.XTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_8"
+                android:layout_weight="1"
+                android:gravity="center|start"
+                android:text="昨日警情"
+                android:textSize="@dimen/text_size_18" />
+
+            <com.cqyanyu.backing.ui.widget.app.XTextView
+                android:id="@+id/tv_WarnCount"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center|start"
+                android:text="0"
+                android:textSize="@dimen/text_size_14"
+                android:visibility="gone"
+                app:x_front_value="预警次数：" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_line" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChart1"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/color_white" />
+
+        <GridView
+            android:id="@+id/grid_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1px"
+            android:layout_marginRight="1px"
+            android:layout_marginTop="@dimen/dp_8"
+            android:numColumns="2"
+            android:overScrollMode="never"
+            android:scrollbars="none" />
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

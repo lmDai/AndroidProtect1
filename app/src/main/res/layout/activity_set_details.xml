@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/base_top" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_bg"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white"
+                    android:orientation="vertical">
+
+                    <com.cqyanyu.mvpframework.view.ItemOptionView
+                        android:id="@+id/iov_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item"
+                        app:contentColor="@color/color_hint"
+                        app:contentGravity="left"
+                        app:contentSize="@dimen/text_size_14"
+                        app:isShowRight="false"
+                        app:title="@string/text_number"
+                        app:titleColor="@color/color_text"
+                        app:titleSize="@dimen/text_size_14" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/common_margin"
+                        android:layout_marginRight="@dimen/common_margin"
+                        android:background="@color/color_line" />
+
+                    <com.cqyanyu.mvpframework.view.ItemOptionView
+                        android:id="@+id/iov_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item"
+                        app:contentColor="@color/color_hint"
+                        app:contentGravity="left"
+                        app:contentSize="@dimen/text_size_14"
+                        app:isShowRight="false"
+                        app:title="@string/text_type"
+                        app:titleColor="@color/color_text"
+                        app:titleSize="@dimen/text_size_14" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/common_margin"
+                        android:layout_marginRight="@dimen/common_margin"
+                        android:background="@color/color_line" />
+
+                    <com.cqyanyu.mvpframework.view.ItemOptionView
+                        android:id="@+id/iov_state"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item"
+                        app:contentColor="@color/color_hint"
+                        app:contentGravity="left"
+                        app:contentSize="@dimen/text_size_14"
+                        app:isShowRight="false"
+                        app:title="@string/text_check_state"
+                        app:titleColor="@color/color_text"
+                        app:titleSize="@dimen/text_size_14" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/common_margin"
+                        android:layout_marginRight="@dimen/common_margin"
+                        android:background="@color/color_line" />
+
+                    <com.cqyanyu.mvpframework.view.ItemOptionView
+                        android:id="@+id/iov_position"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item"
+                        app:contentColor="@color/color_hint"
+                        app:contentGravity="left"
+                        app:contentSize="@dimen/text_size_14"
+                        app:isShowRight="false"
+                        app:title="@string/text_position"
+                        app:titleColor="@color/color_text"
+                        app:titleSize="@dimen/text_size_14" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:background="@color/color_white"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/common_item"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="@dimen/common_margin"
+                            android:paddingRight="@dimen/common_margin"
+                            android:text="@string/text_check_result"
+                            android:textColor="@color/color_text"
+                            android:textSize="@dimen/text_size_14" />
+
+                        <TextView
+                            android:id="@+id/txt_result"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/common_item"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/color_hint"
+                            android:textSize="@dimen/text_size_14"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/common_margin"
+                        android:layout_marginRight="@dimen/common_margin"
+                        android:background="@color/color_line" />
+
+                    <com.cqyanyu.backing.ui.widget.app.ProblemRecycler
+                        android:id="@+id/problem_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_describe"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_item"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:background="@color/color_white"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/common_item"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/common_margin"
+                        android:paddingRight="@dimen/common_margin"
+                        android:text="@string/text_describe"
+                        android:textColor="@color/color_text"
+                        android:textSize="@dimen/text_size_14" />
+
+                    <EditText
+                        android:id="@+id/et_describe"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item"
+                        android:background="@color/color_white"
+                        android:drawablePadding="@dimen/dp_8"
+                        android:hint="@string/hint_describe"
+                        android:paddingLeft="@dimen/dp_8"
+                        android:paddingRight="@dimen/dp_8"
+                        android:singleLine="true"
+                        android:textColor="@color/color_text"
+                        android:textColorHint="@color/color_hint"
+                        android:textSize="@dimen/text_size_14" />
+
+                </LinearLayout>
+
+                <com.cqyanyu.backing.ui.widget.picture.PictureSelect
+                    android:id="@+id/picture_select"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:minHeight="56dp"
+                    android:visibility="gone"
+                    app:x_add_icon="@mipmap/ic_xiangji_xx"
+                    app:x_column="3"
+                    app:x_error_icon="@mipmap/zzz"
+                    app:x_maxNumber="3"
+                    app:x_model="camera"
+                    app:x_show_layout="@layout/item_picture" />
+
+                <Button
+                    android:id="@+id/btn_commit"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_item"
+                    android:layout_marginBottom="@dimen/common_margin"
+                    android:layout_marginLeft="@dimen/common_margin"
+                    android:layout_marginRight="@dimen/common_margin"
+                    android:layout_marginTop="@dimen/common_margin"
+                    android:text="@string/text_set_commit"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/text_size_16" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

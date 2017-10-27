@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_4"
+        android:layout_marginLeft="@dimen/dp_4"
+        android:layout_marginRight="@dimen/dp_4"
+        android:layout_marginTop="@dimen/dp_4"
+        android:background="@drawable/bg_white_radius_solid_five"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dp_4"
+        android:paddingTop="@dimen/dp_4">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/dp_36"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/common_margin"
+                android:text="设备名称："
+                android:textColor="@color/color_hint"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:id="@+id/iov_set_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/common_margin"
+                android:textSize="@dimen/text_size_14" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/common_margin"
+            android:layout_marginRight="@dimen/common_margin"
+            android:background="@color/color_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.cqyanyu.mvpframework.view.ItemOptionView
+                android:id="@+id/iov_inspection_state"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_36"
+                android:layout_weight="1"
+                app:contentColor="@color/color_text"
+                app:contentGravity="left"
+                app:isShowRight="false"
+                app:title="巡检状态："
+                app:titleColor="@color/color_hint" />
+
+            <com.cqyanyu.mvpframework.view.ItemOptionView
+                android:id="@+id/iov_set_state"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_36"
+                android:layout_weight="1"
+                app:contentColor="@color/color_text"
+                app:contentGravity="left"
+                app:isShowRight="false"
+                app:title="设备状态："
+                app:titleColor="@color/color_hint" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/common_margin"
+            android:layout_marginRight="@dimen/common_margin"
+            android:background="@color/color_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/dp_36"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/common_margin"
+                android:text="详细位置："
+                android:textColor="@color/color_hint"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:id="@+id/iov_set_position"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/common_margin"
+                android:textSize="@dimen/text_size_14" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/common_margin"
+            android:layout_marginRight="@dimen/common_margin"
+            android:background="@color/color_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_72"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/common_margin"
+            android:paddingRight="@dimen/common_margin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/common_margin"
+                android:gravity="center"
+                android:text="图\u3000\u3000片："
+                android:textColor="@color/color_hint"
+                android:textSize="@dimen/text_size_14" />
+
+            <ImageView
+                android:id="@+id/iv_first"
+                android:layout_width="@dimen/common_item"
+                android:layout_height="@dimen/common_item"
+                android:layout_gravity="center_vertical"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/iv_second"
+                android:layout_width="@dimen/common_item"
+                android:layout_height="@dimen/common_item"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/common_margin"
+                android:layout_marginRight="@dimen/common_margin"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/iv_third"
+                android:layout_width="@dimen/common_item"
+                android:layout_height="@dimen/common_item"
+                android:layout_gravity="center_vertical"
+                android:scaleType="centerCrop" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

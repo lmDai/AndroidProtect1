@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    app:statusBarBackground="@color/transparent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00000000" />
+
+        <com.cqyanyu.networkcar.driver.ui.widget.CircleIndicator
+            android:id="@+id/circle_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/common_list"
+            app:ci_height="6dp"
+            app:ci_margin="20dp"
+            app:ci_width="6dp" />
+
+        <TextView
+            android:id="@+id/text_join_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/circle_indicator"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="36dp"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="joinIn"
+            android:paddingBottom="8dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="8dp"
+            android:text="立即体验"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/text_size_15"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

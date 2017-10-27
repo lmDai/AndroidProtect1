@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:pp="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp_8"
+    android:background="@drawable/bg_white_radius_solid_five"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.cqyanyu.backing.ui.widget.app.XTextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_item"
+            android:layout_marginLeft="@dimen/common_margin"
+            android:gravity="center"
+            android:hint="查岗时间："
+            android:textColor="@color/color_text"
+            android:textSize="@dimen/text_size_14" />
+
+        <com.cqyanyu.backing.ui.widget.app.XTextView
+            android:id="@+id/tv_checked_date"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_item"
+            android:layout_marginLeft="@dimen/common_margin"
+            android:gravity="center"
+            pp:x_null_show="@string/hint_no_set" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="@dimen/dp_4"
+        android:layout_marginRight="@dimen/dp_4"
+        android:background="@color/color_line" />
+
+    <LinearLayout
+        android:id="@+id/ll_replay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.cqyanyu.backing.ui.widget.app.XTextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_item"
+            android:layout_marginLeft="@dimen/common_margin"
+            android:gravity="center"
+            android:hint="是否回复："
+            android:textColor="@color/color_text"
+            android:textSize="@dimen/text_size_14" />
+
+        <com.cqyanyu.backing.ui.widget.app.XTextView
+            android:id="@+id/tv_isanswered"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_item"
+            android:layout_marginLeft="@dimen/common_margin"
+            android:gravity="center"
+            pp:x_null_show="@string/hint_no_set" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="@dimen/dp_4"
+        android:layout_marginRight="@dimen/dp_4"
+        android:background="@color/color_line" />
+
+    <LinearLayout
+        android:id="@+id/ll_position"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/common_item">
+
+        <com.cqyanyu.backing.ui.widget.app.XTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/common_margin"
+            android:hint="回复位置："
+            android:textColor="@color/color_text"
+            android:textSize="@dimen/text_size_14" />
+
+        <com.cqyanyu.backing.ui.widget.app.XTextView
+            android:id="@+id/tv_answered_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/common_margin"
+            pp:x_null_show="@string/hint_no_set" />
+    </LinearLayout>
+
+</LinearLayout>

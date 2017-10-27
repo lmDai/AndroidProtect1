@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg"
+    android:fitsSystemWindows="true"
+    app:statusBarBackground="@color/color_main">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3.8"
+            android:background="@color/color_white"
+            app:image_scale_type="fit_xy" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_4"
+            android:background="@color/color_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.0"
+            android:background="@color/color_white"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp_4"
+            android:paddingRight="@dimen/dp_4">
+
+            <LinearLayout
+                android:id="@+id/layout_total"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/common_margin"
+                    android:layout_marginTop="@dimen/common_margin"
+                    android:src="@mipmap/ic_shebei" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="@dimen/dp_4"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <com.cqyanyu.backing.ui.widget.app.XTextView
+                        android:id="@+id/tv_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="#1b7194"
+                        android:textSize="@dimen/text_size_14" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_2"
+                        android:layout_marginTop="@dimen/dp_2"
+                        android:text="设备数"
+                        android:textColor="@color/color_text"
+                        android:textSize="@dimen/text_size_15" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_line" />
+
+            <LinearLayout
+                android:id="@+id/layout_check"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/common_margin"
+                    android:layout_marginTop="@dimen/common_margin"
+                    android:src="@mipmap/ic_xunjian" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_4"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <com.cqyanyu.backing.ui.widget.app.XTextView
+                        android:id="@+id/tv_check"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="#a69813"
+                        android:textSize="@dimen/text_size_14"
+                        app:x_after_value="%" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_2"
+                        android:layout_marginTop="@dimen/dp_2"
+                        android:text="巡检率"
+                        android:textColor="@color/color_text"
+                        android:textSize="@dimen/text_size_15" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_line" />
+
+            <LinearLayout
+                android:id="@+id/layout_prefect"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/common_margin"
+                    android:layout_marginTop="@dimen/common_margin"
+                    android:src="@mipmap/ic_wanhaolv" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="@dimen/dp_4"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <com.cqyanyu.backing.ui.widget.app.XTextView
+                        android:id="@+id/tv_prefect"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="#4b9905"
+                        android:textSize="@dimen/text_size_14"
+                        app:x_after_value="%" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_2"
+                        android:layout_marginTop="@dimen/dp_2"
+                        android:text="完好率"
+                        android:textColor="@color/color_text"
+                        android:textSize="@dimen/text_size_15" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:background="@color/color_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.6"
+            android:background="@color/color_white"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp_4"
+            android:paddingRight="@dimen/dp_4">
+
+            <com.cqyanyu.backing.ui.widget.app.XTextView
+                android:id="@+id/tv_fire"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_2"
+                android:layout_marginTop="@dimen/dp_2"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="#d6283f"
+                android:textSize="@dimen/text_size_15"
+                app:x_front_color="@color/color_text"
+                app:x_front_value="火警\t"
+                app:x_null_show="0" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_line" />
+
+            <com.cqyanyu.backing.ui.widget.app.XTextView
+                android:id="@+id/tv_warning"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_2"
+                android:layout_marginTop="@dimen/dp_2"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="#dd7631"
+                android:textSize="@dimen/text_size_15"
+                app:x_front_color="@color/color_text"
+                app:x_front_value="预警\t"
+                app:x_null_show="0" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_line" />
+
+            <com.cqyanyu.backing.ui.widget.app.XTextView
+                android:id="@+id/tv_fault"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_2"
+                android:layout_marginTop="@dimen/dp_2"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="#eda628"
+                android:textSize="@dimen/text_size_15"
+                app:x_front_color="@color/color_text"
+                app:x_front_value="故障\t"
+                app:x_null_show="0" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_8"
+            android:background="@color/color_line" />
+
+        <GridView
+            android:id="@+id/grid_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="4.3"
+            android:numColumns="3"
+            android:overScrollMode="never"
+            android:scrollbars="none" />
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

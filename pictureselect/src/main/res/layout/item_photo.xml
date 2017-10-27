@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.pictureselect.camerapicker.view.SquareImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_photo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"
+        android:background="@drawable/photo_bg"
+        android:padding="1dip"
+        android:scaleType="centerCrop" />
+
+    <RelativeLayout
+        android:id="@+id/v_rl"
+        android:layout_width="40dp"
+        android:layout_height="65dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/photo_checkbox_bg">
+
+        <ImageView
+            android:id="@+id/v_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="5dip"
+            android:clickable="true"
+            android:padding="5dip"
+            android:src="@drawable/photo_checkbox_bg" />
+    </RelativeLayout>
+
+</com.pictureselect.camerapicker.view.SquareImageView>

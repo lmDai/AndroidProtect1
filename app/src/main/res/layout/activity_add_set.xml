@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/base_top" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_bg"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/layout_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white"
+                    android:orientation="vertical">
+
+                    <com.cqyanyu.mvpframework.view.ItemOptionView
+                        android:id="@+id/iov_set_build"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item"
+                        app:contentColor="@color/color_text"
+                        app:contentGravity="left"
+                        app:contentSize="@dimen/text_size_14"
+                        app:rightIcon="@mipmap/ic_xiayiye"
+                        app:rightIconSize="@dimen/dp_24"
+                        app:title="@string/text_set_build"
+                        app:titleColor="@color/color_text"
+                        app:titleSize="@dimen/text_size_14" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/common_margin"
+                        android:layout_marginRight="@dimen/common_margin"
+                        android:background="@color/color_line" />
+
+                    <com.cqyanyu.mvpframework.view.ItemOptionView
+                        android:id="@+id/iov_set_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item"
+                        app:contentColor="@color/color_text"
+                        app:contentGravity="left"
+                        app:contentSize="@dimen/text_size_14"
+                        app:rightIcon="@mipmap/ic_xiayiye"
+                        app:rightIconSize="@dimen/dp_24"
+                        app:title="@string/text_set_type"
+                        app:titleColor="@color/color_text"
+                        app:titleSize="@dimen/text_size_14" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/common_margin"
+                        android:layout_marginRight="@dimen/common_margin"
+                        android:background="@color/color_line" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/common_margin"
+                        android:paddingRight="@dimen/common_margin">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="@string/text_set_number"
+                            android:textColor="@color/color_text"
+                            android:textSize="@dimen/text_size_14" />
+
+                        <EditText
+                            android:id="@+id/edit_num"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/transparent"
+                            android:paddingLeft="@dimen/common_margin"
+                            android:paddingRight="@dimen/common_margin"
+                            android:singleLine="true"
+                            android:textColor="@color/color_text"
+                            android:textColorHint="@color/color_hint"
+                            android:textSize="@dimen/text_size_14" />
+
+                        <ImageView
+                            android:id="@+id/iv_scan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="@dimen/common_margin"
+                            android:src="@mipmap/ic_sapyisao" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/common_margin"
+                        android:layout_marginRight="@dimen/common_margin"
+                        android:background="@color/color_line" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/common_margin"
+                        android:paddingRight="@dimen/common_margin">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="@string/text_floor"
+                            android:textColor="@color/color_text"
+                            android:textSize="@dimen/text_size_14" />
+
+                        <AutoCompleteTextView
+                            android:id="@+id/et_set_floor"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparent"
+                            android:digits="1234567890-"
+                            android:hint="@string/hint_input_floor"
+                            android:paddingLeft="@dimen/common_margin"
+                            android:paddingRight="@dimen/common_margin"
+                            android:singleLine="true"
+                            android:textColor="@color/color_text"
+                            android:textColorHint="@color/color_hint"
+                            android:textSize="@dimen/text_size_14" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/common_margin"
+                        android:layout_marginRight="@dimen/common_margin"
+                        android:background="@color/color_line" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/common_margin"
+                        android:paddingRight="@dimen/common_margin">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="@string/text_set_details_position"
+                            android:textColor="@color/color_text"
+                            android:textSize="@dimen/text_size_14" />
+
+                        <EditText
+                            android:id="@+id/et_set_position"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/transparent"
+                            android:hint="@string/hint_set_position"
+                            android:paddingLeft="@dimen/common_margin"
+                            android:paddingRight="@dimen/common_margin"
+                            android:singleLine="true"
+                            android:textColor="@color/color_text"
+                            android:textColorHint="@color/color_hint"
+                            android:textSize="@dimen/text_size_14" />
+
+                        <ImageView
+                            android:id="@+id/iv_local"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="@dimen/common_margin"
+                            android:src="@mipmap/ic_dizhi_x" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/common_margin"
+                        android:layout_marginRight="@dimen/common_margin"
+                        android:background="@color/color_line" />
+
+                    <com.cqyanyu.mvpframework.view.ItemOptionView
+                        android:id="@+id/iov_inspection_way"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item"
+                        app:contentColor="@color/color_text"
+                        app:contentGravity="left"
+                        app:contentSize="@dimen/text_size_14"
+                        app:rightIcon="@mipmap/ic_xiayiye"
+                        app:rightIconSize="@dimen/dp_24"
+                        app:title="@string/text_inspection_way"
+                        app:titleColor="@color/color_text"
+                        app:titleSize="@dimen/text_size_14" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/common_margin"
+                        android:layout_marginRight="@dimen/common_margin"
+                        android:background="@color/color_line" />
+
+                    <com.cqyanyu.mvpframework.view.ItemOptionView
+                        android:id="@+id/iov_set_start_data"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item"
+                        app:contentColor="@color/color_text"
+                        app:contentGravity="left"
+                        app:contentSize="@dimen/text_size_14"
+                        app:rightIcon="@mipmap/ic_xiayiye"
+                        app:rightIconSize="@dimen/dp_24"
+                        app:title="生产日期"
+                        app:titleColor="@color/color_text"
+                        app:titleSize="@dimen/text_size_14" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/common_margin"
+                        android:layout_marginRight="@dimen/common_margin"
+                        android:background="@color/color_line" />
+
+                    <com.cqyanyu.mvpframework.view.ItemOptionView
+                        android:id="@+id/iov_guarantee"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item"
+                        app:contentColor="@color/color_text"
+                        app:contentGravity="left"
+                        app:contentSize="@dimen/text_size_14"
+                        app:rightIcon="@mipmap/ic_xiayiye"
+                        app:rightIconSize="@dimen/dp_24"
+                        app:title="@string/text_guarantee"
+                        app:titleColor="@color/color_text"
+                        app:titleSize="@dimen/text_size_14" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/common_margin"
+                        android:layout_marginRight="@dimen/common_margin"
+                        android:background="@color/color_line" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/common_margin"
+                        android:paddingRight="@dimen/common_margin">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="@string/text_set_size"
+                            android:textColor="@color/color_text"
+                            android:textSize="@dimen/text_size_14" />
+
+                        <AutoCompleteTextView
+                            android:id="@+id/et_set_size"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparent"
+                            android:hint="@string/hint_set_size"
+                            android:paddingLeft="@dimen/common_margin"
+                            android:paddingRight="@dimen/common_margin"
+                            android:singleLine="true"
+                            android:textColor="@color/color_text"
+                            android:textColorHint="@color/color_hint"
+                            android:textSize="@dimen/text_size_14" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/common_margin"
+                        android:layout_marginRight="@dimen/common_margin"
+                        android:background="@color/color_line" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/common_margin"
+                        android:paddingRight="@dimen/common_margin">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="@string/text_brand"
+                            android:textColor="@color/color_text"
+                            android:textSize="@dimen/text_size_14" />
+
+                        <AutoCompleteTextView
+                            android:id="@+id/et_brand"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparent"
+                            android:hint="@string/hint_brand_name"
+                            android:paddingLeft="@dimen/common_margin"
+                            android:paddingRight="@dimen/common_margin"
+                            android:singleLine="true"
+                            android:textColor="@color/color_text"
+                            android:textColorHint="@color/color_hint"
+                            android:textSize="@dimen/text_size_14" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/common_margin"
+                        android:layout_marginRight="@dimen/common_margin"
+                        android:background="@color/color_line" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/common_margin"
+                        android:paddingRight="@dimen/common_margin">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="@string/text_product_company"
+                            android:textColor="@color/color_text"
+                            android:textSize="@dimen/text_size_14" />
+
+                        <AutoCompleteTextView
+                            android:id="@+id/et_product_company"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparent"
+                            android:hint="@string/hint_product_company_name"
+                            android:paddingLeft="@dimen/common_margin"
+                            android:paddingRight="@dimen/common_margin"
+                            android:singleLine="true"
+                            android:textColor="@color/color_text"
+                            android:textColorHint="@color/color_hint"
+                            android:textSize="@dimen/text_size_14" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/common_margin"
+                        android:layout_marginRight="@dimen/common_margin"
+                        android:background="@color/color_line" />
+
+                    <com.cqyanyu.mvpframework.view.ItemOptionView
+                        android:id="@+id/iov_inspection_unit"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/common_item"
+                        app:contentColor="@color/color_text"
+                        app:contentGravity="left"
+                        app:contentSize="@dimen/text_size_14"
+                        app:rightIcon="@mipmap/ic_xiayiye"
+                        app:rightIconSize="@dimen/dp_24"
+                        app:title="@string/text_inspection_unit"
+                        app:titleColor="@color/color_text"
+                        app:titleSize="@dimen/text_size_14" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/common_margin"
+                        android:layout_marginRight="@dimen/common_margin"
+                        android:background="@color/color_line" />
+
+
+                </LinearLayout>
+
+                <com.cqyanyu.backing.ui.widget.picture.PictureSelect
+                    android:id="@+id/picture_select"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_8"
+                    app:x_add_icon="@mipmap/ic_xiangji_xx"
+                    app:x_column="3"
+                    app:x_error_icon="@mipmap/zzz"
+                    app:x_maxNumber="3"
+                    app:x_model="camera"
+                    app:x_show_layout="@layout/item_picture" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_36" />
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

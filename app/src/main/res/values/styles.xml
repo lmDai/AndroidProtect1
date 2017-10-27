@@ -1,0 +1,59 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="AppTheme.Base">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="actionBarSize">48dp</item>
+        <item name="android:buttonStyle">@style/AppTheme.buttonStyle</item>
+        <item name="android:editTextStyle">@style/AppTheme.editTextStyle</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/color_text</item>
+        <item name="alertDialogTheme">@style/DialogAlertSelf</item>
+    </style>
+
+    <style name="MyTrans" parent="AppTheme">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+    <!-- Base application theme. -->
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="AppTheme.buttonStyle" parent="@style/Widget.AppCompat.Button">
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:background">@drawable/btn_common</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="AppTheme.editTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@null</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.Splash" parent="AppTheme">
+        <item name="android:windowTranslucentStatus" tools:ignore="NewApi">true</item>
+        <item name="android:windowBackground">@mipmap/app</item>
+    </style>
+    <!--弹出选择方式-->
+    <style name="mystyle" parent="android:Animation">
+        <!-- 进入时的动画 -->
+        <item name="@android:windowEnterAnimation">@anim/dialog_bottom_in</item>
+        <!-- 退出时的动画 -->
+        <item name="@android:windowExitAnimation">@anim/dialog_bottom_out</item>
+    </style>
+
+    <style name="DialogAlertSelf" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorDark</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+    </style>
+</resources>

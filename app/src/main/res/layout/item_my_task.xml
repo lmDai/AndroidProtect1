@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_4"
+        android:layout_marginLeft="@dimen/dp_4"
+        android:layout_marginRight="@dimen/dp_4"
+        android:layout_marginTop="@dimen/dp_4"
+        android:background="@drawable/bg_white_radius_solid_five"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dp_4"
+        android:paddingTop="@dimen/dp_4">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <com.cqyanyu.mvpframework.view.ItemOptionView
+                android:id="@+id/iov_device_num"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_36"
+                android:layout_weight="1"
+                app:contentColor="@color/color_text"
+                app:contentGravity="left"
+                app:isShowRight="false"
+                app:title="设&#160;&#160;备&#160;&#160;数："
+                app:titleColor="@color/color_hint" />
+
+            <com.cqyanyu.mvpframework.view.ItemOptionView
+                android:id="@+id/iov_check_rate"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_36"
+                android:layout_weight="1"
+                app:contentColor="@color/color_text"
+                app:contentGravity="left"
+                app:isShowRight="false"
+                app:title="巡&#160;&#160;检&#160;&#160;率："
+                app:titleColor="@color/color_hint" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/common_margin"
+            android:layout_marginRight="@dimen/common_margin"
+            android:background="@color/color_line" />
+
+        <com.cqyanyu.mvpframework.view.ItemOptionView
+            android:id="@+id/iov_task_num"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_36"
+            app:contentColor="@color/color_text"
+            app:contentGravity="left"
+            app:rightIcon="@mipmap/ic_xiayiye"
+            app:rightIconSize="@dimen/dp_24"
+            app:title="巡&#160;&#160;检&#160;&#160;点："
+            app:titleColor="@color/color_hint" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/common_margin"
+            android:layout_marginRight="@dimen/common_margin"
+            android:background="@color/color_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_36"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/common_margin"
+                android:text="@string/text_set_state"
+                android:textColor="@color/color_hint"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:id="@+id/iov_state"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/common_margin"
+                android:textColor="@color/color_text"
+                android:textSize="@dimen/text_size_14" />
+
+            <ImageView
+                android:id="@+id/iv_state"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/common_margin"
+                android:src="@mipmap/ic_xiayiye" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

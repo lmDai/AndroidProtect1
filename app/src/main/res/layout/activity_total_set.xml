@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/base_top" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_bg"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:id="@+id/tv_local"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_item"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:background="@color/color_white"
+            android:gravity="center"
+            android:textColor="@color/color_text"
+            android:textSize="@dimen/text_size_16"
+            android:visibility="gone" />
+
+        <include layout="@layout/recycler_view" />
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

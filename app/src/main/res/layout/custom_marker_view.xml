@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.cqyanyu.backing.ui.widget.chart.ArrowTextView
+        android:id="@+id/tvContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:paddingBottom="16px"
+        android:paddingLeft="5px"
+        android:paddingRight="5px"
+        android:text=""
+        android:textColor="@color/description"
+        android:textSize="36px"
+        app:bg="@color/linefill"
+        app:radius="5px" />
+</LinearLayout>

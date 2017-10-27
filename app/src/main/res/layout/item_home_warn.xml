@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_8"
+        android:layout_marginLeft="@dimen/common_margin"
+        android:layout_marginRight="@dimen/common_margin"
+        android:layout_marginTop="@dimen/dp_8"
+        android:background="@drawable/bg_white_radius_solid_five"
+        android:orientation="vertical">
+
+        <com.cqyanyu.backing.ui.widget.app.XTextView
+            android:id="@+id/tv_build"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_item"
+            android:drawableLeft="@mipmap/ic_danwei"
+            android:drawablePadding="@dimen/dp_8"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_8"
+            android:text="江北区大石坝"
+            android:textColor="@color/color_text"
+            android:textSize="@dimen/text_size_14" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/color_line" />
+
+        <com.cqyanyu.backing.ui.widget.app.XTextView
+            android:id="@+id/tv_local"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_item"
+            android:drawableLeft="@mipmap/ic_dizhi"
+            android:drawablePadding="@dimen/dp_8"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_8"
+            android:text="江北区大石坝"
+            android:textColor="@color/color_text"
+            android:textSize="@dimen/text_size_14" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/color_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_item"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_8">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/dp_8"
+                android:drawableLeft="@mipmap/ic_shuiya"
+                android:drawablePadding="@dimen/dp_8"
+                android:gravity="center_vertical"
+                android:text="@string/text_hydraulic_pressure"
+                android:textColor="@color/color_text"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:id="@+id/tv_water_press"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="0.5Mpa"
+                android:textColor="@drawable/text_warn"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:id="@+id/tv_water_press_status"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="水压正常"
+                android:textColor="@drawable/text_warn"
+                android:textSize="@dimen/text_size_14" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

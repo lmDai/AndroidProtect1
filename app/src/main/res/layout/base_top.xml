@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/appBarLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/AppTheme.AppBarOverlay"
+    app:elevation="0dp">
+
+    <com.cqyanyu.mvpframework.view.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/base_top"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:titleTextColor="@color/color_white">
+
+        <TextView
+            android:id="@+id/btn_left"
+            style="@style/btn_sytle_selectableItemBackground"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|left"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/color_white"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/bt_tv_title"
+            style="@style/btn_sytle_selectableItemBackground"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/color_white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/btn_right"
+            style="@style/btn_sytle_selectableItemBackground"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|right"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/color_white"
+            android:textSize="16sp" />
+
+    </com.cqyanyu.mvpframework.view.Toolbar>
+
+</android.support.design.widget.AppBarLayout>

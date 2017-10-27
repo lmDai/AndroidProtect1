@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp_4"
+    android:background="@drawable/bg_white_radius_solid_five"
+    android:orientation="vertical">
+
+    <com.cqyanyu.backing.ui.widget.app.XTextView
+        android:id="@+id/tv_date"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_28"
+        android:background="@color/color_bg"
+        android:gravity="center"
+        android:text="2017年"
+        android:textColor="@color/colorDark"
+        android:textSize="@dimen/text_size_14" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/color_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/dp_36"
+        android:orientation="horizontal">
+
+
+        <com.cqyanyu.backing.ui.widget.app.XTextView
+            android:id="@+id/tv_devicecount"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/common_margin"
+            android:layout_weight="1"
+            android:gravity="start|center"
+            app:x_front_color="@color/color_text"
+            app:x_front_value="巡检设备：" />
+
+
+        <com.cqyanyu.backing.ui.widget.app.XTextView
+            android:id="@+id/tv_inspect_user"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/common_margin"
+            android:layout_weight="1"
+            android:gravity="start|center"
+            app:x_front_color="@color/color_text"
+            app:x_front_value="巡&#160;&#160;检&#160;&#160;人：" />
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/color_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/dp_36"
+        android:orientation="horizontal">
+
+
+        <com.cqyanyu.backing.ui.widget.app.XTextView
+            android:id="@+id/tv_inspect_rate"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/common_margin"
+            android:layout_weight="1"
+            android:gravity="start|center"
+            app:x_front_color="@color/color_text"
+            app:x_front_value="@string/text_check_rate_x" />
+
+        <com.cqyanyu.backing.ui.widget.app.XTextView
+            android:id="@+id/tv_status"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/common_margin"
+            android:layout_weight="1"
+            android:gravity="start|center"
+            android:text="123"
+            app:x_front_color="@color/color_text"
+            app:x_front_value="@string/text_set_state" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/color_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/dp_36">
+
+        <com.cqyanyu.backing.ui.widget.app.XTextView
+            android:id="@+id/tv_task_num"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center"
+            android:layout_marginLeft="@dimen/common_margin"
+            android:layout_weight="1"
+            android:gravity="start|center"
+            android:minHeight="@dimen/dp_36"
+            app:x_front_color="@color/color_text"
+            app:x_front_value="巡&#160;&#160;检&#160;&#160;点：" />
+
+        <TextView
+            android:id="@+id/tv_num"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/common_margin"
+            android:layout_marginRight="@dimen/common_margin"
+            android:gravity="center"
+            android:text="11" />
+    </LinearLayout>
+</LinearLayout>

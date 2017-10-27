@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.cqyanyu.backing.ui.widget.app.XImageView
+        android:id="@+id/img_head"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/zzz" />
+
+    <com.cqyanyu.backing.ui.widget.app.XTextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_item"
+        android:background="@color/black"
+        android:gravity="center|start"
+        android:paddingLeft="@dimen/common_margin"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_18"
+        tools:text="heelo" />
+</LinearLayout>
