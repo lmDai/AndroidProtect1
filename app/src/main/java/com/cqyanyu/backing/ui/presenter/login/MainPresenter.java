@@ -103,12 +103,6 @@ public class MainPresenter extends BasePresenter<MainView> {
             paramsMap.put("unitid", CommonInfo.getInstance().getUserInfo().getUnitid());//单位 ID
             paramsMap.put("startdate", startdate + "");
             paramsMap.put("enddate", enddate + "");
-//            ParamsMap paramsMap = new ParamsMap();
-//            paramsMap.put("type", "1");//类型  1：日巡
-//            paramsMap.put("inspectionmanid", CommonInfo.getInstance().getUserInfo().getUserid());//用户id
-//            paramsMap.put("date", (MyDate.getTodayZero() / 1000) + "");//今天凌晨0点整
-//            paramsMap.put("startdate", startdate + "");
-//            paramsMap.put("enddate", enddate + "");
             XHttpUtils.post(context, paramsMap, ConstHost.GET_UNIT_TASK_Page_URL, new XICallbackString() {
                 @Override
                 public void onSuccess(String result) {

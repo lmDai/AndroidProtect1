@@ -101,7 +101,17 @@ public class CountPresenter extends BasePresenter<CountView> {
 
                 @Override
                 public void onFail(String msg) {
-
+                    List<Float> alarmTotals = new ArrayList<Float>();
+                    alarmTotals.add((float) 0);
+                    alarmTotals.add((float) 0);
+                    alarmTotals.add((float) 0);
+                    alarmTotals.add((float) 0);
+                    List<Float> handleTotals = new ArrayList<Float>();
+                    handleTotals.add((float) 0);
+                    handleTotals.add((float) 0);
+                    handleTotals.add((float) 0);
+                    alarmTotals.add((float) 0);
+                    getView().setAlarmTotal(alarmTotals, handleTotals);
                 }
 
                 @Override

@@ -19,4 +19,6 @@ public interface ProvinceView extends XPageView {
     boolean isMustSelectLastGrade();
 
     boolean isMineId();
+
+    boolean getFirstIn();
 }

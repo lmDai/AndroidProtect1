@@ -69,7 +69,6 @@ public class MyTaskPresenter extends XPagePresenter<MyTaskView> {
                     page = page + 1;
                     /**设置是否可以下拉加载*/
                     isLoad = page * pageSize < mList.size();
-                    XLog.i(mList.size() + "长度");
                     if (page * pageSize > mList.size()) {
                         setData(mList.subList((page - 1) * pageSize, mList.size()));
                     } else {

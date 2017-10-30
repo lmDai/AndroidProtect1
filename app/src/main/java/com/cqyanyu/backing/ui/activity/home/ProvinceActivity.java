@@ -93,6 +93,11 @@ public class ProvinceActivity extends BaseActivity<ProvincePresenter> implements
     }
 
     @Override
+    public boolean getFirstIn() {
+        return getIntent().getBooleanExtra("isFirstIn", false);
+    }
+
+    @Override
     protected void onResume() {
         /**下级选择完成，便可以取到值*/
         UnitEntity event = EventBus.getDefault().getStickyEvent(UnitEntity.class);
@@ -109,8 +114,8 @@ public class ProvinceActivity extends BaseActivity<ProvincePresenter> implements
      * @param goNext     是否前往下级页面
      * @param childCount 子单位的总数
      */
-    public void gotoNext(UnitEntity entity, boolean goNext, String childCount) {
-        if (TextUtils.equals(childCount, "0")) {
+    public void gotoNext(UnitEntity entity, boolean goNext, String childCount, String childBuild) {
+        if (TextUtils.equals(childCount, "0") && TextUtils.equals(childBuild, "0")) {
             //没有下一级了
             returnUpPage(entity);
         } else {
@@ -157,6 +162,7 @@ public class ProvinceActivity extends BaseActivity<ProvincePresenter> implements
         startActivity(new Intent(mContext, ProvinceActivity.class)
                 .putExtra(ProvinceActivity.LABEL, getLabel())
                 .putExtra(KEY_PID, entity.getOid())
+                .putExtra("isFirstIn", false)
         );
     }
 }

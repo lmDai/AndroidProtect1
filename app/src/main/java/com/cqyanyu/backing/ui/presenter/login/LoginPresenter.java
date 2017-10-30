@@ -99,7 +99,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                                 getView().requestSuccess();
                             } else {
                                 //登录失败
-                                getView().loginFail(userInfo.getInfo());
+                                getView().loginFail("连接失败");
                             }
                         }
                     }
@@ -107,7 +107,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
                 @Override
                 public void onFail(String msg) {
-                    getView().loginFail(msg);
+                    getView().loginFail("连接失败");
                 }
 
                 @Override

@@ -96,7 +96,7 @@ public class SetDetailsPresenter extends BasePresenter<SetDetailsView> {
 
                     @Override
                     public void onFail(String msg) {
-                        XToastUtil.showToast("词条获取失败!");
+
                     }
 
                     @Override
@@ -132,7 +132,6 @@ public class SetDetailsPresenter extends BasePresenter<SetDetailsView> {
                             list = mList;
                         } else {
                             XToastUtil.showToast("任务获取失败！请重新扫描");
-                            XLog.i("getTaskDetailsOfAll" + "任务获取失败！请重新扫描");
                             context.finish();
                         }
                     }
@@ -143,7 +142,6 @@ public class SetDetailsPresenter extends BasePresenter<SetDetailsView> {
                     XLog.e(msg);
                     if (getView() != null) {
                         XToastUtil.showToast("任务获取失败！请重新扫描");
-                        XLog.i("getTaskDetailsOfAll" + "onFailed" + "任务获取失败！请重新扫描");
                         context.finish();
                     }
                 }
@@ -189,7 +187,6 @@ public class SetDetailsPresenter extends BasePresenter<SetDetailsView> {
                     XLog.e(msg);
                     if (getView() != null) {
                         XToastUtil.showToast("任务获取失败！请重新扫描");
-                        XLog.i("getTaskDetailsOfAll" + "onFailed" + "任务获取失败！请重新扫描");
                         context.finish();
                     }
                 }
@@ -227,7 +224,6 @@ public class SetDetailsPresenter extends BasePresenter<SetDetailsView> {
                                 }
                             } else {
                                 XToastUtil.showToast("设备获取失败！请重新扫描");
-                                XLog.i("getSetInfo1" + "任务获取失败！请重新扫描");
                                 getView().gotoScan();
                             }
                         }
@@ -275,12 +271,6 @@ public class SetDetailsPresenter extends BasePresenter<SetDetailsView> {
 //               // getProblem(problemId);
 //            }
         });
-//        EntryFactory.getProblemId(context, "1", setId, new EntryFactory.OnResultProblemIdListener() {
-//            @Override
-//            public void onResult(String problemId) {
-//                getProblem(problemId);
-//            }
-//        });
     }
 
     //设置任务详情

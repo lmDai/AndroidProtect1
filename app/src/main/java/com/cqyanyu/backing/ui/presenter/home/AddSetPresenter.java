@@ -127,7 +127,7 @@ public class AddSetPresenter extends BasePresenter<AddSetView> {
                                     /** 设置设备保质期*/
                                     getView().setGuarantee(entity.getEnddate());
                                     /** 设置设备巡检方式*/
-                                    getView().setInspectionWay(getInspectionWay(entity.getInspectioninterval()));
+                                    getView().setInspectionWay(entity.getInspectioninterval() + "");
                                     /** 设置设备巡检单位*/
                                     getView().setInspectionUnit(entity.getUnitid());
                                     getView().setInspectionUnitName(entity.getUnitstr());

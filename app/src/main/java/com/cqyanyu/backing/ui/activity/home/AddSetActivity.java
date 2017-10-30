@@ -189,6 +189,7 @@ public class AddSetActivity extends BaseActivity<AddSetPresenter> implements Add
                 startActivity(new Intent(mContext, ProvinceActivity.class)
                         .putExtra(ProvinceActivity.LABEL, ProvinceActivity.LABEL_VALUE_BUILD)
                         .putExtra(ProvinceActivity.KEY_PID, CommonInfo.getInstance().getUserInfo().getUnitid())
+                        .putExtra("isFirstIn", true)
                 );
                 break;
             case R.id.iov_set_type:
@@ -427,7 +428,10 @@ public class AddSetActivity extends BaseActivity<AddSetPresenter> implements Add
     @Override
     public void setInspectionWay(String inspection) {
         iovInspectionWay.setContentHint(inspection);
-        iovInspectionWay.setContent(InfoManger.getInstance().getEntryName(mContext, inspection));
+        iovInspectionWay.setContent(
+                TextUtils.equals(InfoManger.getInstance().getEntryName(mContext, inspection), inspection)
+                        ? "未知方式" :
+                        InfoManger.getInstance().getEntryName(mContext, inspection));
     }
 
     @Override

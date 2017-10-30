@@ -65,10 +65,10 @@ public class ProvinceHolder extends IViewHolder {
             if (activity != null) {
                 switch (v.getId()) {
                     case R.id.iv_icon:
-                        activity.gotoNext(itemData, true, itemData.getChildunitcount());
+                        activity.gotoNext(itemData, true, itemData.getChildunitcount(),itemData.getChildbuildcount());
                         break;
                     default:
-                        activity.gotoNext(itemData, false, itemData.getChildunitcount());
+                        activity.gotoNext(itemData, false, itemData.getChildunitcount(),itemData.getChildbuildcount());
                         break;
                 }
 

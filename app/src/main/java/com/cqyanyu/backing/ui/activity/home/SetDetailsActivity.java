@@ -160,6 +160,9 @@ public class SetDetailsActivity extends BaseActivity<SetDetailsPresenter> implem
     @Override
     public void setIsProblem(boolean b) {
         //problemRecycler.setVisibility(b ? View.VISIBLE : View.GONE);
+        if (!b) {
+            pictureSelect.clearData();
+        }
         pictureSelect.setVisibility(b ? View.VISIBLE : View.GONE);
         llDescribe.setVisibility(b ? View.VISIBLE : View.GONE);
     }

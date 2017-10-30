@@ -146,6 +146,7 @@ public class AddUnitActivity extends BaseActivity<AddUnitPresenter> implements A
                 startActivity(new Intent(mContext, ProvinceActivity.class)
                         .putExtra(ProvinceActivity.LABEL, ProvinceActivity.LABEL_VALUE_PRESENT)
                         .putExtra(ProvinceActivity.KEY_PID, CommonInfo.getInstance().getUserInfo().getUnitid())
+                        .putExtra("isFirstIn", true)
                 );
                 break;
             case R.id.iv_local://定位

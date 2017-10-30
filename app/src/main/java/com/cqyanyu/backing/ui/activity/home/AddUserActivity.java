@@ -101,6 +101,7 @@ public class AddUserActivity extends BaseActivity<AddUserPresenter> implements A
                 startActivity(new Intent(mContext, ProvinceActivity.class)
                         .putExtra(ProvinceActivity.LABEL, ProvinceActivity.LABEL_VALUE_USER)
                         .putExtra(ProvinceActivity.KEY_PID, CommonInfo.getInstance().getUserInfo().getUnitid())
+                        .putExtra("isFirstIn", true)
                 );
                 break;
             case R.id.iov_user_sort://用户角色

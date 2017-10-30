@@ -34,6 +34,7 @@ import com.cqyanyu.backing.ui.socket.entity.NotificationEntity;
 import com.cqyanyu.backing.utils.DialogUtils;
 import com.cqyanyu.backing.utils.DownloadAppUtils;
 import com.cqyanyu.backing.utils.Utils;
+import com.cqyanyu.backing.utils.XAppUtils;
 import com.cqyanyu.mvpframework.adapter.XFragmentPagerAdapter;
 import com.cqyanyu.mvpframework.utils.PermissionUtil;
 import com.cqyanyu.mvpframework.utils.XLog;
@@ -44,6 +45,7 @@ import com.xys.libzxing.zxing.activity.CaptureActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -385,14 +387,18 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
      */
     private void downloadFile(String url) {
         this.url = url;
-        String names = "down_" + url.substring(url.lastIndexOf("/") + 1, url.lastIndexOf("."));
-        String realName = null;
-        if (!TextUtils.isEmpty(XPreferenceUtil.getInstance().getString("voice"))) {
-            realName = XPreferenceUtil.getInstance().getString("voice").substring(
-                    XPreferenceUtil.getInstance().getString("voice").lastIndexOf("/") + 1,
-                    XPreferenceUtil.getInstance().getString("voice").lastIndexOf("."));
+        boolean hasFile = false;
+        String names = "down_" + url.substring(url.lastIndexOf("/") + 1, url.length());
+        File path = new File(XAppUtils.instance().getFileKeep(mContext));
+        File[] files = path.listFiles();
+        if (files != null) { // 先判断目录是否为空，否则会报空指针
+            for (File file : files) {
+                if (TextUtils.equals(names, file.getName())) {
+                    hasFile = true;
+                }
+            }
         }
-        if (!TextUtils.equals(names, realName) || !Utils.fileIsExists(XPreferenceUtil.getInstance().getString("voice")))
+        if (!hasFile)
             XHttpUtils.onDownloadFile(this, url, "wav", new XIDownCallback() {
                 @Override
                 public void onSuccess(String path) {

@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -46,6 +47,7 @@ public class TaskDetailsHolder extends IViewHolder {
         ImageView ivFirst;
         ImageView ivSecond;
         ImageView ivThird;
+        LinearLayout llPicture;
 
         ViewHolder(View itemView, RecyclerView.Adapter adapter) {
             super(itemView, adapter);
@@ -59,6 +61,7 @@ public class TaskDetailsHolder extends IViewHolder {
             //iovInspection = (ItemOptionView) rootView.findViewById(R.id.iov_inspection);
             iovInspectionState = (ItemOptionView) rootView.findViewById(R.id.iov_inspection_state);
             iovSetState = (ItemOptionView) rootView.findViewById(R.id.iov_set_state);
+            llPicture = (LinearLayout) rootView.findViewById(R.id.ll_picture);
             ivFirst = (ImageView) rootView.findViewById(R.id.iv_first);
             ivSecond = (ImageView) rootView.findViewById(R.id.iv_second);
             ivThird = (ImageView) rootView.findViewById(R.id.iv_third);
@@ -80,11 +83,16 @@ public class TaskDetailsHolder extends IViewHolder {
             iovInspectionState.setContent(itemData.getIsinspection() == 0 ? "未巡检" : "已巡检");
             //设备状态
             iovSetState.setContent(itemData.getProblemstr());
-            //设置图片
-            initPicture(itemData.getPicpath());
-            ivFirst.setOnClickListener(this);
-            ivSecond.setOnClickListener(this);
-            ivSecond.setOnClickListener(this);
+            if (TextUtils.equals(itemData.getProblemstr(), "正常")) {
+                llPicture.setVisibility(View.GONE);
+            } else {
+                llPicture.setVisibility(View.VISIBLE);
+                //设置图片
+                initPicture(itemData.getPicpath());
+                ivFirst.setOnClickListener(this);
+                ivSecond.setOnClickListener(this);
+                ivSecond.setOnClickListener(this);
+            }
         }
 
         /**
@@ -107,17 +115,24 @@ public class TaskDetailsHolder extends IViewHolder {
                 }
                 /**加载图片地址*/
                 if (mList.size() > 0) {
-                    for (int i = 0; i < mList.size(); i++) {
-                        if (i == 0) {
-                            ivFirst.setVisibility(View.VISIBLE);
-                            showIcon(ivFirst, mList.get(i));
-                        } else if (i == 1) {
-                            ivSecond.setVisibility(View.VISIBLE);
-                            showIcon(ivSecond, mList.get(i));
-                        } else if (i == 2) {
-                            ivThird.setVisibility(View.VISIBLE);
-                            showIcon(ivThird, mList.get(i));
-                        }
+                    if (mList.size() == 1) {
+                        ivFirst.setVisibility(View.VISIBLE);
+                        ivSecond.setVisibility(View.GONE);
+                        ivThird.setVisibility(View.GONE);
+                        showIcon(ivFirst, mList.get(0));
+                    } else if (mList.size() == 2) {
+                        showIcon(ivFirst, mList.get(0));
+                        showIcon(ivSecond, mList.get(1));
+                        ivFirst.setVisibility(View.VISIBLE);
+                        ivSecond.setVisibility(View.VISIBLE);
+                        ivThird.setVisibility(View.GONE);
+                    } else {
+                        showIcon(ivFirst, mList.get(0));
+                        showIcon(ivSecond, mList.get(1));
+                        showIcon(ivThird, mList.get(2));
+                        ivFirst.setVisibility(View.VISIBLE);
+                        ivSecond.setVisibility(View.VISIBLE);
+                        ivThird.setVisibility(View.VISIBLE);
                     }
                 }
             }

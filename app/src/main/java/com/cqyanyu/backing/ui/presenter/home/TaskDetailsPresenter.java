@@ -37,6 +37,8 @@ public class TaskDetailsPresenter extends XPagePresenter<TaskDetailsView> {
         paramsMap.put("type", "1");//1：日巡 2：月检
         paramsMap.put("statisticsid", getView().getTaskIds());//任务 ID
         paramsMap.put("unitid", CommonInfo.getInstance().getUserInfo().getUnitid());//单位 ID
+        paramsMap.put("pageindex", pageindex + "");
+        paramsMap.put("count", "" + pagecount);
         return paramsMap;
     }
 
@@ -86,6 +88,10 @@ public class TaskDetailsPresenter extends XPagePresenter<TaskDetailsView> {
 
     @Override
     protected void setData(List mList) {
-        mRecyclerView.getAdapter().setData(0, mList);
+        if (pageindex==0) {
+            mRecyclerView.getAdapter().setData(0, mList);
+        }else {
+            mRecyclerView.getAdapter().addDataAll(0, mList);
+        }
     }
 }

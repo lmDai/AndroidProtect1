@@ -36,7 +36,22 @@ public class CountFragment extends BaseFragment<CountPresenter> implements Count
         gridView = (GridView) view.findViewById(R.id.grid_view);
         barChart1 = (BarChart) view.findViewById(R.id.barChart1);
         tvWarnCount = (XTextView) view.findViewById(R.id.tv_WarnCount);
-
+        List<Float> alarmTotals = new ArrayList<Float>();
+        alarmTotals.add((float) 0);
+        alarmTotals.add((float) 0);
+        alarmTotals.add((float) 0);
+        alarmTotals.add((float) 0);
+        List<Float> handleTotals = new ArrayList<Float>();
+        handleTotals.add((float) 0);
+        handleTotals.add((float) 0);
+        handleTotals.add((float) 0);
+        handleTotals.add((float) 0);
+        xAxisValues = new ArrayList<>();
+        xAxisValues.add("火警");
+        xAxisValues.add("预警");
+        xAxisValues.add("故障");
+        xAxisValues.add("其他");
+        MPChartHelper.setTwoBarChart(barChart1, xAxisValues, alarmTotals, handleTotals, "总数", "已处理");
     }
 
     @Override
@@ -91,11 +106,6 @@ public class CountFragment extends BaseFragment<CountPresenter> implements Count
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (isVisibleToUser && isFirstVisible) {
             if (mPresenter != null) mPresenter.init();
-            xAxisValues = new ArrayList<>();
-            xAxisValues.add("火警");
-            xAxisValues.add("预警");
-            xAxisValues.add("故障");
-            xAxisValues.add("其他");
             isFirstVisible = false;
         }
         super.setUserVisibleHint(isVisibleToUser);
