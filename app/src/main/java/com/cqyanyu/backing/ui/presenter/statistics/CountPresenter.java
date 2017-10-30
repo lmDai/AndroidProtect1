@@ -92,7 +92,7 @@ public class CountPresenter extends BasePresenter<CountView> {
                             handleTotals.add((float) 0);
                             handleTotals.add((float) 0);
                             handleTotals.add((float) 0);
-                            alarmTotals.add((float) 0);
+                            handleTotals.add((float) 0);
                             getView().setAlarmTotal(alarmTotals, handleTotals);
                             getView().setWarnCount(0);
                         }
@@ -110,7 +110,7 @@ public class CountPresenter extends BasePresenter<CountView> {
                     handleTotals.add((float) 0);
                     handleTotals.add((float) 0);
                     handleTotals.add((float) 0);
-                    alarmTotals.add((float) 0);
+                    handleTotals.add((float) 0);
                     getView().setAlarmTotal(alarmTotals, handleTotals);
                 }
 
