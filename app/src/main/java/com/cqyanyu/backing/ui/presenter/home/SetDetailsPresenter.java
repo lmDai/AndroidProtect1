@@ -1,5 +1,7 @@
 package com.cqyanyu.backing.ui.presenter.home;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
@@ -10,7 +12,6 @@ import com.cqyanyu.backing.manger.EntryFactory;
 import com.cqyanyu.backing.manger.InfoManger;
 import com.cqyanyu.backing.ui.activity.home.MyTaskActivity;
 import com.cqyanyu.backing.ui.entity.home.EntryEntity;
-import com.cqyanyu.backing.ui.entity.home.MyTaskEntity;
 import com.cqyanyu.backing.ui.entity.home.ProblemEntity;
 import com.cqyanyu.backing.ui.entity.home.SetManageEntity;
 import com.cqyanyu.backing.ui.entity.home.TaskDetailsEntity;
@@ -21,12 +22,14 @@ import com.cqyanyu.backing.ui.net.XICallbackString;
 import com.cqyanyu.backing.utils.MyDate;
 import com.cqyanyu.backing.utils.NetDialogUtil;
 import com.cqyanyu.backing.utils.NumberUtils;
+import com.cqyanyu.backing.utils.cache.ACache;
+import com.cqyanyu.backing.utils.cache.CacheConsts;
 import com.cqyanyu.mvpframework.X;
 import com.cqyanyu.mvpframework.presenter.BasePresenter;
-import com.cqyanyu.mvpframework.utils.XLog;
 import com.cqyanyu.mvpframework.utils.XToastUtil;
 import com.cqyanyu.mvpframework.utils.http.ParamsMap;
 import com.cqyanyu.mvpframework.utils.http.XCallback;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -42,13 +45,27 @@ public class SetDetailsPresenter extends BasePresenter<SetDetailsView> {
     private List<TaskDetailsEntity> list;
     private String paths;
     private String myInspectionRate;
+    private ACache mAcache;
 
     //初始化
     public void init() {
+        mAcache = ACache.get(context);
         if (TextUtils.equals(getView().getLable(), MyTaskActivity.class.getSimpleName())) {
-            getMyTaskDetails();
+            String query_str = mAcache.getAsString(CacheConsts.DEMO_CACHE_KEY + getView().getTaskIds());
+            if (TextUtils.isEmpty(query_str)) {
+                getMyTaskDetails();
+            } else {
+                list = JSON.parseArray(query_str, TaskDetailsEntity.class);
+                getSetInfo();
+            }
         } else {
-            getTaskDetailsOfAll();
+            String allStr = mAcache.getAsString(CacheConsts.DEMO_CACHE_KEY + "ALL");
+            if (TextUtils.isEmpty(allStr)) {
+                getTaskDetailsOfAll();
+            } else {
+                list = JSON.parseArray(allStr, TaskDetailsEntity.class);
+                getSetInfo();
+            }
         }
     }
 
@@ -113,15 +130,15 @@ public class SetDetailsPresenter extends BasePresenter<SetDetailsView> {
         }
     }
 
-    //通过用户id获取任务详情
+    //    通过用户id获取任务详情
     private void getTaskDetailsOfAll() {
         if (getView() != null) {
             long sec = (MyDate.getTodayZero() / 1000);
             long startdata = sec;
-            long enddate = sec + 1;
+            long enddate = sec + 86400;
             ParamsMap paramsMap = new ParamsMap();
             paramsMap.put("type", "1");//1：日巡 2：月检
-            paramsMap.put("inspectionmanid", CommonInfo.getInstance().getUserInfo().getUserid());//任务 ID
+            paramsMap.put("userid", CommonInfo.getInstance().getUserInfo().getUserid());
             paramsMap.put("startdate", startdata + "");//单位 ID
             paramsMap.put("enddate", enddate + "");//单位 ID
             XHttpUtils.post(context, paramsMap, ConstHost.GET_MY_ALL_TASK_DETAILS_URL, NetDialogUtil.showLoadDialog(context, R.string.text_request), new XICallbackList<TaskDetailsEntity>() {
@@ -130,6 +147,9 @@ public class SetDetailsPresenter extends BasePresenter<SetDetailsView> {
                     if (getView() != null) {
                         if (mList != null) {
                             list = mList;
+                            Gson gson = new Gson();
+                            String newResult = gson.toJson(list);
+                            mAcache.put(CacheConsts.DEMO_CACHE_KEY + "ALL", newResult);
                         } else {
                             XToastUtil.showToast("任务获取失败！请重新扫描");
                             context.finish();
@@ -139,7 +159,6 @@ public class SetDetailsPresenter extends BasePresenter<SetDetailsView> {
 
                 @Override
                 public void onFail(String msg) {
-                    XLog.e(msg);
                     if (getView() != null) {
                         XToastUtil.showToast("任务获取失败！请重新扫描");
                         context.finish();
@@ -176,6 +195,7 @@ public class SetDetailsPresenter extends BasePresenter<SetDetailsView> {
                             int count = object.optInt("count");
                             String trueResult = object.optString("rows");
                             list = JSON.parseArray(trueResult, TaskDetailsEntity.class);
+                            mAcache.put(CacheConsts.DEMO_CACHE_KEY + getView().getTaskIds(), trueResult);
                         }
                     } catch (Exception e) {
                         e.getStackTrace();
@@ -184,7 +204,6 @@ public class SetDetailsPresenter extends BasePresenter<SetDetailsView> {
 
                 @Override
                 public void onFail(String msg) {
-                    XLog.e(msg);
                     if (getView() != null) {
                         XToastUtil.showToast("任务获取失败！请重新扫描");
                         context.finish();
@@ -215,11 +234,6 @@ public class SetDetailsPresenter extends BasePresenter<SetDetailsView> {
                                 setEntity = mList.get(0);
                                 if (setEntity != null) {
                                     /** 设置设备编号*/
-                                    getView().setCode(setEntity.getSn());
-                                    /** 设置设备类型*/
-                                    getView().setType(setEntity.getTypestr());
-                                    /** 设置设备位置*/
-                                    getView().setPosition(setEntity.getPosition());
                                     setTaskDetails();
                                 }
                             } else {
@@ -232,10 +246,8 @@ public class SetDetailsPresenter extends BasePresenter<SetDetailsView> {
 
                 @Override
                 public void onFail(String msg) {
-                    XLog.e(msg);
                     if (getView() != null) {
                         XToastUtil.showToast("设备获取失败！请重新扫描");
-                        XLog.i("getSetInfo" + "任务获取失败！请重新扫描");
                         context.finish();
                     }
                 }
@@ -280,6 +292,11 @@ public class SetDetailsPresenter extends BasePresenter<SetDetailsView> {
             if (TextUtils.equals(task.getDeviceid(), setEntity.getOid())) {
                 taskEntity = task;
                 /** 设置巡检状态*/
+                getView().setCode(setEntity.getSn());
+                /** 设置设备类型*/
+                getView().setType(setEntity.getTypestr());
+                /** 设置设备位置*/
+                getView().setPosition(setEntity.getPosition());
                 getView().setInspectionState(taskEntity.getIsinspection() == 0 ? "未巡检" : "已巡检");
                 if (taskEntity.getIsinspection() == 0) {
                     /** 通过设备类型获取问题*/
@@ -287,9 +304,9 @@ public class SetDetailsPresenter extends BasePresenter<SetDetailsView> {
                     getView().setIsProblem(false);
                 } else {
                     getView().setResult(setEntity.getStatusstr());
-                    getView().setIsProblem(false);
+                    getView().setIsProblem(true);
                     getView().setDescibe(setEntity.getRemark() == null ? "" : setEntity.getRemark());
-                    getView().setPicture(setEntity.getPicpath());
+                    getView().setPicture(taskEntity.getPicpath());
                 }
                 getView().setEnable(taskEntity.getIsinspection() == 0);
                 return;
@@ -304,11 +321,11 @@ public class SetDetailsPresenter extends BasePresenter<SetDetailsView> {
     private void commitTask() {
         if (getView() != null && setEntity != null && taskEntity != null) {
             ParamsMap paramsMap = new ParamsMap();
-            paramsMap.put("oid", taskEntity.getOid());//任务 ID
-            paramsMap.put("buildid", setEntity.getBuildid());//建筑ＩＤ
-            paramsMap.put("unitid", setEntity.getUnitid());//单位 ID
-            paramsMap.put("deviceid", setEntity.getOid());//设备 ID
-            paramsMap.put("statisticsid", taskEntity.getStatisticsid());//任务号
+            paramsMap.put("oid", taskEntity.getOid());
+            paramsMap.put("buildid", setEntity.getBuildid());
+            paramsMap.put("unitid", setEntity.getUnitid());
+            paramsMap.put("deviceid", setEntity.getOid());
+            paramsMap.put("statisticsid", taskEntity.getStatisticsid());
             paramsMap.put("eatsec", "0");//两次巡检时间差
             paramsMap.put("date", "" + (MyDate.getTodayZero() / 1000));//某天时间
             paramsMap.put("inspectiondate", MyDate.getNowTime());//巡检时间
@@ -322,15 +339,30 @@ public class SetDetailsPresenter extends BasePresenter<SetDetailsView> {
             if (remark != null && remark.length() > 0) {
                 paramsMap.put("remark", remark);//巡检备注
             }
-            if (paths != null && paths.length() > 0) {
+            if (getView().getIsProblem() && paths != null && paths.length() > 0) {
                 paramsMap.put("picpath", paths);// 图片路径
             }
             XHttpUtils.post(context, paramsMap, ConstHost.COMMIT_TASK_DETAILS_URL, NetDialogUtil.showLoadDialog(context, R.string.text_request), new XICallbackString() {
+                @RequiresApi(api = Build.VERSION_CODES.N)
                 @Override
                 public void onSuccess(String result) {
                     if (getView() != null) {
                         if (!TextUtils.isEmpty(result)) {
                             if (TextUtils.equals(result, "Successful inspection!")) {
+                                for (TaskDetailsEntity entity : list) {
+                                    if (TextUtils.equals(entity.getDeviceid(), setEntity.getOid())) {
+                                        entity.setPicpath(paths);
+                                        entity.setIsinspection(1);
+                                    }
+                                }
+                                Gson gson = new Gson();
+                                String newResult = gson.toJson(list);
+                                mAcache.clear();
+                                if (TextUtils.equals(getView().getLable(), MyTaskActivity.class.getSimpleName())) {
+                                    mAcache.put(CacheConsts.DEMO_CACHE_KEY + getView().getTaskIds(), newResult);
+                                } else {
+                                    mAcache.put(CacheConsts.DEMO_CACHE_KEY + "ALL", newResult);
+                                }
                                 getView().gotoScan();
                             }
                             XToastUtil.showToast(result);
@@ -354,15 +386,21 @@ public class SetDetailsPresenter extends BasePresenter<SetDetailsView> {
     //提交图片
     private void commitPicture() {
         if (getView() != null) {
+            paths = "";
             List<File> files = new ArrayList<>();
             List<String> pictureList = getView().getPictureList();
             if (pictureList != null) {
                 for (String path : pictureList) {
-                    files.add(new File(path));
+                    if (!TextUtils.isEmpty(path)) {
+                        if (path.startsWith("/storage")) {
+                            files.add(new File(path));
+                        } else {
+                            paths = paths + ";" + path;
+                        }
+                    }
                 }
             }
             if (files.size() > 0) {
-                paths = "";
                 X.http().upload(context, new ParamsMap(), ConstHost.UPLOAD_IMAGE, NetDialogUtil.showLoadDialog(context, "请稍后..."), files, new XCallback.XCallbackUploads<String>() {
                     @Override
                     public void onLoading(long total, long current, boolean isDownloading, int currentFile, int totalFile) {
@@ -423,49 +461,95 @@ public class SetDetailsPresenter extends BasePresenter<SetDetailsView> {
      */
     public void getInspectionRate() {
         if (getView() != null) {
-            ParamsMap paramsMap = new ParamsMap();
-            paramsMap.put("type", "1");//类型  1：日巡
-            paramsMap.put("inspectionmanid", CommonInfo.getInstance().getUserInfo().getUserid());//用户id
-            paramsMap.put("date", (MyDate.getTodayZero() / 1000) + "");//今天凌晨0点整
-            XHttpUtils.post(context, paramsMap, ConstHost.GET_USER_TASK_URL, new XICallbackString() {
-                @Override
-                public void onSuccess(String result) {
-                    List<MyTaskEntity> mList = JSON.parseArray(result, MyTaskEntity.class);
-                    if (getView() != null) {
-                        if (mList != null && mList.size() > 0) {
-                            int totalInspectionCount = 0;
-                            int totalDeviceCount = 0;
-                            for (int i = 0; i < mList.size(); i++) {
-                                MyTaskEntity entity = mList.get(i);
-                                if (TextUtils.equals(getView().getTaskIds(), entity.getOid())) {
-                                    totalInspectionCount = entity.getInspectioncount();
-                                    totalDeviceCount = entity.getDevicecount();
-                                }
-                            }
-                            if (totalDeviceCount > 0) {
-                                myInspectionRate = NumberUtils.setDecimalFloat(totalInspectionCount * 100.0f / totalDeviceCount);
-                            }
-                        }
-                        if (myInspectionRate == null) {
-                            getView().setAllInspectionRate(0);
-                        } else {
-                            getView().setAllInspectionRate(Float.parseFloat(myInspectionRate));
-                        }
-                    }
-
-                }
-
-                @Override
-                public void onFail(String msg) {
-                    XToastUtil.showToast("我的任务获取失败!");
-                    XLog.i("getInspectionRate" + "任务获取失败！请重新扫描");
-                }
-
-                @Override
-                public void onFinished() {
-
-                }
-            });
+            if (TextUtils.equals(getView().getLable(), MyTaskActivity.class.getSimpleName())) {
+                getSingleInspection();
+            } else {
+                getTotalInspection();
+            }
         }
+    }
+
+    /**
+     * 单个任务巡检率
+     */
+    public void getSingleInspection() {
+        String query_str = mAcache.getAsString(CacheConsts.DEMO_CACHE_KEY + getView().getTaskIds());
+        if (TextUtils.isEmpty(query_str)) {
+            getView().setAllInspectionRate(0);
+        } else {
+            list = JSON.parseArray(query_str, TaskDetailsEntity.class);
+            int totalInspectionCount = 0;
+            for (TaskDetailsEntity entity : list) {
+                if (entity.getIsinspection() != 0) {
+                    totalInspectionCount++;
+                }
+            }
+            myInspectionRate = NumberUtils.setDecimalFloat(totalInspectionCount * 100.0f / list.size());
+            getView().setAllInspectionRate(Float.parseFloat(myInspectionRate));
+        }
+    }
+
+    /**
+     * 总任务巡检率
+     */
+    public void getTotalInspection() {
+        String query_str = mAcache.getAsString(CacheConsts.DEMO_CACHE_KEY + "ALL");
+        if (TextUtils.isEmpty(query_str)) {
+            getView().setAllInspectionRate(0);
+        } else {
+            list = JSON.parseArray(query_str, TaskDetailsEntity.class);
+            int totalInspectionCount = 0;
+            for (TaskDetailsEntity entity : list) {
+                if (entity.getIsinspection() != 0) {
+                    totalInspectionCount++;
+                }
+            }
+            myInspectionRate = NumberUtils.setDecimalFloat(totalInspectionCount * 100.0f / list.size());
+            getView().setAllInspectionRate(Float.parseFloat(myInspectionRate));
+        }
+
+//        ParamsMap paramsMap = new ParamsMap();
+//        paramsMap.put("type", "1");//类型  1：日巡
+//        paramsMap.put("inspectionmanid", CommonInfo.getInstance().getUserInfo().getUserid());//用户id
+//        paramsMap.put("date", (MyDate.getTodayZero() / 1000) + "");//今天凌晨0点整
+//        XHttpUtils.post(context, paramsMap, ConstHost.GET_USER_TASK_URL, new XICallbackString() {
+//            @Override
+//            public void onSuccess(String result) {
+//                List<MyTaskEntity> mList = JSON.parseArray(result, MyTaskEntity.class);
+//                if (getView() != null) {
+//                    if (mList != null && mList.size() > 0) {
+//                        int totalInspectionCount = 0;
+//                        int totalDeviceCount = 0;
+//                        for (int i = 0; i < mList.size(); i++) {
+//                            MyTaskEntity entity = mList.get(i);
+//                            if (TextUtils.equals(getView().getTaskIds(), entity.getOid())) {
+//                                totalInspectionCount = entity.getInspectioncount();
+//                                totalDeviceCount = entity.getDevicecount();
+//                            }
+//                        }
+//                        if (totalDeviceCount > 0) {
+//                            myInspectionRate = NumberUtils.setDecimalFloat(totalInspectionCount * 100.0f / totalDeviceCount);
+//                        }
+//                    }
+//                    if (myInspectionRate == null) {
+//                        getView().setAllInspectionRate(0);
+//                    } else {
+//                        getView().setAllInspectionRate(Float.parseFloat(myInspectionRate));
+//                    }
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFail(String msg) {
+//                XToastUtil.showToast("我的任务获取失败!");
+//                XLog.i("getInspectionRate" + "任务获取失败！请重新扫描");
+//            }
+//
+//            @Override
+//            public void onFinished() {
+//
+//            }
+//        });
     }
 }

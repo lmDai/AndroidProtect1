@@ -26,7 +26,7 @@ import org.greenrobot.eventbus.EventBus;
  * 增加用户
  * Created by Administrator on 2017/7/11.
  */
-public class AddUserActivity extends BaseActivity<AddUserPresenter> implements AddUserView {
+public class AddUserActivity extends BaseActivity<AddUserPresenter> implements AddUserView, View.OnFocusChangeListener {
 
     public static final String LABEL = "label";
     public static final String LABEL_VALUE_ADD = "增加用户";
@@ -36,6 +36,7 @@ public class AddUserActivity extends BaseActivity<AddUserPresenter> implements A
     private ItemOptionView iovUserSort;
     private EditText etUsername;
     private EditText etTelephone;
+    private MenuItem menuItem;
 
     @Override
     protected AddUserPresenter createPresenter() {
@@ -46,6 +47,8 @@ public class AddUserActivity extends BaseActivity<AddUserPresenter> implements A
     public boolean onCreateOptionsMenu(Menu menu) {
         if (TextUtils.equals(getLabel(), LABEL_VALUE_EDIT)) {
             getMenuInflater().inflate(R.menu.menu_opreation, menu);
+            menuItem = menu.findItem(R.id.menu_finish);
+            menuItem.setVisible(false);
         }
         return true;
     }
@@ -53,7 +56,7 @@ public class AddUserActivity extends BaseActivity<AddUserPresenter> implements A
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_delete) {
-            if (InfoManger.getInstance().isPermission("87")) {
+            if (InfoManger.getInstance().isPermission("65")) {//删除用户
                 if (mPresenter != null) mPresenter.deleteUserInfo();
             } else {
                 XToastUtil.showToast("暂不拥有该权限！");
@@ -84,6 +87,8 @@ public class AddUserActivity extends BaseActivity<AddUserPresenter> implements A
         setTopTitle(getLabel());
         iovPresentUnit.setOnClickListener(this);
         iovUserSort.setOnClickListener(this);
+        etUsername.setOnFocusChangeListener(this);
+        etTelephone.setOnFocusChangeListener(this);
     }
 
     @Override
@@ -93,6 +98,9 @@ public class AddUserActivity extends BaseActivity<AddUserPresenter> implements A
 
     @Override
     public void onClick(View v) {
+        if (TextUtils.equals(getLabel(), LABEL_VALUE_EDIT)) {
+            menuItem.setVisible(true);
+        }
         switch (v.getId()) {
             case R.id.btn_right://完成
                 if (mPresenter != null) mPresenter.addUserInfo();
@@ -230,6 +238,13 @@ public class AddUserActivity extends BaseActivity<AddUserPresenter> implements A
             SharedPreferencesUtils.setParam(mContext, "userRole", getRole(), SharedPreferencesUtils.FILE_NAME_USER);//用户角色
             SharedPreferencesUtils.setParam(mContext, "userName", getUsername(), SharedPreferencesUtils.FILE_NAME_USER);//用户名
             SharedPreferencesUtils.setParam(mContext, "linkPhone", getTelephone(), SharedPreferencesUtils.FILE_NAME_USER);//联系电话
+        }
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (TextUtils.equals(getLabel(), LABEL_VALUE_EDIT)) {
+            menuItem.setVisible(true);
         }
     }
 }

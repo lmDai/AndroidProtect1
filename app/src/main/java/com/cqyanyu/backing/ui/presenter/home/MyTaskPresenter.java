@@ -10,10 +10,14 @@ import com.cqyanyu.backing.ui.holder.home.MyTaskHolder;
 import com.cqyanyu.backing.ui.mvpview.home.MyTaskView;
 import com.cqyanyu.backing.ui.presenter.base.XPagePresenter;
 import com.cqyanyu.backing.utils.MyDate;
-import com.cqyanyu.mvpframework.utils.XLog;
+import com.cqyanyu.backing.utils.cache.ACache;
+import com.cqyanyu.backing.utils.cache.CacheConsts;
 import com.cqyanyu.mvpframework.utils.http.ParamsMap;
+import com.google.gson.Gson;
 
 import java.util.List;
+
+import static android.R.id.list;
 
 /**
  * 我的任务逻辑处理类
@@ -22,9 +26,11 @@ import java.util.List;
 public class MyTaskPresenter extends XPagePresenter<MyTaskView> {
     private int page;
     private int pageSize = 20;
+    private ACache mAcache;
 
     @Override
     public void initPresenter() {
+        mAcache = ACache.get(context);
         if (getView() != null) {
             /**初始化RecyclerView*/
             setRecyclerView();
@@ -65,30 +71,30 @@ public class MyTaskPresenter extends XPagePresenter<MyTaskView> {
             if (!TextUtils.isEmpty(result)) {
                 List mList = JSON.parseArray(result, getClazz());
                 if (mList != null && mList.size() > 0) {
+                    setData(mList);
                     /**设置当前页数*/
-                    page = page + 1;
-                    /**设置是否可以下拉加载*/
-                    isLoad = page * pageSize < mList.size();
-                    if (page * pageSize > mList.size()) {
-                        setData(mList.subList((page - 1) * pageSize, mList.size()));
-                    } else {
-                        setData(mList.subList((page - 1) * pageSize, page * pageSize));
-                    }
+//                    page = page + 1;
+//                    /**设置是否可以下拉加载*/
+//                    isLoad = page * pageSize < mList.size();
+//                    if (page * pageSize > mList.size()) {
+//                        setData(mList.subList((page - 1) * pageSize, mList.size()));
+//                    } else {
+//                        setData(mList.subList((page - 1) * pageSize, page * pageSize));
+//                    }
+                    Gson gson = new Gson();
+                    String newResult = gson.toJson(list);
+                    mAcache.put(CacheConsts.DEMO_CACHE_MYTASK, newResult);
                     return;
                 }
             }
         } catch (Exception e) {
             e.getStackTrace();
         }
-        if (page == 1 || page == 0) onLoadNoData();
+        if (page == 0) onLoadNoData();
     }
 
     @Override
     protected void setData(List mList) {
-        if (page == 1) {
-            mRecyclerView.getAdapter().setData(0, mList);
-        } else if (page > 1) {
-            mRecyclerView.getAdapter().addDataAll(0, mList);
-        }
+        mRecyclerView.getAdapter().setData(0, mList);
     }
 }

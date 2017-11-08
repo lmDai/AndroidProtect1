@@ -83,7 +83,7 @@ public class TaskDetailsHolder extends IViewHolder {
             iovInspectionState.setContent(itemData.getIsinspection() == 0 ? "未巡检" : "已巡检");
             //设备状态
             iovSetState.setContent(itemData.getProblemstr());
-            if (TextUtils.equals(itemData.getProblemstr(), "正常")) {
+            if (TextUtils.isEmpty(itemData.getPicpath())) {
                 llPicture.setVisibility(View.GONE);
             } else {
                 llPicture.setVisibility(View.VISIBLE);

@@ -77,6 +77,7 @@ public class AddSetActivity extends BaseActivity<AddSetPresenter> implements Add
     private LinearLayout layoutContent;
     private ScrollView scrollView;
     private View view_blank;
+    private MenuItem menuItem;
 
     @Override
     protected AddSetPresenter createPresenter() {
@@ -87,6 +88,8 @@ public class AddSetActivity extends BaseActivity<AddSetPresenter> implements Add
     public boolean onCreateOptionsMenu(Menu menu) {
         if (TextUtils.equals(getLabel(), LABEL_VALUE_EDIT)) {
             getMenuInflater().inflate(R.menu.menu_opreation, menu);
+            menuItem = menu.findItem(R.id.menu_finish);
+            menuItem.setVisible(false);
         }
         return true;
     }
@@ -94,7 +97,7 @@ public class AddSetActivity extends BaseActivity<AddSetPresenter> implements Add
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_delete) {
-            if (InfoManger.getInstance().isPermission("86")) {
+            if (InfoManger.getInstance().isPermission("68")) {//删除设备
                 if (mPresenter != null) mPresenter.deleteSet();
             } else {
                 XToastUtil.showToast("暂不拥有该权限！");
@@ -149,11 +152,12 @@ public class AddSetActivity extends BaseActivity<AddSetPresenter> implements Add
         if (TextUtils.equals(getLabel(), LABEL_VALUE_ADD_CHILD)) {
             iovSetBuild.setVisibility(View.GONE);
         }
+        editNum.setOnFocusChangeListener(this);
+        etSetPosition.setOnFocusChangeListener(this);
         etProductCompany.setOnFocusChangeListener(this);
         etBrand.setOnFocusChangeListener(this);
         etSetFloor.setOnFocusChangeListener(this);
         etSetSize.setOnFocusChangeListener(this);
-
     }
 
     @Override
@@ -180,6 +184,9 @@ public class AddSetActivity extends BaseActivity<AddSetPresenter> implements Add
 
     @Override
     public void onClick(View v) {
+        if (TextUtils.equals(getLabel(), LABEL_VALUE_EDIT)) {
+            menuItem.setVisible(true);
+        }
         switch (v.getId()) {
             case R.id.btn_right://完成
                 if (mPresenter != null) mPresenter.commitPicture();
@@ -225,6 +232,8 @@ public class AddSetActivity extends BaseActivity<AddSetPresenter> implements Add
                 break;
             case R.id.iov_inspection_unit:
                 //巡检单位
+                setInspectionUnit("");
+                setInspectionUnitName("");
                 startActivity(new Intent(mContext, EntryActivity.class)
                         .putExtra(EntryActivity.LABEL, InfoManger.KEY_ENTRY_INSPECTION_UNIT)
                         .putExtra(EntryActivity.KEY_OID, InfoManger.getInstance().getEntryPid(InfoManger.KEY_ENTRY_INSPECTION_UNIT))
@@ -591,30 +600,36 @@ public class AddSetActivity extends BaseActivity<AddSetPresenter> implements Add
      */
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        AutoCompleteTextView view = (AutoCompleteTextView) v;
-        if (hasFocus) {
-            String history = null;
-            switch (view.getId()) {
-                case R.id.et_product_company:
-                    history = (String) SharedPreferencesUtils.getParam(mContext, "factory", ""
-                            , SharedPreferencesUtils.FILE_NAME_SET);
-                    break;
-                case R.id.et_brand:
-                    history = (String) SharedPreferencesUtils.getParam(mContext, "brand", ""
-                            , SharedPreferencesUtils.FILE_NAME_SET);
-                    break;
-                case R.id.et_set_size:
-                    history = (String) SharedPreferencesUtils.getParam(mContext, "size", ""
-                            , SharedPreferencesUtils.FILE_NAME_SET);
-                    break;
-                case R.id.et_set_floor:
-                    history = (String) SharedPreferencesUtils.getParam(mContext, "floor", ""
-                            , SharedPreferencesUtils.FILE_NAME_SET);
-                    break;
+        if (TextUtils.equals(getLabel(), LABEL_VALUE_EDIT)) {
+            menuItem.setVisible(true);
+        }
+        if (v.getId() != R.id.et_set_position && v.getId() != R.id.edit_num) {
+            AutoCompleteTextView view = (AutoCompleteTextView) v;
+            if (hasFocus) {
+                String history = null;
+                switch (view.getId()) {
+                    case R.id.et_product_company:
+                        history = (String) SharedPreferencesUtils.getParam(mContext, "factory", ""
+                                , SharedPreferencesUtils.FILE_NAME_SET);
+                        break;
+                    case R.id.et_brand:
+                        history = (String) SharedPreferencesUtils.getParam(mContext, "brand", ""
+                                , SharedPreferencesUtils.FILE_NAME_SET);
+                        break;
+                    case R.id.et_set_size:
+                        history = (String) SharedPreferencesUtils.getParam(mContext, "size", ""
+                                , SharedPreferencesUtils.FILE_NAME_SET);
+                        break;
+                    case R.id.et_set_floor:
+                        history = (String) SharedPreferencesUtils.getParam(mContext, "floor", ""
+                                , SharedPreferencesUtils.FILE_NAME_SET);
+                        break;
+                }
+                if (!TextUtils.isEmpty(history)) {//数据不为空时显示
+                    initHistory(history, view);
+                    view.showDropDown();
+                }
             }
-            initHistory(history, view);
-            if (!TextUtils.isEmpty(history))//数据不为空时显示
-                view.showDropDown();
         }
     }
 }

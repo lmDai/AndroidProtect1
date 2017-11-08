@@ -30,6 +30,7 @@ public class CountFragment extends BaseFragment<CountPresenter> implements Count
     private List<String> xAxisValues;
     private boolean isFirstVisible = true;
     private XTextView tvWarnCount;
+    private boolean isVisiBleToUser;
 
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
@@ -65,11 +66,14 @@ public class CountFragment extends BaseFragment<CountPresenter> implements Count
         return R.layout.fragment_count;
     }
 
-//    @Override
-//    public void onResume() {
-//        if (mPresenter != null) mPresenter.init();
-//        super.onResume();
-//    }
+    @Override
+    public void onResume() {
+        if (isVisiBleToUser && !isFirstVisible && mPresenter != null) {
+            mPresenter.getCount();
+            mPresenter.getMessageAlar();
+        }
+        super.onResume();
+    }
 
     @Override
     protected void initListener() {
@@ -104,9 +108,17 @@ public class CountFragment extends BaseFragment<CountPresenter> implements Count
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        if (isVisibleToUser && isFirstVisible) {
-            if (mPresenter != null) mPresenter.init();
-            isFirstVisible = false;
+        this.isVisiBleToUser = isVisibleToUser;
+        if (isVisibleToUser) {
+            if (isFirstVisible) {
+                if (mPresenter != null) mPresenter.init();
+                isFirstVisible = false;
+            } else {
+                mPresenter.getMessageAlar();
+                mPresenter.getCount();
+            }
+        } else {
+            this.isVisiBleToUser = false;
         }
         super.setUserVisibleHint(isVisibleToUser);
     }

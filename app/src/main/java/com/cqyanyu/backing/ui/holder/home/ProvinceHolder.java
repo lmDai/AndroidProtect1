@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.cqyanyu.backing.R;
 import com.cqyanyu.backing.ui.activity.home.ProvinceActivity;
 import com.cqyanyu.backing.ui.entity.home.UnitEntity;
+import com.cqyanyu.mvpframework.utils.XLog;
 import com.cqyanyu.mvpframework.view.recyclerView.IViewHolder;
 import com.cqyanyu.mvpframework.view.recyclerView.XViewHolder;
 
@@ -56,6 +57,8 @@ public class ProvinceHolder extends IViewHolder {
             /**设置单位类型*/
             tvType.setText("单位类型：" + itemData.getTypestr() + "");
             /**父类的位置*/
+            XLog.i(itemData.getChildunitcount() + "" + itemData.getChildbuildcount());
+            XLog.i(String.valueOf(TextUtils.equals(itemData.getChildunitcount(), "0") && TextUtils.equals(itemData.getChildbuildcount(), "0")));
             ivIcon.setVisibility(TextUtils.equals(itemData.getChildunitcount(), "0") && TextUtils.equals(itemData.getChildbuildcount(), "0")
                     ? View.GONE : View.VISIBLE);
         }
@@ -65,10 +68,10 @@ public class ProvinceHolder extends IViewHolder {
             if (activity != null) {
                 switch (v.getId()) {
                     case R.id.iv_icon:
-                        activity.gotoNext(itemData, true, itemData.getChildunitcount(),itemData.getChildbuildcount());
+                        activity.gotoNext(itemData, true, itemData.getChildunitcount(), itemData.getChildbuildcount());
                         break;
                     default:
-                        activity.gotoNext(itemData, false, itemData.getChildunitcount(),itemData.getChildbuildcount());
+                        activity.gotoNext(itemData, false, itemData.getChildunitcount(), itemData.getChildbuildcount());
                         break;
                 }
 

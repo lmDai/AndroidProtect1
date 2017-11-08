@@ -37,7 +37,7 @@ import static com.cqyanyu.backing.R.id.iov_unit_sort;
  * 增加单位
  * Created by Administrator on 2017/7/11.
  */
-public class AddUnitActivity extends BaseActivity<AddUnitPresenter> implements AddUnitView {
+public class AddUnitActivity extends BaseActivity<AddUnitPresenter> implements AddUnitView, View.OnFocusChangeListener {
     public static final String LABEL = "label";
     public static final String LABEL_VALUE_ADD = "增加单位";
     public static final String LABEL_VALUE_EDIT = "编辑单位";
@@ -55,6 +55,7 @@ public class AddUnitActivity extends BaseActivity<AddUnitPresenter> implements A
     private PictureSelect pictureSelect;
     private boolean childIsNull;
     private UnitManageEntity unit;
+    private MenuItem menuItem;
 
 
     @Override
@@ -66,6 +67,8 @@ public class AddUnitActivity extends BaseActivity<AddUnitPresenter> implements A
     public boolean onCreateOptionsMenu(Menu menu) {
         if (TextUtils.equals(getLabel(), LABEL_VALUE_EDIT)) {
             getMenuInflater().inflate(R.menu.menu_opreation, menu);
+            menuItem = menu.findItem(R.id.menu_finish);
+            menuItem.setVisible(false);
         }
         return true;
     }
@@ -73,7 +76,7 @@ public class AddUnitActivity extends BaseActivity<AddUnitPresenter> implements A
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_delete) {
-            if (InfoManger.getInstance().isPermission("85")) {//判断是否拥有删除权限
+            if (InfoManger.getInstance().isPermission("62")) {//删除单位
                 if (mPresenter != null) mPresenter.deleteUnit();
             } else {
                 XToastUtil.showToast("暂不拥有该权限！");
@@ -111,6 +114,10 @@ public class AddUnitActivity extends BaseActivity<AddUnitPresenter> implements A
         iovRegulatoryLevel.setOnClickListener(this);
         iovUnitSort.setOnClickListener(this);
         ivLocal.setOnClickListener(this);
+        etContact.setOnFocusChangeListener(this);
+        etUnitPosition.setOnFocusChangeListener(this);
+        etTel.setOnFocusChangeListener(this);
+        etUnitName.setOnFocusChangeListener(this);
     }
 
     @Override
@@ -138,6 +145,9 @@ public class AddUnitActivity extends BaseActivity<AddUnitPresenter> implements A
 
     @Override
     public void onClick(View v) {
+        if (TextUtils.equals(getLabel(), LABEL_VALUE_EDIT)) {
+            menuItem.setVisible(true);
+        }
         switch (v.getId()) {
             case R.id.btn_right://完成
                 if (mPresenter != null) mPresenter.commitPicture();
@@ -173,7 +183,7 @@ public class AddUnitActivity extends BaseActivity<AddUnitPresenter> implements A
                         .putExtra(EntryActivity.KEY_OID, InfoManger.getInstance().getEntryPid(InfoManger.KEY_ENTRY_REGULATORY))
                 );
                 break;
-            case iov_unit_sort://单位类型 当前单位下有子设备时不允许修改
+            case iov_unit_sort://楼宇和其他类型间不能修改
 //                List<ListBean> sList = InfoManger.getInstance().getListBeanFromEntryOfKey(mContext, InfoManger.KEY_ENTRY_UNIT_TYPE);
 //                if (sList != null) {
 //                    DialogUtils.getListDialog(this, "单位类型", getResources().getColor(R.color.color_white),
@@ -184,14 +194,14 @@ public class AddUnitActivity extends BaseActivity<AddUnitPresenter> implements A
 //                                }
 //                            }).show();
 //                }
-                if (!childIsNull && TextUtils.equals(getLabel(), LABEL_VALUE_EDIT)) {
-                    XToastUtil.showToast("该单位存在设备，暂不能修改类型");
-                } else {
+//                if (!childIsNull && TextUtils.equals(getLabel(), LABEL_VALUE_EDIT)) {
+//                    XToastUtil.showToast("该单位存在设备，暂不能修改类型");
+//                } else {
                     startActivity(new Intent(mContext, EntryActivity.class)
                             .putExtra(EntryActivity.LABEL, InfoManger.KEY_ENTRY_UNIT_TYPE)
                             .putExtra(EntryActivity.KEY_OID, InfoManger.getInstance().getEntryPid(InfoManger.KEY_ENTRY_UNIT_TYPE))
                     );
-                }
+//                }
                 break;
         }
     }
@@ -421,6 +431,13 @@ public class AddUnitActivity extends BaseActivity<AddUnitPresenter> implements A
             return hint.toString();
         } else {
             return null;
+        }
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (TextUtils.equals(getLabel(), LABEL_VALUE_EDIT)) {
+            menuItem.setVisible(true);
         }
     }
 }

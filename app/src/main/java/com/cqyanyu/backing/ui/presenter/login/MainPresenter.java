@@ -29,7 +29,6 @@ import com.cqyanyu.backing.utils.Utils;
 import com.cqyanyu.backing.utils.XAppUtils;
 import com.cqyanyu.mvpframework.X;
 import com.cqyanyu.mvpframework.presenter.BasePresenter;
-import com.cqyanyu.mvpframework.utils.XLog;
 import com.cqyanyu.mvpframework.utils.http.ParamsMap;
 import com.cqyanyu.mvpframework.utils.http.XCallback;
 
@@ -67,19 +66,19 @@ public class MainPresenter extends BasePresenter<MainView> {
             ArrayList<BottomNavigationItem> bList = new ArrayList<>();
 
             /**初始化每个fragment和底部按钮*/
-            if (InfoManger.getInstance().isPermission("16")) {
+            if (InfoManger.getInstance().isPermission("16")) {//首页
                 fList.add(new HomeFragment());
                 bList.add(new BottomNavigationItem(R.mipmap.ic_home_click, "首页").setInactiveIconResource(R.mipmap.ic_home_nor));
             }
-            if (InfoManger.getInstance().isPermission("17")) {
+            if (InfoManger.getInstance().isPermission("17")) {//告警
                 fList.add(new WarnFragment());
                 bList.add(new BottomNavigationItem(R.mipmap.ic_gaojing_click, "告警").setInactiveIconResource(R.mipmap.ic_gaojing_nor));
             }
-            if (InfoManger.getInstance().isPermission("18")) {
+            if (InfoManger.getInstance().isPermission("18")) {//统计
                 fList.add(new CountFragment());
                 bList.add(new BottomNavigationItem(R.mipmap.ic_tj_click, "统计").setInactiveIconResource(R.mipmap.ic_tj_nor));
             }
-            if (InfoManger.getInstance().isPermission("19")) {
+            if (InfoManger.getInstance().isPermission("19")) {//我的
                 fList.add(new MyFragment());
                 bList.add(new BottomNavigationItem(R.mipmap.ic_my_click, "我的").setInactiveIconResource(R.mipmap.ic_my_nor));
             }
@@ -225,7 +224,7 @@ public class MainPresenter extends BasePresenter<MainView> {
 
                 @Override
                 public void onSuccess(int code, String msg, String data) {
-                    XLog.i(msg);
+
                 }
 
                 @Override
@@ -235,7 +234,7 @@ public class MainPresenter extends BasePresenter<MainView> {
 
                 @Override
                 public void onFail(String msg) {
-                    XLog.i(msg);
+
                 }
 
                 @Override

@@ -3,17 +3,13 @@ package com.cqyanyu.backing.ui.presenter.home;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.cqyanyu.backing.CommonInfo;
 import com.cqyanyu.backing.ConstHost;
 import com.cqyanyu.backing.ui.entity.home.UnitEntity;
 import com.cqyanyu.backing.ui.entity.home.UnitManageEntity;
 import com.cqyanyu.backing.ui.holder.home.ProvinceHolder;
 import com.cqyanyu.backing.ui.mvpview.home.ProvinceView;
-import com.cqyanyu.backing.ui.net.XHttpUtils;
-import com.cqyanyu.backing.ui.net.XICallbackList;
 import com.cqyanyu.backing.ui.presenter.base.XPagePresenter;
-import com.cqyanyu.mvpframework.utils.XLog;
 import com.cqyanyu.mvpframework.utils.http.ParamsMap;
 
 import java.util.ArrayList;
@@ -119,7 +115,7 @@ public class ProvincePresenter extends XPagePresenter<ProvinceView> {
             UnitManageEntity entity = (UnitManageEntity) mList.get(0);
             UnitEntity unitEntity = new UnitEntity();
             unitEntity.setOid(entity.getOid());
-            unitEntity.setChildbuildcount(entity.getChilddevicecount() + "");
+            unitEntity.setChildbuildcount(entity.getChildbuildcount() + "");
             unitEntity.setChildunitcount(entity.getChildunitcount());
             unitEntity.setPid(entity.getPid());
             unitEntity.setUnitstr(entity.getUnitstr());
@@ -136,7 +132,7 @@ public class ProvincePresenter extends XPagePresenter<ProvinceView> {
 //                            list.add(unitManageEntity);
 //                        }
 //                    } else {
-                        list.add(unitManageEntity);
+                    list.add(unitManageEntity);
 //                    }
                 }
             } else if (TextUtils.equals(getView().getLabel(), LABEL_VALUE_BUILD)) {//选择所属建筑
@@ -146,7 +142,7 @@ public class ProvincePresenter extends XPagePresenter<ProvinceView> {
 //                            list.add(unitManageEntity);
 //                        }
 //                    } else {
-                        list.add(unitManageEntity);
+                    list.add(unitManageEntity);
 //                    }
                 }
             }

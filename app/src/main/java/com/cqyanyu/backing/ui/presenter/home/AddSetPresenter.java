@@ -17,7 +17,6 @@ import com.cqyanyu.backing.utils.NetDialogUtil;
 import com.cqyanyu.backing.utils.SharedPreferencesUtils;
 import com.cqyanyu.mvpframework.X;
 import com.cqyanyu.mvpframework.presenter.BasePresenter;
-import com.cqyanyu.mvpframework.utils.XLog;
 import com.cqyanyu.mvpframework.utils.XToastUtil;
 import com.cqyanyu.mvpframework.utils.http.ParamsMap;
 import com.cqyanyu.mvpframework.utils.http.XCallback;
@@ -129,8 +128,8 @@ public class AddSetPresenter extends BasePresenter<AddSetView> {
                                     /** 设置设备巡检方式*/
                                     getView().setInspectionWay(entity.getInspectioninterval() + "");
                                     /** 设置设备巡检单位*/
-                                    getView().setInspectionUnit(entity.getUnitid());
-                                    getView().setInspectionUnitName(entity.getUnitstr());
+                                    getView().setInspectionUnit(entity.getMaintenanceid());
+                                    getView().setInspectionUnitName(entity.getMaintenancestr());
                                     /** 设置设备型号*/
                                     getView().setStartData(entity.getStartdate());
                                     /** 设置设备型号*/
@@ -148,7 +147,7 @@ public class AddSetPresenter extends BasePresenter<AddSetView> {
 
                     @Override
                     public void onFail(String msg) {
-                        XLog.e(msg);
+
                     }
 
                     @Override
@@ -247,56 +246,66 @@ public class AddSetPresenter extends BasePresenter<AddSetView> {
     private void modifySet() {
         if (getView() != null && entity != null) {
             if (TextUtils.equals(getView().getLabel(), AddSetActivity.LABEL_VALUE_EDIT) && entity != null) {
-                //当前页面是编辑页面时
-                ParamsMap paramsMap = new ParamsMap();
-                paramsMap.put("unitid", getView().getUnitId());//所属单位 ID
-                paramsMap.put("buildid", getView().getBuild());//所属建筑 ID
-                paramsMap.put("typeid", getView().getType());//设备类型 ID
-                paramsMap.put("sn", getView().getNum());//设备编号
-                paramsMap.put("oid", entity.getOid());
-                paramsMap.put("position", getView().getPosition());//详细位置
-                paramsMap.put("longitude", "" + getView().getLongitude());//经度
-                paramsMap.put("latitude", "" + getView().getLatitude());//纬度
-                paramsMap.put("floor", getView().getFloor());//楼层
-                paramsMap.put("factory", getView().getFactory());//厂家
-                paramsMap.put("brand", getView().getBrand());//品牌
-                //  paramsMap.put("videosource", "");//摄像头 IP+port
-                paramsMap.put("picpath", paths);//图片路径，多个图片用“;”隔开
-                paramsMap.put("startdate", getView().getStartDate());//开始使用日期
-                paramsMap.put("enddate", getView().getGuarantee());//保质期
-                paramsMap.put("inspectioninterval", getView().getInspectionWay());//巡检间隔
-                paramsMap.put("maintenanceid", getView().getInspectionUnit());//维护单位ＩＤ
-                paramsMap.put("createmanid", entity.getCreatemanid());//创建人ＩＤ
-                paramsMap.put("model", getView().getSize());//型号
-                paramsMap.put("createdate", entity.getCreatedate());//创建日期，单位：秒
-                // paramsMap.put("remark", entity.getRemark());//备注
-                XHttpUtils.post(context, paramsMap, ConstHost.MODIFY_DEVICE_URL, NetDialogUtil.showLoadDialog(context, R.string.text_loading), new XICallbackString() {
-                    @Override
-                    public void onSuccess(String result) {
-                        if (getView() != null) {
-                            if (!TextUtils.isEmpty(result)) {
+                if (TextUtils.equals(entity.getUnitid(), getView().getUnitId()) && TextUtils.equals(entity.getBuildid(), getView().getBuild()) &&
+                        TextUtils.equals(entity.getTypeid(), getView().getType()) && TextUtils.equals(entity.getSn(), getView().getNum()) &&
+                        TextUtils.equals(entity.getPosition(), getView().getPosition()) && TextUtils.equals(entity.getFloor(), getView().getFloor()) &&
+                        TextUtils.equals(entity.getFactory(), getView().getFactory()) && TextUtils.equals(entity.getBrand(), getView().getBrand()) &&
+                        TextUtils.equals(entity.getStartdate(), getView().getStartDate()) && TextUtils.equals(entity.getEnddate(), entity.getEnddate()) &&
+                        TextUtils.equals(entity.getInspectioninterval() + "", getView().getInspectionWay()) && TextUtils.equals(entity.getModel(), getView().getSize()) &&
+                        TextUtils.equals(entity.getMaintenanceid(), getView().getInspectionUnit()) && entity.getLatitude() == getView().getLatitude() && entity.getLongitude() == getView().getLongitude() && TextUtils.equals(entity.getPicpath(), paths)) {
+                    XToastUtil.showToast("暂无修改任何数据");
+                } else {
+                    //当前页面是编辑页面时
+                    ParamsMap paramsMap = new ParamsMap();
+                    paramsMap.put("unitid", getView().getUnitId());//所属单位 ID
+                    paramsMap.put("buildid", getView().getBuild());//所属建筑 ID
+                    paramsMap.put("typeid", getView().getType());//设备类型 ID
+                    paramsMap.put("sn", getView().getNum());//设备编号
+                    paramsMap.put("oid", entity.getOid());
+                    paramsMap.put("position", getView().getPosition());//详细位置
+                    paramsMap.put("longitude", "" + getView().getLongitude());//经度
+                    paramsMap.put("latitude", "" + getView().getLatitude());//纬度
+                    paramsMap.put("floor", getView().getFloor());//楼层
+                    paramsMap.put("factory", getView().getFactory());//厂家
+                    paramsMap.put("brand", getView().getBrand());//品牌
+                    //  paramsMap.put("videosource", "");//摄像头 IP+port
+                    paramsMap.put("picpath", paths);//图片路径，多个图片用“;”隔开
+                    paramsMap.put("startdate", getView().getStartDate());//开始使用日期
+                    paramsMap.put("enddate", getView().getGuarantee());//保质期
+                    paramsMap.put("inspectioninterval", getView().getInspectionWay());//巡检间隔
+                    paramsMap.put("maintenanceid", getView().getInspectionUnit());//维护单位ＩＤ
+                    paramsMap.put("createmanid", entity.getCreatemanid());//创建人ＩＤ
+                    paramsMap.put("model", getView().getSize());//型号
+                    paramsMap.put("createdate", entity.getCreatedate());//创建日期，单位：秒
+                    // paramsMap.put("remark", entity.getRemark());//备注
+                    XHttpUtils.post(context, paramsMap, ConstHost.MODIFY_DEVICE_URL, NetDialogUtil.showLoadDialog(context, R.string.text_loading), new XICallbackString() {
+                        @Override
+                        public void onSuccess(String result) {
+                            if (getView() != null) {
+                                if (!TextUtils.isEmpty(result)) {
 //                                if (TextUtils.equals(result, "0")) {
 //                                    XToastUtil.showToast("修改失败");
 //                                } else {
-                                XToastUtil.showToast(result);
-                                //更新上一个页面
-                                EventBus.getDefault().post(new ItemEvent(ItemEvent.ACTIVITY.SystemManagementFragment, ItemEvent.ACTION.refreshing));
-                                context.finish();
+                                    XToastUtil.showToast(result);
+                                    //更新上一个页面
+                                    EventBus.getDefault().post(new ItemEvent(ItemEvent.ACTIVITY.SystemManagementFragment, ItemEvent.ACTION.refreshing));
+                                    context.finish();
 //                                }
+                                }
                             }
                         }
-                    }
 
-                    @Override
-                    public void onFail(String msg) {
+                        @Override
+                        public void onFail(String msg) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onFinished() {
+                        @Override
+                        public void onFinished() {
 
-                    }
-                });
+                        }
+                    });
+                }
             }
         }
     }
@@ -417,7 +426,6 @@ public class AddSetPresenter extends BasePresenter<AddSetView> {
                         if (getView() != null) {
                             if (code == 200) {
                                 paths = paths + ";" + data;
-
                             } else {
                                 XToastUtil.showToast(msg);
                             }

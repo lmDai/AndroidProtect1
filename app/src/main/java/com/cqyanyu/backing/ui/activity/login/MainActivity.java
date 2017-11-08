@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 
 import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
@@ -33,14 +34,15 @@ import com.cqyanyu.backing.ui.server.MyServer;
 import com.cqyanyu.backing.ui.socket.entity.NotificationEntity;
 import com.cqyanyu.backing.utils.DialogUtils;
 import com.cqyanyu.backing.utils.DownloadAppUtils;
-import com.cqyanyu.backing.utils.Utils;
 import com.cqyanyu.backing.utils.XAppUtils;
+import com.cqyanyu.backing.utils.cache.ACache;
 import com.cqyanyu.mvpframework.adapter.XFragmentPagerAdapter;
 import com.cqyanyu.mvpframework.utils.PermissionUtil;
-import com.cqyanyu.mvpframework.utils.XLog;
+import com.cqyanyu.mvpframework.utils.XAppUtil;
 import com.cqyanyu.mvpframework.utils.XPreferenceUtil;
 import com.cqyanyu.mvpframework.utils.XToastUtil;
 import com.cqyanyu.mvpframework.view.viewPager.XViewPager;
+import com.xdandroid.hellodaemon.IntentWrapper;
 import com.xys.libzxing.zxing.activity.CaptureActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -65,17 +67,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     private XViewPager viewPager;
     //导航栏
     private BottomNavigationBar navigationBar;
-    //定义一个变量，来标识是否退出
-    private boolean isExit = false;
     //最后一次按钮位置
     private int lastSelectedPosition;
-    //UI更新
-    private Handler mHandler;
     //碎片列表
     private ArrayList<Fragment> fList;
     private String url;
     private BadgeItem mBadgeItem;
     private int num = 0;
+    private boolean isExit = false;
     Handler itemHandler = new Handler() {
 
         @Override
@@ -93,10 +92,22 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
         }
 
     };
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            isExit = false;
+        }
+
+    };
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (XAppUtil.isFirstStart(this, getPackageName())) {
+            IntentWrapper.whiteListMatters(this, "后台持续运行");
+        }
         openLocal();
         PermissionUtil.initPermission(mContext, PERMISSIONS);
     }
@@ -137,17 +148,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     @Override
     protected void initData() {
         EventBadgeItem.getInstance().register(this);
-        if (mPresenter != null) mPresenter.init();
-        mHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                isExit = false;
-            }
-        };
-        mPresenter.checkAppUpdate();
-        mPresenter.getVoice();
-        mPresenter.uploadLog();
+        if (mPresenter != null) {
+            mPresenter.init();
+            mPresenter.checkAppUpdate();
+            mPresenter.getVoice();
+            mPresenter.uploadLog();
+        }
         //自动更新
 //        AutoUpdate.uiUpdateAction(this, new UICheckUpdateCallback() {
 //            @Override
@@ -158,6 +164,25 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     }
 
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (!isExit) {
+                isExit = true;
+                XToastUtil.showToast("再按一次退出程序");
+                //利用handler延迟发送更改状态信息
+                mHandler.sendEmptyMessageDelayed(0, 2000);
+            } else {
+                ACache mAache = ACache.get(mContext);
+                mAache.clear();
+                finish();
+                System.exit(0);
+            }
+        }
+        return false;
+    }
+
+    @Override
     protected void onResume() {
         //初始化数据
         sendBroadcast(new Intent().setAction("com.backing.broad_call_service")
@@ -165,19 +190,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
         );
         gotoFragment();
         super.onResume();
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (!isExit) {
-            isExit = true;
-            XToastUtil.showToast("再按一次退出程序");
-            // 利用handler延迟发送更改状态信息
-            mHandler.sendEmptyMessageDelayed(0, 2000);
-        } else {
-            finish();
-            //System.exit(0);
-        }
     }
 
     @Override
@@ -286,7 +298,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     private void setBadgeNum(int num) {
         this.num = num;
         mBadgeItem.setText(String.valueOf(num));
-        XLog.i("bottom" + num);
         if (num == 0) {
             mBadgeItem.hide();
         } else {
@@ -319,7 +330,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
 
     @Override
     public void getVoice(FireKnowledgeEntity entity) {
-        downloadFile(entity.getFilepath());
+        this.url = entity.getFilepath();
+        if (!TextUtils.isEmpty(entity.getFilepath())) {
+            downloadFile(entity.getFilepath());
+        }
     }
 
     /**
@@ -428,7 +442,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (XHttpUtils.downPermission(this, false)) {
-            downloadFile(url);
+            if (!TextUtils.isEmpty(url))
+                downloadFile(url);
         }
     }
 
@@ -452,5 +467,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     protected void onDestroy() {
         super.onDestroy();
         EventBadgeItem.getInstance().unregister(this);
+    }
+
+    //防止华为机型未加入白名单时按返回键回到桌面再锁屏后几秒钟进程被杀
+    public void onBackPressed() {
+        IntentWrapper.onBackPressed(this);
     }
 }

@@ -1,6 +1,5 @@
 package com.cqyanyu.backing.ui.presenter.statistics;
 
-import com.cqyanyu.backing.CommonInfo;
 import com.cqyanyu.backing.ConstHost;
 import com.cqyanyu.backing.R;
 import com.cqyanyu.backing.ui.entity.home.AlarEntity;
@@ -40,23 +39,23 @@ public class CountPresenter extends BasePresenter<CountView> {
         //设置item数据
         if (getView() != null) {
             getCount();
-            hList.add(new CountBean(1, "设备总数", "总数", R.mipmap.ic_shebeizongshu, "0"));
-            hList.add(new CountBean(2, "联网单位", "总数", R.mipmap.ic_nianwangdanwei, "0"));
-            hList.add(new CountBean(3, "告警统计", "总数", R.mipmap.ic_gaojingtongji, "0"));
-            hList.add(new CountBean(4, "告警处置", "处置率", R.mipmap.ic_yuqingfenxi, "0"));
-            hList.add(new CountBean(5, "设施巡检", "巡检率", R.mipmap.ic_sheshixunjian, "0"));
-            hList.add(new CountBean(6, "联网用户", "总数", R.mipmap.ic_lianwangyonghu, "0"));
+            hList.add(new CountBean(1, "设备", "总数", R.mipmap.ic_shebeizongshu, "0"));
+            hList.add(new CountBean(2, "单位", "总数", R.mipmap.ic_nianwangdanwei, "0"));
+            hList.add(new CountBean(3, "告警", "总数", R.mipmap.ic_gaojingtongji, "0"));
+            hList.add(new CountBean(4, "警情", "处置率", R.mipmap.ic_yuqingfenxi, "0"));
+            hList.add(new CountBean(5, "巡检", "巡检率", R.mipmap.ic_sheshixunjian, "0"));
+            hList.add(new CountBean(6, "用户", "总数", R.mipmap.ic_lianwangyonghu, "0"));
             getView().setCountItem(hList);
         }
     }
 
     //获取：火警、预警、故障
-    private void getMessageAlar() {
+    public void getMessageAlar() {
         if (getView() != null) {
             //http://222.181.144.111:8088/hdInterface/alarm/getMessageStatisticsList?unitid=3366&type=1&enddate=1501603200&startdate=1501516800
             ParamsMap paramsMap = new ParamsMap();
             paramsMap.put("type", "1");//类型 1：当天 2：当月 3：总计
-            paramsMap.put("unitid", CommonInfo.getInstance().getUserInfo().getUnitid());//单位 ID
+            //paramsMap.put("unitid", CommonInfo.getInstance().getUserInfo().getUnitid());//单位 ID
             paramsMap.put("startdate", MyDate.getTodayZero() / 1000 - 24 * 60 * 60 + "");
             paramsMap.put("enddate", MyDate.getTodayZero() / 1000 + "");
             XHttpUtils.post(context, paramsMap, ConstHost.GET_UNIT_WARN_INFO_URL, new XICallbackList<AlarEntity>() {
@@ -141,33 +140,33 @@ public class CountPresenter extends BasePresenter<CountView> {
                         int userCount = object.optInt("userCount");
                         int disPosalRate = object.optInt("disposalRate");
                         String sInsRate = object.getString("sInsRate");
-                        hList.set(0, new CountBean(1, "设备总数", "总数", R.mipmap.ic_shebeizongshu, deviceTotalCount + ""));
-                        hList.set(1, new CountBean(2, "联网单位", "总数", R.mipmap.ic_nianwangdanwei, unitCount + ""));
-                        hList.set(2, new CountBean(3, "告警统计", "总数", R.mipmap.ic_gaojingtongji, alarmCount + ""));
-                        hList.set(3, new CountBean(4, "告警处置", "处置率", R.mipmap.ic_yuqingfenxi, disPosalRate + "%"));
-                        hList.set(4, new CountBean(5, "设施巡检", "巡检率", R.mipmap.ic_sheshixunjian, sInsRate + "%"));
-                        hList.set(5, new CountBean(6, "联网用户", "总数", R.mipmap.ic_lianwangyonghu, userCount + ""));
+                        hList.set(0, new CountBean(1, "设备", "总数", R.mipmap.ic_shebeizongshu, deviceTotalCount + ""));
+                        hList.set(1, new CountBean(2, "单位", "总数", R.mipmap.ic_nianwangdanwei, unitCount + ""));
+                        hList.set(2, new CountBean(3, "告警", "总数", R.mipmap.ic_gaojingtongji, alarmCount + ""));
+                        hList.set(3, new CountBean(4, "警情", "处置率", R.mipmap.ic_yuqingfenxi, disPosalRate + "%"));
+                        hList.set(4, new CountBean(5, "设施", "巡检率", R.mipmap.ic_sheshixunjian, sInsRate + "%"));
+                        hList.set(5, new CountBean(6, "用户", "总数", R.mipmap.ic_lianwangyonghu, userCount + ""));
                         getView().updateData();
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        hList.set(0, new CountBean(1, "设备总数", "总数", R.mipmap.ic_shebeizongshu, "0"));
-                        hList.set(1, new CountBean(2, "联网单位", "总数", R.mipmap.ic_nianwangdanwei, "0"));
-                        hList.set(2, new CountBean(3, "告警统计", "总数", R.mipmap.ic_gaojingtongji, "0"));
-                        hList.set(3, new CountBean(4, "告警处置", "处置率", R.mipmap.ic_yuqingfenxi, "0"));
-                        hList.set(4, new CountBean(5, "设施巡检", "巡检率", R.mipmap.ic_sheshixunjian, "0"));
-                        hList.set(5, new CountBean(6, "联网用户", "总数", R.mipmap.ic_lianwangyonghu, "0"));
+                        hList.set(0, new CountBean(1, "设备", "总数", R.mipmap.ic_shebeizongshu, "0"));
+                        hList.set(1, new CountBean(2, "单位", "总数", R.mipmap.ic_nianwangdanwei, "0"));
+                        hList.set(2, new CountBean(3, "告警", "总数", R.mipmap.ic_gaojingtongji, "0"));
+                        hList.set(3, new CountBean(4, "警情", "处置率", R.mipmap.ic_yuqingfenxi, "0"));
+                        hList.set(4, new CountBean(5, "设施", "巡检率", R.mipmap.ic_sheshixunjian, "0"));
+                        hList.set(5, new CountBean(6, "用户", "总数", R.mipmap.ic_lianwangyonghu, "0"));
                         getView().updateData();
                     }
                 }
 
                 @Override
                 public void onFail(String msg) {
-                    hList.set(0, new CountBean(1, "设备总数", "总数", R.mipmap.ic_shebeizongshu, "0"));
-                    hList.set(1, new CountBean(2, "联网单位", "总数", R.mipmap.ic_nianwangdanwei, "0"));
-                    hList.set(2, new CountBean(3, "告警统计", "总数", R.mipmap.ic_gaojingtongji, "0"));
-                    hList.set(3, new CountBean(4, "联网用户", "总数", R.mipmap.ic_lianwangyonghu, "0"));
-                    hList.set(4, new CountBean(5, "设施巡检", "巡检率", R.mipmap.ic_sheshixunjian, "0"));
-                    hList.set(5, new CountBean(6, "舆情分析", "异常", R.mipmap.ic_yuqingfenxi, "0"));
+                    hList.set(0, new CountBean(1, "设备", "总数", R.mipmap.ic_shebeizongshu, "0"));
+                    hList.set(1, new CountBean(2, "单位", "总数", R.mipmap.ic_nianwangdanwei, "0"));
+                    hList.set(2, new CountBean(3, "告警", "总数", R.mipmap.ic_gaojingtongji, "0"));
+                    hList.set(3, new CountBean(4, "警情", "处置率", R.mipmap.ic_yuqingfenxi, "0"));
+                    hList.set(4, new CountBean(5, "设施", "巡检率", R.mipmap.ic_sheshixunjian, "0"));
+                    hList.set(5, new CountBean(6, "用户", "总数", R.mipmap.ic_lianwangyonghu, "0"));
                     getView().updateData();
                 }
 

@@ -95,11 +95,16 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                                 userInfo.setPhone(phone);
                                 userInfo.setPassword(password);
                                 X.user().setUserInfo(userInfo);
+                                XPreferenceUtil.getInstance().setString("loginname", userInfo.getPhone());
+                                XPreferenceUtil.getInstance().setString("loginpwd", userInfo.getPassword());
+                                XPreferenceUtil.getInstance().setString("unitid", userInfo.getUnitid());
+                                XPreferenceUtil.getInstance().setString("userid", userInfo.getUserid());
+                                XPreferenceUtil.getInstance().setString("roleid", userInfo.getRoleid());
                                 //登录成功
                                 getView().requestSuccess();
                             } else {
                                 //登录失败
-                                getView().loginFail("连接失败");
+                                getView().loginFailed(userInfo.getInfo());
                             }
                         }
                     }
@@ -107,7 +112,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
                 @Override
                 public void onFail(String msg) {
-                    getView().loginFail("连接失败");
+                    getView().loginFailed("网络错误");
                 }
 
                 @Override

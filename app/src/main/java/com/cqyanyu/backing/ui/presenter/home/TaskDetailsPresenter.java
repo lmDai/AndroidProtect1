@@ -88,9 +88,9 @@ public class TaskDetailsPresenter extends XPagePresenter<TaskDetailsView> {
 
     @Override
     protected void setData(List mList) {
-        if (pageindex==0) {
+        if (pageindex == 0) {
             mRecyclerView.getAdapter().setData(0, mList);
-        }else {
+        } else {
             mRecyclerView.getAdapter().addDataAll(0, mList);
         }
     }

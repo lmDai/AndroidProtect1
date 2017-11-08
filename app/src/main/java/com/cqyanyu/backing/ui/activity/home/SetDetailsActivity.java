@@ -42,7 +42,7 @@ public class SetDetailsActivity extends BaseActivity<SetDetailsPresenter> implem
     private ProblemRecycler problemRecycler;
     private LinearLayout llDescribe;
     private String content;
-    private boolean isScan = false;
+    //    private boolean isScan = false;
     private TextView txtResult;
 
     @Override
@@ -97,7 +97,8 @@ public class SetDetailsActivity extends BaseActivity<SetDetailsPresenter> implem
 
     @Override
     public String getScanResult() {
-        if (!isScan) content = getIntent().getStringExtra(KEY_CONTENT);
+//        if (!isScan)
+        content = getIntent().getStringExtra(KEY_CONTENT);
         return content;
     }
 
@@ -192,16 +193,14 @@ public class SetDetailsActivity extends BaseActivity<SetDetailsPresenter> implem
 
     @Override
     public void setEnable(boolean b) {
-        if (!b) {
-            btnCommit.setBackgroundColor(mContext.getResources().getColor(R.color.color_hint));
-        }
+        btnCommit.setVisibility(b ? View.VISIBLE : View.GONE);
         btnCommit.setEnabled(b);
     }
 
     @Override
     public void setPicture(String picpath) {
         List<String> mList = new ArrayList<>();
-        if (!TextUtils.isEmpty(picpath) || !TextUtils.equals("", picpath)) {
+        if (!TextUtils.isEmpty(picpath)) {
             String[] split = picpath.split(";");
             for (int i = 0; i < split.length; i++) {
                 if (!TextUtils.isEmpty(split[i])) {
@@ -210,6 +209,7 @@ public class SetDetailsActivity extends BaseActivity<SetDetailsPresenter> implem
             }
             pictureSelect.setList(mList);
         } else {
+            pictureSelect.clearData();
             pictureSelect.setVisibility(View.GONE);
         }
     }
@@ -237,11 +237,21 @@ public class SetDetailsActivity extends BaseActivity<SetDetailsPresenter> implem
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 0x112 && resultCode == RESULT_OK) {
-            if (data != null) {
-                isScan = true;
-                content = data.getStringExtra("result");
-                mPresenter.init();
+        if (requestCode == 0x112) {
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
+                    startActivity(new Intent(mContext, SetDetailsActivity.class)
+                            .putExtra(SetDetailsActivity.KEY_CONTENT, data.getStringExtra("result"))
+                            .putExtra(SetDetailsActivity.KEY_TASK_ID, getTaskIds())
+                            .putExtra("label", getLable()));
+                    finish();
+//                    isScan = true;
+//                    content = data.getStringExtra("result");
+//                    pictureSelect.clearData();
+//                    mPresenter.init();
+                }
+            } else {
+                finish();
             }
         }
     }
