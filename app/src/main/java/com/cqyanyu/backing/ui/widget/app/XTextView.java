@@ -43,6 +43,7 @@ public class XTextView extends TextView {
         if (TextUtils.isEmpty(afterValue)) afterValue = "";
         setXText(getText().toString());
     }
+
     public void setXText(String str) {
         if (TextUtils.isEmpty(str) && !TextUtils.isEmpty(nullShow)) {
             str = nullShow;

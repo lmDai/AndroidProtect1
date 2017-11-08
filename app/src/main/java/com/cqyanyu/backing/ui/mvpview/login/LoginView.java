@@ -13,5 +13,5 @@ public interface LoginView extends IBaseView {
 
     void requestSuccess();
 
-    void loginFail(String info);
+    void loginFailed(String msg);
 }

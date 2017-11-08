@@ -3,13 +3,11 @@ package com.cqyanyu.backing.ui.presenter.statistics;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
-import com.cqyanyu.backing.CommonInfo;
 import com.cqyanyu.backing.ConstHost;
 import com.cqyanyu.backing.ui.entity.home.UnitManageEntity;
 import com.cqyanyu.backing.ui.holder.statistics.GridSatisticsHolder;
 import com.cqyanyu.backing.ui.mvpview.statistics.GridSatisticsView;
 import com.cqyanyu.backing.ui.presenter.base.XPagePresenter;
-import com.cqyanyu.mvpframework.utils.XLog;
 import com.cqyanyu.mvpframework.utils.http.ParamsMap;
 
 import org.json.JSONObject;
@@ -37,7 +35,7 @@ public class GridSatisticsPresenter extends XPagePresenter<GridSatisticsView> {
     @Override
     protected ParamsMap getParamsMap() {
         ParamsMap paramsMap = new ParamsMap();
-        paramsMap.put("pid", CommonInfo.getInstance().getUserInfo().getUnitid());
+//        paramsMap.put("pid", CommonInfo.getInstance().getUserInfo().getUnitid());
         paramsMap.put("pageindex", pageindex + "");
         paramsMap.put("count", "" + pagecount);
         return paramsMap;
@@ -61,7 +59,6 @@ public class GridSatisticsPresenter extends XPagePresenter<GridSatisticsView> {
 
     @Override
     protected void onXSuccess(String result) {
-        XLog.i(result);
         try {
             if (!TextUtils.isEmpty(result)) {
                 JSONObject object = new JSONObject(result);

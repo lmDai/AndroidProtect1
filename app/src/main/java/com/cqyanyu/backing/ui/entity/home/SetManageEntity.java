@@ -57,6 +57,24 @@ public class SetManageEntity {
     private double longitude;
     private String createmanid;
     private String remark;
+    private String maintenanceid;
+    private String maintenancestr;
+
+    public String getMaintenanceid() {
+        return maintenanceid;
+    }
+
+    public void setMaintenanceid(String maintenanceid) {
+        this.maintenanceid = maintenanceid;
+    }
+
+    public String getMaintenancestr() {
+        return maintenancestr;
+    }
+
+    public void setMaintenancestr(String maintenancestr) {
+        this.maintenancestr = maintenancestr;
+    }
 
     public String getFactory() {
         return factory;

@@ -55,7 +55,7 @@ public class XHttpUtils {
     private static void httpPostRequest(final Context context, final ParamsMap paramsMap, final String url, final Dialog dialog, final XICallback callback) {
         final RequestParams requestParams = initParams(url, paramsMap);
         if (dialog != null) dialog.show();
-        x.http().request(HttpMethod.POST, requestParams, new Callback.CommonCallback<String>() {
+        x.http().request(HttpMethod.GET, requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(final String result) {
                 if (X.DEBUG) {
@@ -86,6 +86,7 @@ public class XHttpUtils {
                     @Override
                     public void run() {
                         if (dialog != null) dialog.dismiss();
+                        XToastUtil.showToast("网络错误");
                         callback.onFail(ex.toString());
                     }
                 }, DELAY_TIME);
@@ -178,11 +179,6 @@ public class XHttpUtils {
     private static void parseData(Context context, String result, final XICallback callback) {
         if (TextUtils.equals(result, "{code=5}") || TextUtils.equals(result, "{\"code\":5}")) {
             //重新登录
-//            InfoManger.getInstance().reLogin(context);
-            DbCookieStore.INSTANCE.getCookies().clear();
-//            CookieSyncManager.createInstance(context);
-//            CookieManager.getInstance().removeAllCookie();
-            context.startService(new Intent(context, MyServer.class));
             context.sendBroadcast(new Intent().setAction("com.backing.broad_call_service")
                     .putExtra(MyServer.FLAG, MyServer.FLAG_VALUE_LOGIN)
             );
@@ -222,7 +218,6 @@ public class XHttpUtils {
      */
     public static GlideUrl getGlideUrl(String url) {
         /**获取cookies*/
-        //List<HttpCookie> list = instance.get(URI.create(url));
         DbCookieStore instance = DbCookieStore.INSTANCE;
         final List<HttpCookie> cookies = instance.getCookies();
         if (cookies != null && cookies.size() > 0) {
@@ -356,7 +351,7 @@ public class XHttpUtils {
         if (Build.VERSION.SDK_INT > 22) {
             if (activity.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
                     activity.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                XToastUtil.showToast("请授予该权限！否则将无法使用该功能");
+//                XToastUtil.showToast("请授予该权限！否则将无法使用该功能");
                 if (isRequest) {
                     activity.requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,}, 0xedc);
                 }

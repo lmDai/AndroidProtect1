@@ -70,7 +70,7 @@ public class UserManageHolder extends IViewHolder {
 
         @Override
         public void onClick(View v) {
-            if (InfoManger.getInstance().isPermission("64")) {
+            if (InfoManger.getInstance().isPermission("64")) {//增加用户
                 mContext.startActivity(new Intent(mContext, AddUserActivity.class)
                         .putExtra(AddUserActivity.LABEL, AddUserActivity.LABEL_VALUE_EDIT)
                         .putExtra("name", itemData.getUserstr())

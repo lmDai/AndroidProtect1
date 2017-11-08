@@ -16,7 +16,7 @@ android {
         versionName VERSION_NAME
         multiDexEnabled true
         ndk {
-            //打包发布so文件对应的平台，这里不能换行
+            //打包发布so文件对应的平台，这里不能换行, "armeabi-v7a", "x86", "mips"
             abiFilters "armeabi"
         }
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -110,6 +110,7 @@ dependencies {
     //compile 'me.lxz.photopicker:PhotoPicker-Packages:1.4'
     compile project(path: ':pictureselect')
     //compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
+    compile project(':hellodaemon')
     compile 'com.android.support:design:24.1.1'
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'

@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 
 import com.cqyanyu.backing.R;
-import com.cqyanyu.mvpframework.utils.XLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +71,6 @@ public class ProblemRecycler extends RecyclerView {
             problemNames.clear();
             problemIds.clear();
             selectPosition = 0;
-            XLog.i("clear");
         }
         adapter.notifyDataSetChanged();
     }

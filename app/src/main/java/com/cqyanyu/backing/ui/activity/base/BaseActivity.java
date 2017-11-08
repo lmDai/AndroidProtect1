@@ -13,9 +13,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
+import com.cqyanyu.backing.CommonInfo;
+import com.cqyanyu.backing.Constant;
 import com.cqyanyu.backing.R;
+import com.cqyanyu.backing.ui.activity.login.MainActivity;
+import com.cqyanyu.backing.ui.entity.login.UserInfo;
 import com.cqyanyu.backing.ui.server.MyServer;
 import com.cqyanyu.backing.utils.Utils;
+import com.cqyanyu.mvpframework.X;
 import com.cqyanyu.mvpframework.activity.base.XBaseActivity;
 import com.cqyanyu.mvpframework.presenter.BasePresenter;
 import com.cqyanyu.mvpframework.utils.PermissionUtil;
@@ -44,6 +49,15 @@ public abstract class BaseActivity<T extends BasePresenter> extends XBaseActivit
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            UserInfo tempData = (UserInfo) savedInstanceState.getSerializable("userinfo");
+            X.user().setUserInfo(tempData);
+        }
+//        switch(AppStatusManager.getInstance().getAppStatus()) {
+//            case Constant.STATUS_FORCE_KILLED:
+//            restartApp();
+//            break;
+//            case Constant.STATUS_NORMAL:
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             toolbar.setTitle("");
@@ -72,6 +86,28 @@ public abstract class BaseActivity<T extends BasePresenter> extends XBaseActivit
         initStatusBar();
         //初始化点击空白区域收回键盘
         initTakeBackKeyboard();
+//                break;
+//        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        UserInfo userInfo = CommonInfo.getInstance().getUserInfo();
+        outState.putSerializable("userinfo", userInfo);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        UserInfo userInfo = CommonInfo.getInstance().getUserInfo();
+        savedInstanceState.putSerializable("userinfo", userInfo);
+    }
+
+    protected void restartApp() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(Constant.KEY_HOME_ACTION, Constant.ACTION_RESTART_APP);
+        startActivity(intent);
     }
 
     /**

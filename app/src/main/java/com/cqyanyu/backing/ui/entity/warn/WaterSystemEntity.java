@@ -32,11 +32,14 @@ public class WaterSystemEntity implements Serializable {
     private String unitstr;
     private double latitude;
     private String pid;
+    private String oid;
     private int reporteventid;
+    private int reportevent;
     private String buildid;
     private String headdate;
     private int deviceid;
-    private int lastdate;
+    private long lastdate;
+    private long reportlastdate;
     private String maxval;
     private String minval;
     private String buildstr;
@@ -44,6 +47,49 @@ public class WaterSystemEntity implements Serializable {
     private String sn;
     private String position;
     private double longitude;
+    private long durationsec;
+
+
+    public long getLastdate() {
+        return lastdate;
+    }
+
+    public void setLastdate(long lastdate) {
+        this.lastdate = lastdate;
+    }
+
+    public String getOid() {
+        return oid;
+    }
+
+    public void setOid(String oid) {
+        this.oid = oid;
+    }
+
+
+    public long getReportlastdate() {
+        return reportlastdate;
+    }
+
+    public void setReportlastdate(long reportlastdate) {
+        this.reportlastdate = reportlastdate;
+    }
+
+    public int getReportevent() {
+        return reportevent;
+    }
+
+    public void setReportevent(int reportevent) {
+        this.reportevent = reportevent;
+    }
+
+    public long getDurationsec() {
+        return durationsec;
+    }
+
+    public void setDurationsec(long durationsec) {
+        this.durationsec = durationsec;
+    }
 
     public int getVal() {
         return val;
@@ -117,13 +163,6 @@ public class WaterSystemEntity implements Serializable {
         this.deviceid = deviceid;
     }
 
-    public int getLastdate() {
-        return lastdate;
-    }
-
-    public void setLastdate(int lastdate) {
-        this.lastdate = lastdate;
-    }
 
     public String getMaxval() {
         return maxval;

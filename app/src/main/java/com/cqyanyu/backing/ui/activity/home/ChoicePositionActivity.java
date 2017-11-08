@@ -404,8 +404,10 @@ public class ChoicePositionActivity extends BaseMapActivity<ChoicePositionPresen
                     keyWordPoiData.clear();
                     if (suggestionResult.getAllSuggestions() == null) {
                         XToastUtil.showToast("暂无数据信息");
+                        inputPoiListView.setVisibility(View.GONE);
                     } else {
                         keyWordPoiData = suggestionResult.getAllSuggestions();
+                        inputPoiListView.setVisibility(View.VISIBLE);
                         //设置Adapter结束
                         if (suggestAdapter == null) {
                             suggestAdapter = new SuggestionAdapter(mContext, keyWordPoiData);

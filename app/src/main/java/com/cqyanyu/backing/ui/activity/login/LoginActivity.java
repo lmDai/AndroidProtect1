@@ -1,5 +1,6 @@
 package com.cqyanyu.backing.ui.activity.login;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.alibaba.sdk.android.push.CloudPushService;
 import com.alibaba.sdk.android.push.CommonCallback;
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
+import com.cqyanyu.backing.CommonInfo;
 import com.cqyanyu.backing.Constant;
 import com.cqyanyu.backing.R;
 import com.cqyanyu.backing.ui.activity.base.BaseActivity;
@@ -138,7 +140,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             writeAcount = lists.get(0).getAcount();
             writePasswd = lists.get(0).getPasswd();
         }
-        if (getIntent() != null) autoLogin = getIntent().getBooleanExtra("autoLogin", true);
+        if (getIntent() != null) autoLogin = getIntent().getBooleanExtra("autoLogin", false);
         //初始化
         if (mPresenter != null) mPresenter.init(autoLogin);
         //开启定位服务
@@ -192,7 +194,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     public void stogeUser() {
         //判断用户是否输入了新的账号和密码
         if (lists.size() > 0) {
-            for (int i=0;i<lists.size();i++){
+            for (int i = 0; i < lists.size(); i++) {
                 if (TextUtils.equals(lists.get(i).getAcount(), getUsername())) {
                     lists.remove(lists.get(i));
                 }
@@ -243,6 +245,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         }
     }
 
+    @SuppressLint("NewApi")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -294,38 +297,42 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void requestSuccess() {
-        //开启通讯服务
-        startService(new Intent(this, SocketServer.class));
-        startService(new Intent(this, MyServer.class));
-        CloudPushService cloudPushService = PushServiceFactory.getCloudPushService();
-        cloudPushService.turnOnPushChannel(new CommonCallback() {
-            @Override
-            public void onSuccess(String s) {
-                XLog.i("turnOnPushChannel-->阿里推送");
-            }
-
-            @Override
-            public void onFailed(String s, String s1) {
-
-            }
-        });
-        //初始化数据
-        sendBroadcast(new Intent().setAction("com.backing.broad_call_service")
-                .putExtra(MyServer.FLAG, MyServer.FLAG_VALUE_INIT)
-        );
         //保存用户名和密码
         XPreferenceUtil.getInstance().setString(Constant.KEY_USERNAME, getUsername());
         if (XPreferenceUtil.getInstance().getBoolean(Constant.KEY_REMEMBER)) {
             XPreferenceUtil.getInstance().setString(getUsername(), getPassword());
             stogeUser();
         }
-        //前往首页
-        startActivity(new Intent(mContext, MainActivity.class));
-        finish();
+        if (CommonInfo.getInstance().getUserInfo().getPermission().size() > 0) {
+            //开启通讯服务
+            startService(new Intent(this, SocketServer.class));
+            startService(new Intent(this, MyServer.class));
+            CloudPushService cloudPushService = PushServiceFactory.getCloudPushService();
+            cloudPushService.turnOnPushChannel(new CommonCallback() {
+                @Override
+                public void onSuccess(String s) {
+                    XLog.i("turnOnPushChannel-->阿里推送");
+                }
+
+                @Override
+                public void onFailed(String s, String s1) {
+
+                }
+            });
+            //初始化数据
+            sendBroadcast(new Intent().setAction("com.backing.broad_call_service")
+                    .putExtra(MyServer.FLAG, MyServer.FLAG_VALUE_INIT)
+            );
+            //前往首页
+            startActivity(new Intent(mContext, MainActivity.class));
+            finish();
+        } else {
+            XToastUtil.showToast("无权限");
+        }
     }
 
     @Override
-    public void loginFail(String info) {
-        XToastUtil.showToast(info);
+    public void loginFailed(String msg) {
+        XToastUtil.showToast(msg);
     }
 }

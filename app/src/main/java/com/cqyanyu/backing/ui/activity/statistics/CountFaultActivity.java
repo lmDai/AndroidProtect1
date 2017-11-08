@@ -21,6 +21,7 @@ public class CountFaultActivity extends BaseActivity<CountAlarmListPresenter> im
     private ImageView ivNotData;
     private TextView tvNotData;
     private LinearLayout layoutNotData;
+    public final static String HANDLE = "handle";
 
     @Override
     protected CountAlarmListPresenter createPresenter() {
@@ -62,7 +63,7 @@ public class CountFaultActivity extends BaseActivity<CountAlarmListPresenter> im
 
     @Override
     public String getLabel() {
-        return null;
+        return getIntent().getStringExtra(HANDLE);
     }
 
     @Override
@@ -84,7 +85,7 @@ public class CountFaultActivity extends BaseActivity<CountAlarmListPresenter> im
             hashMap = MyDate.getFirstday_Lastday_Month(date);
             return MyDate.stringToLong(hashMap.get("last"), "yyyy-MM-dd HH:mm:ss") / 1000 + "";
         }
-        return getIntent().getLongExtra("date", (long) 0) + 86399 + "";
+        return getIntent().getLongExtra("date", (long) 0) + 86400 + "";
     }
 }
 

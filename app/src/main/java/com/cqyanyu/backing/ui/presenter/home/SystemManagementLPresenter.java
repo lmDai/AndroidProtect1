@@ -55,7 +55,7 @@ public class SystemManagementLPresenter extends XPagePresenter<SystemManagementL
         switch (getView().getLabel()) {
             case SystemManagementFragment.LABEL_VALUE_UNIT:
                 //单位管理
-                paramsMap.put("pid", CommonInfo.getInstance().getUserInfo().getUnitid());
+//                paramsMap.put("pid", CommonInfo.getInstance().getUserInfo().getUnitid());
                 break;
             case SystemManagementFragment.LABEL_VALUE_SET:
                 //设备管理

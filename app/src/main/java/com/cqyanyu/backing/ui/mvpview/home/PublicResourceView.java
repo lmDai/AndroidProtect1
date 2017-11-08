@@ -1,6 +1,10 @@
 package com.cqyanyu.backing.ui.mvpview.home;
 
+import com.cqyanyu.backing.ui.entity.home.MapDeviceInfo;
+import com.cqyanyu.backing.ui.entity.home.MapUnitInfo;
 import com.cqyanyu.mvpframework.view.IBaseView;
+
+import java.util.List;
 
 /**
  * 统计分析接口view
@@ -31,4 +35,8 @@ public interface PublicResourceView extends IBaseView {
 
 
     void setLoation(double latitude, double longitude);
+
+    void setUnitList(List<MapUnitInfo> mListUnit);
+
+    void setDeviceList(List<MapDeviceInfo> mList);
 }

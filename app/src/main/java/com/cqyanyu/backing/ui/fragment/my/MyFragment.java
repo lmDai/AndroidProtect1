@@ -14,7 +14,6 @@ import com.cqyanyu.backing.R;
 import com.cqyanyu.backing.manger.InfoManger;
 import com.cqyanyu.backing.ui.activity.base.BaseFragment;
 import com.cqyanyu.backing.ui.activity.login.LoginActivity;
-import com.cqyanyu.backing.ui.activity.my.AboutUsActivity;
 import com.cqyanyu.backing.ui.activity.my.DownLoadActivity;
 import com.cqyanyu.backing.ui.activity.my.ModifyPasswordActivity;
 import com.cqyanyu.backing.ui.activity.my.MsgCenterActivity;
@@ -24,6 +23,7 @@ import com.cqyanyu.backing.ui.server.MyServer;
 import com.cqyanyu.backing.ui.socket.SocketServer;
 import com.cqyanyu.backing.ui.widget.app.XImageView;
 import com.cqyanyu.backing.ui.widget.app.XTextView;
+import com.cqyanyu.backing.utils.cache.ACache;
 import com.cqyanyu.mvpframework.utils.XLog;
 import com.cqyanyu.mvpframework.utils.XToastUtil;
 import com.cqyanyu.mvpframework.view.ItemOptionView;
@@ -94,35 +94,31 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyView {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.iov_msg_center://消息中心
-                if (InfoManger.getInstance().isPermission("81")) {
-                    startActivity(new Intent(mContext, MsgCenterActivity.class));
-                } else {
-                    XToastUtil.showToast("暂不拥有该权限！");
-                }
-                break;
-            case R.id.iov_modify_password://修改密码
-                if (InfoManger.getInstance().isPermission("79")) {
+            case R.id.iov_modify_password:
+                if (InfoManger.getInstance().isPermission("79")) {//修改密码
                     startActivity(new Intent(mContext, ModifyPasswordActivity.class)
                             .putExtra("name", tvNickname.getText().toString()));
                 } else {
                     XToastUtil.showToast("暂不拥有该权限！");
                 }
                 break;
+            case R.id.iov_msg_center:
+                if (InfoManger.getInstance().isPermission("80")) {//消息中心
+                    startActivity(new Intent(mContext, MsgCenterActivity.class));
+                } else {
+                    XToastUtil.showToast("暂不拥有该权限！");
+                }
+                break;
             case R.id.btn_exit://退出登录
-                if (InfoManger.getInstance().isPermission("89")) {
-                    if (mPresenter != null) mPresenter.requestSignOut();
-                } else {
-                    XToastUtil.showToast("暂不拥有该权限！");
-                }
+                if (mPresenter != null) mPresenter.requestSignOut();
                 break;
-            case R.id.iov_about_us://关于我们
-                if (InfoManger.getInstance().isPermission("80")) {
-                    startActivity(new Intent(mContext, AboutUsActivity.class));
-                } else {
-                    XToastUtil.showToast("暂不拥有该权限！");
-                }
-                break;
+//            case R.id.iov_about_us://关于我们
+//                if (InfoManger.getInstance().isPermission("80")) {
+//                    startActivity(new Intent(mContext, AboutUsActivity.class));
+//                } else {
+//                    XToastUtil.showToast("暂不拥有该权限！");
+//                }
+//                break;
             case R.id.btn_right:
                 startActivity(new Intent(mContext, DownLoadActivity.class));
                 break;
@@ -149,6 +145,8 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyView {
             }
         });
         mContext.stopService(new Intent(mContext, CloudPushService.class));
+        ACache mAache = ACache.get(mContext);
+        mAache.clear();
         startActivity(new Intent(mContext, LoginActivity.class).putExtra("autoLogin", false));
         mContext.finish();
     }

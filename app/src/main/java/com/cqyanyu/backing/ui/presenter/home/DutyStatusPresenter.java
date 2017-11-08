@@ -39,6 +39,9 @@ public class DutyStatusPresenter extends XPagePresenter<DutyStatusView> {
         ParamsMap paramsMap = new ParamsMap();
         //paramsMap.put("startdate",startdate + "");
         //paramsMap.put("enddate",enddate + "");
+        if (!TextUtils.isEmpty(getView().getmCondition())) {
+            paramsMap.put("mcondition", getView().getmCondition());
+        }
         paramsMap.put("pageindex", pageindex + "");
         paramsMap.put("count", "" + pagecount);
         paramsMap.put("type", "1");//类型 0:发起 1:回复

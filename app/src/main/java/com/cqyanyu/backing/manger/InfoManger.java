@@ -24,6 +24,7 @@ import com.cqyanyu.backing.ui.server.MyServer;
 import com.cqyanyu.backing.utils.TerminalUtils;
 import com.cqyanyu.mvpframework.X;
 import com.cqyanyu.mvpframework.utils.XLog;
+import com.cqyanyu.mvpframework.utils.XPreferenceUtil;
 import com.cqyanyu.mvpframework.utils.XToastUtil;
 import com.cqyanyu.mvpframework.utils.http.ParamsMap;
 
@@ -135,7 +136,7 @@ public class InfoManger {
 
                 @Override
                 public void onFail(String msg) {
-                    XToastUtil.showToast("词条获取失败!");
+
                 }
 
                 @Override
@@ -311,7 +312,7 @@ public class InfoManger {
     public void getSubUnitOnNet(Context context) {
         if (context != null) {
             ParamsMap paramsMap = new ParamsMap();
-            paramsMap.put("pid", CommonInfo.getInstance().getUserInfo().getUnitid());
+//            paramsMap.put("pid", CommonInfo.getInstance().getUserInfo().getUnitid());
             XHttpUtils.post(context, paramsMap, ConstHost.GET_UNIT_PAGE_URL, new XICallbackString() {
 
                 @Override
@@ -730,46 +731,56 @@ public class InfoManger {
      *
      * @param context 环境
      */
-    public void reLogin(Context context) {
+    public void reLogin(final Context context) {
         if (context != null) {
             ParamsMap paramsMap = new ParamsMap();
             //设置用户名和密码
-            final String phone = CommonInfo.getInstance().getUserInfo().getPhone();
-            final String password = CommonInfo.getInstance().getUserInfo().getPassword();
-            paramsMap.put("loginname", phone);//用户登录名或手机号
-            paramsMap.put("loginpwd", password);//用户登录密码
-            paramsMap.put("terminalname", TerminalUtils.getTerminalName());//用户终端型号
-            paramsMap.put("terminalcode", TerminalUtils.getDeviceUnique());//用户终端唯一码
-            paramsMap.put("terminaltype", TerminalUtils.getTerminalType());//用户终端类型
-            XHttpUtils.post(context, paramsMap, ConstHost.LOGIN_URL, new XICallbackEntity<UserInfo>() {
-                @Override
-                public void onSuccess(UserInfo entity) {
-                    if (entity != null) {
-                        if (entity.isResult()) {
-                            //保存用户信息
-                            entity.setPhone(phone);
-                            entity.setPassword(password);
-                            X.user().setUserInfo(entity);
-                            return;
+            final String phone = XPreferenceUtil.getInstance().getString("loginname");
+            final String password = XPreferenceUtil.getInstance().getString("loginpwd");
+            if (TextUtils.isEmpty(phone) || TextUtils.isEmpty(password)) {
+//                Intent intent = new Intent(context, LoginActivity.class);
+//                intent.putExtra("autoLogin", false);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+//                context.startActivity(intent);
+                XToastUtil.showToast("登录失效，建议重新登录");
+                android.os.Process.killProcess(android.os.Process.myPid());
+//                context.getApplicationContext().finish();
+            } else {
+                paramsMap.put("loginname", phone);//用户登录名或手机号
+                paramsMap.put("loginpwd", password);//用户登录密码
+                paramsMap.put("terminalname", TerminalUtils.getTerminalName());//用户终端型号
+                paramsMap.put("terminalcode", TerminalUtils.getDeviceUnique());//用户终端唯一码
+                paramsMap.put("terminaltype", TerminalUtils.getTerminalType());//用户终端类型
+                XHttpUtils.post(context, paramsMap, ConstHost.LOGIN_URL, null, new XICallbackEntity<UserInfo>() {
+                    @Override
+                    public void onSuccess(UserInfo entity) {
+                        if (entity != null) {
+                            if (entity.isResult()) {
+                                //保存用户信息
+                                entity.setPhone(phone);
+                                entity.setPassword(password);
+                                X.user().setUserInfo(entity);
+                                return;
+                            }
                         }
                     }
-                }
 
-                @Override
-                public void onFail(String msg) {
+                    @Override
+                    public void onFail(String msg) {
 
-                }
+                    }
 
-                @Override
-                public void onFinished() {
+                    @Override
+                    public void onFinished() {
 
-                }
+                    }
 
-                @Override
-                public Class getClazz() {
-                    return UserInfo.class;
-                }
-            });
+                    @Override
+                    public Class getClazz() {
+                        return UserInfo.class;
+                    }
+                });
+            }
         }
 
     }

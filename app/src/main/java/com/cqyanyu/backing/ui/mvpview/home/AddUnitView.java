@@ -14,13 +14,13 @@ public interface AddUnitView extends IBaseView {
 
     String getOid();
 
-    void setUnitSort(String sort,String typeStr);
+    void setUnitSort(String sort, String typeStr);
 
     void setLan(double latitude, double longitude);
 
     String getPresentUnit();
 
-    void setPresentUnit(String present,String pUnitStr);
+    void setPresentUnit(String present, String pUnitStr);
 
     String getRegulatoryLevel();
 

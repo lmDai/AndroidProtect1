@@ -7,13 +7,13 @@ import com.cqyanyu.backing.ConstHost;
 import com.cqyanyu.backing.R;
 import com.cqyanyu.backing.ui.entity.home.WaterSystemReortEntity;
 import com.cqyanyu.backing.ui.mvpview.home.WaterSystemReportView;
-import com.cqyanyu.backing.ui.net.XHttpUtils;
-import com.cqyanyu.backing.ui.net.XICallbackString;
 import com.cqyanyu.backing.utils.NetDialogUtil;
 import com.cqyanyu.backing.utils.NumberUtils;
+import com.cqyanyu.mvpframework.X;
 import com.cqyanyu.mvpframework.presenter.BasePresenter;
 import com.cqyanyu.mvpframework.utils.XDateUtil;
 import com.cqyanyu.mvpframework.utils.http.ParamsMap;
+import com.cqyanyu.mvpframework.utils.http.XCallback;
 
 import org.json.JSONException;
 
@@ -36,7 +36,7 @@ public class WaterSystemPresenter extends BasePresenter<WaterSystemReportView> {
             paramsMap.put("pid", getView().getPid());
             paramsMap.put("startdate", getView().getStartDate());
             paramsMap.put("enddate", getView().getEndDate());
-            XHttpUtils.post(context, paramsMap, ConstHost.GET_WARN_REPORT_URL, NetDialogUtil.showLoadDialog(context, R.string.text_request), new XICallbackString() {
+            X.http().post(context, paramsMap, ConstHost.GET_WARN_REPORT_URL, NetDialogUtil.showLoadDialog(context, R.string.text_request), new XCallback.XCallbackString() {
                 @Override
                 public void onSuccess(String result) {
                     try {
@@ -75,14 +75,64 @@ public class WaterSystemPresenter extends BasePresenter<WaterSystemReportView> {
 
                 @Override
                 public void onFail(String msg) {
-
+                    getView().setNoData(getView().getClickable());
+                    getView().setTxtWaterHigh("0.00");
+                    getView().setTxtWaterLow("0.00");
+                    getView().setTxtShuiya("0.00");
                 }
 
                 @Override
                 public void onFinished() {
-                }
 
+                }
             });
+//            XHttpUtils.post(context, paramsMap, ConstHost.GET_WARN_REPORT_URL, NetDialogUtil.showLoadDialog(context, R.string.text_request), new XICallbackString() {
+//                @Override
+//                public void onSuccess(String result) {
+//                    try {
+//                        org.json.JSONObject object = new org.json.JSONObject(result);
+//                        String trueResult = object.optString("rows");
+//                        List<WaterSystemReortEntity> mList = JSON.parseArray(trueResult, WaterSystemReortEntity.class);
+//                        if (getView() != null) {
+//                            if (mList != null && mList.size() > 0) {
+//                                List<Float> alarmTotals = new ArrayList<Float>();
+//                                List<String> xValue = new ArrayList<String>();
+//                                float shuiya = 0;
+//                                for (int i = 0; i < mList.size(); i++) {
+//                                    alarmTotals.add((float) mList.get(i).getVal() / 1000);
+//                                    shuiya += mList.get(i).getVal();
+//                                    if (TextUtils.isEmpty(String.valueOf(mList.get(i).getReportdate()))) {
+//                                        xValue.add("00:00:00");
+//                                    } else {
+//                                        xValue.add(XDateUtil.getStringByFormatFromStr(String.valueOf(mList.get(i).getReportdate()), "HH:mm:ss"));
+//                                    }
+//                                }
+//                                getView().setTxtWaterHigh(NumberUtils.setDecimalFloat(Collections.max(alarmTotals)));
+//                                getView().setTxtWaterLow(NumberUtils.setDecimalFloat(Collections.min(alarmTotals)));
+//                                getView().setTxtShuiya(NumberUtils.setDecimalFloat(shuiya / mList.size() / 1000));
+//                                getView().setAlarmTotal(alarmTotals, xValue);
+//                            } else {
+//                                getView().setNoData(getView().getClickable());
+//                                getView().setTxtWaterHigh("0.00");
+//                                getView().setTxtWaterLow("0.00");
+//                                getView().setTxtShuiya("0.00");
+//                            }
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//
+//                @Override
+//                public void onFail(String msg) {
+//
+//                }
+//
+//                @Override
+//                public void onFinished() {
+//                }
+//
+//            });
         }
     }
 

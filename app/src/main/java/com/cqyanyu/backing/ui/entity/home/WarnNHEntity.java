@@ -22,6 +22,27 @@ public class WarnNHEntity implements Serializable {
     private String buildstr;
     private double longitude;
     private double latitude;
+    /**
+     * reportlastdate : 1509412674
+     * isrecovery : 0
+     * reportevent : 2
+     * latitude : 29.53489505417068
+     * oid : 34
+     * typestr : 水压监测终端
+     * maxval : 1000
+     * minval : 200
+     * typeid : 66
+     * durationsec : 227633
+     * longitude : 106.61516484322955
+     */
+
+    private int isrecovery;
+    private int reportevent;
+    private String typestr;
+    private int maxval;
+    private int minval;
+    private int durationsec;
+
 
     public String getUnitstr() {
         return unitstr;
@@ -142,5 +163,54 @@ public class WarnNHEntity implements Serializable {
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
+    }
+
+
+    public int getIsrecovery() {
+        return isrecovery;
+    }
+
+    public void setIsrecovery(int isrecovery) {
+        this.isrecovery = isrecovery;
+    }
+
+    public int getReportevent() {
+        return reportevent;
+    }
+
+    public void setReportevent(int reportevent) {
+        this.reportevent = reportevent;
+    }
+
+    public String getTypestr() {
+        return typestr;
+    }
+
+    public void setTypestr(String typestr) {
+        this.typestr = typestr;
+    }
+
+    public int getMaxval() {
+        return maxval;
+    }
+
+    public void setMaxval(int maxval) {
+        this.maxval = maxval;
+    }
+
+    public int getMinval() {
+        return minval;
+    }
+
+    public void setMinval(int minval) {
+        this.minval = minval;
+    }
+
+    public int getDurationsec() {
+        return durationsec;
+    }
+
+    public void setDurationsec(int durationsec) {
+        this.durationsec = durationsec;
     }
 }

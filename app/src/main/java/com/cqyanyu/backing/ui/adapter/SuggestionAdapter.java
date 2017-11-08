@@ -31,6 +31,7 @@ public class SuggestionAdapter extends BaseAdapter {
     public int getCount() {
         return poiData.size();
     }
+
     /**
      * 设置数据
      *
@@ -40,6 +41,7 @@ public class SuggestionAdapter extends BaseAdapter {
         this.poiData = mList;
         notifyDataSetChanged();
     }
+
     @Override
     public Object getItem(int position) {
         return poiData.get(position);

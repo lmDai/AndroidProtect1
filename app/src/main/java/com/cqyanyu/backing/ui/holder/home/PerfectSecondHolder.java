@@ -75,7 +75,7 @@ public class PerfectSecondHolder extends IViewHolder {
             if (!TextUtils.isEmpty(itemData.getCreatedate() + "")) {
                 tvDate.setText(XDateUtil.getStringByFormatFromStr(itemData.getEnddate(), "yyyy-MM-dd"));
             }
-            if (!TextUtils.isEmpty(itemData.getPosition())&& CommonInfo.getInstance().getUserInfo().isnode()) {
+            if (!TextUtils.isEmpty(itemData.getPosition()) && CommonInfo.getInstance().getUserInfo().isnode()) {
                 tvSetPosition.setText(itemData.getUnitstr() + "@" + itemData.getBuildstr() + "@" + itemData.getPosition());
             } else if (CommonInfo.getInstance().getUserInfo().isnode()) {
                 tvSetPosition.setText(itemData.getBuildstr());

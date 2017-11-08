@@ -2,16 +2,19 @@ package com.cqyanyu.backing.ui.activity.home;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.cqyanyu.backing.R;
 import com.cqyanyu.backing.manger.InfoManger;
 import com.cqyanyu.backing.ui.activity.base.BaseActivity;
+import com.cqyanyu.backing.ui.fragment.home.SystemManagementFragment;
 import com.cqyanyu.backing.ui.mvpview.home.SystemManagementView;
 import com.cqyanyu.backing.ui.presenter.home.SystemManagementPresenter;
 import com.cqyanyu.mvpframework.adapter.TabFragmentPagerAdapter;
@@ -34,9 +37,8 @@ public class SystemManagementActivity extends BaseActivity<SystemManagementPrese
     public static final String LABEL_VALUE_SEARCH_UNIT = "单位管理";
     public static final String LABEL_VALUE_SEARCH_SET = "设备管理";
     public static final String LABEL_VALUE_SEARCH_USER = "用户管理";
-    public int totalTabNum = 3;//假如有四个Fragment页面
-    public int openTabNum = 0;//当前已打开的页面数量
     private int curTab;
+    private TextView topTitle;
 
     @Override
     protected SystemManagementPresenter createPresenter() {
@@ -50,11 +52,17 @@ public class SystemManagementActivity extends BaseActivity<SystemManagementPrese
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (mPresenter != null) mPresenter.init();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_add) {
-            switch (mViewPager.getCurrentItem()) {
-                case 0://增加单位
-                    if (InfoManger.getInstance().isPermission("40")) {
+            switch (topTitle.getText().toString()) {
+                case SystemManagementActivity.LABEL_VALUE_SEARCH_UNIT:
+                    if (InfoManger.getInstance().isPermission("60")) {//增加单位
                         startActivity(new Intent(mContext, AddUnitActivity.class)
                                 .putExtra(AddUnitActivity.LABEL, AddUnitActivity.LABEL_VALUE_ADD)
                         );
@@ -62,8 +70,8 @@ public class SystemManagementActivity extends BaseActivity<SystemManagementPrese
                         XToastUtil.showToast("暂不拥有该权限！");
                     }
                     break;
-                case 1://增加设备
-                    if (InfoManger.getInstance().isPermission("61")) {
+                case SystemManagementActivity.LABEL_VALUE_SEARCH_SET:
+                    if (InfoManger.getInstance().isPermission("66")) {//增加设备
                         startActivity(new Intent(mContext, AddSetActivity.class)
                                 .putExtra(AddSetActivity.LABEL, AddSetActivity.LABEL_VALUE_ADD)
                         );
@@ -71,8 +79,8 @@ public class SystemManagementActivity extends BaseActivity<SystemManagementPrese
                         XToastUtil.showToast("暂不拥有该权限！");
                     }
                     break;
-                case 2://增加用户
-                    if (InfoManger.getInstance().isPermission("63")) {
+                case SystemManagementActivity.LABEL_VALUE_SEARCH_USER:
+                    if (InfoManger.getInstance().isPermission("63")) {//增加用户
                         startActivity(new Intent(mContext, AddUserActivity.class)
                                 .putExtra(AddUserActivity.LABEL, AddUserActivity.LABEL_VALUE_ADD)
                         );
@@ -83,18 +91,18 @@ public class SystemManagementActivity extends BaseActivity<SystemManagementPrese
             }
             return true;
         } else if (item.getItemId() == R.id.menu_search) {
-            switch (mViewPager.getCurrentItem()) {
-                case 0://搜索单位
+            switch (topTitle.getText().toString()) {
+                case SystemManagementActivity.LABEL_VALUE_SEARCH_UNIT://搜索单位
                     startActivity(new Intent(mContext, SearchActivity.class)
                             .putExtra(SystemManagementActivity.LABEL, SystemManagementActivity.LABEL_VALUE_SEARCH_UNIT)
                     );
                     break;
-                case 1://搜索设备
+                case SystemManagementActivity.LABEL_VALUE_SEARCH_SET://搜索设备
                     startActivity(new Intent(mContext, SearchActivity.class)
                             .putExtra(SystemManagementActivity.LABEL, SystemManagementActivity.LABEL_VALUE_SEARCH_SET)
                     );
                     break;
-                case 2://搜索用户
+                case SystemManagementActivity.LABEL_VALUE_SEARCH_USER://搜索用户
                     startActivity(new Intent(mContext, SearchActivity.class)
                             .putExtra(SystemManagementActivity.LABEL, SystemManagementActivity.LABEL_VALUE_SEARCH_USER)
                     );
@@ -114,21 +122,23 @@ public class SystemManagementActivity extends BaseActivity<SystemManagementPrese
     protected void initView() {
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mViewPager = (XViewPager) findViewById(R.id.view_pager);
+        topTitle = (TextView) findViewById(R.id.bt_tv_title);
+
     }
 
     @Override
     protected void initListener() {
-        setTopTitle("单位管理");
+        topTitle.setText("单位管理");
     }
 
     @Override
     protected void initData() {
         curTab = getIntent().getIntExtra("curTab", 0);
-        if (mPresenter != null) mPresenter.init();
+//        if (mPresenter != null) mPresenter.init();
     }
 
     @Override
-    public void setViewPage(List<String> titles, ArrayList<Fragment> xFragment) {
+    public void setViewPage(List<String> titles, final ArrayList<Fragment> xFragment) {
         //设置TabLayout的样式
         LinearLayout linearLayout = (LinearLayout) mTabLayout.getChildAt(0);
         linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
@@ -146,6 +156,7 @@ public class SystemManagementActivity extends BaseActivity<SystemManagementPrese
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 setTopTitle(tab.getText().toString());
+                ((SystemManagementFragment) xFragmentPagerAdapter.getItem(tab.getPosition())).sendMessage(tab.getPosition());
             }
 
             @Override
@@ -179,4 +190,9 @@ public class SystemManagementActivity extends BaseActivity<SystemManagementPrese
             }
         });
     }
+
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//    }
 }

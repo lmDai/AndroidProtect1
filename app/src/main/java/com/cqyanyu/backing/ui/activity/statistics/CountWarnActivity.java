@@ -84,6 +84,6 @@ public class CountWarnActivity extends BaseActivity<CountAlarmListPresenter> imp
             hashMap = MyDate.getFirstday_Lastday_Month(date);
             return MyDate.stringToLong(hashMap.get("last"), "yyyy-MM-dd HH:mm:ss") / 1000 + "";
         }
-        return getIntent().getLongExtra("date", (long) 0) + 86399 + "";
+        return getIntent().getLongExtra("date", (long) 0) + 86400 + "";
     }
 }

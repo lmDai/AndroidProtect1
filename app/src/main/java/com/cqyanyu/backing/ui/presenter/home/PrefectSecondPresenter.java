@@ -33,7 +33,7 @@ public class PrefectSecondPresenter extends XPagePresenter<PrefectSecondView> {
     @Override
     protected ParamsMap getParamsMap() {
         ParamsMap paramsMap = new ParamsMap();
-        paramsMap.put("mproblemid",getView().getmTypeId());
+        paramsMap.put("mproblemid", getView().getmTypeId());
         paramsMap.put("mcondition", getView().getmCondition());
         paramsMap.put("pageindex", pageindex + "");
         paramsMap.put("count", "" + pagecount);

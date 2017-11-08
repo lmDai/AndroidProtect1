@@ -11,6 +11,14 @@ public class PublicResourceEntity {
     double latitude;
     double longitude;
 
+    public PublicResourceEntity(int type, String name, String describe, double latitude, double longitude) {
+        this.type = type;
+        this.name = name;
+        this.describe = describe;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     public int getType() {
         return type;
     }

@@ -24,9 +24,18 @@ public class UnitEntity {
     private String unitstr;
     private String childunitcount;
     private String childbuildcount;
+    private String childdevicecount;
     private String typeid;
     private String pid;
     private String oid;
+
+    public String getChilddevicecount() {
+        return childdevicecount;
+    }
+
+    public void setChilddevicecount(String childdevicecount) {
+        this.childdevicecount = childdevicecount;
+    }
 
     public String getSelevelid() {
         return selevelid;

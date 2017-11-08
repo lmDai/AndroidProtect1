@@ -2,21 +2,18 @@ package com.cqyanyu.backing.ui.holder.warn;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.cqyanyu.backing.CommonInfo;
 import com.cqyanyu.backing.R;
-import com.cqyanyu.backing.manger.InfoManger;
 import com.cqyanyu.backing.ui.activity.alarm.HandleActivity;
 import com.cqyanyu.backing.ui.activity.alarm.PositionActivity;
 import com.cqyanyu.backing.ui.entity.home.AlarmNHEntity;
 import com.cqyanyu.backing.ui.widget.app.XTextView;
 import com.cqyanyu.backing.utils.MyDate;
+import com.cqyanyu.backing.utils.MyPosition;
 import com.cqyanyu.mvpframework.utils.XScreenUtils;
-import com.cqyanyu.mvpframework.utils.XToastUtil;
 import com.cqyanyu.mvpframework.view.recyclerView.IViewHolder;
 import com.cqyanyu.mvpframework.view.recyclerView.XViewHolder;
 
@@ -70,14 +67,14 @@ public class AlarmHolder extends IViewHolder {
             /**设置设备编号*/
             tvSn.setText(itemData.getSn());
             /**设置位置*/
-            /**设置位置*/
-            if (!TextUtils.isEmpty(itemData.getPosition()) && CommonInfo.getInstance().getUserInfo().isnode()) {
-                tvLocal.setText(itemData.getBuildstr() + "@" + itemData.getPosition());
-            } else if (CommonInfo.getInstance().getUserInfo().isnode()) {
-                tvLocal.setText(itemData.getBuildstr());
-            } else {
-                tvLocal.setText(itemData.getUnitstr() + "@" + itemData.getBuildstr() + "@" + itemData.getPosition());
-            }
+            tvLocal.setText(MyPosition.formatPosition(itemData.getUnitstr(), itemData.getBuildstr(), itemData.getPosition()));
+//            if (!TextUtils.isEmpty(itemData.getPosition()) && CommonInfo.getInstance().getUserInfo().isnode()) {
+//                tvLocal.setText(itemData.getBuildstr() + "@" + itemData.getPosition());
+//            } else if (CommonInfo.getInstance().getUserInfo().isnode()) {
+//                tvLocal.setText(itemData.getBuildstr());
+//            } else {
+//                tvLocal.setText(itemData.getUnitstr() + "@" + itemData.getBuildstr() + "@" + itemData.getPosition());
+//            }
             /**设置时间*/
             tvDate.setText(MyDate.getFormatDate(itemData.getReportdate()));
             /** 设置故障(图很多)*/
@@ -105,7 +102,6 @@ public class AlarmHolder extends IViewHolder {
                     break;
                 case R.id.tv_subtitle:
                     //处理
-                    if (InfoManger.getInstance().isPermission("69")) {
                         //if (mContext instanceof MainActivity) {
                         String label = "";
                         switch (itemData.getAffairid()) {
@@ -121,10 +117,6 @@ public class AlarmHolder extends IViewHolder {
                                     .putExtra(HandleActivity.LABEL, label)
                                     .putExtra(HandleActivity.KEY_ENTITY, itemData));
                         }
-                        //}
-                    } else {
-                        XToastUtil.showToast("暂不拥有该权限！");
-                    }
                     break;
             }
         }

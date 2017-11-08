@@ -153,44 +153,49 @@ public class AddUserPresenter extends BasePresenter<AddUserView> {
     public void modifyUserInfo() {
         if (getView() != null && entity != null) {
             if (TextUtils.equals(getView().getLabel(), AddUserActivity.LABEL_VALUE_EDIT) && entity != null) {
-                //当前页面是编辑页面时
-                ParamsMap paramsMap = new ParamsMap();
-                paramsMap.put("oid", entity.getOid());//用户 ID
-                paramsMap.put("roleid", getView().getRole());
-                paramsMap.put("userstr", getView().getUsername());//创建人 ID
-                paramsMap.put("unitid", getView().getUnit());//单位
-                paramsMap.put("phone", getView().getTelephone());//用户电话
-                // paramsMap.put("remark", TextUtils.isEmpty(entity.getRemark()) ? null : entity.getRemark());//备注
-                XHttpUtils.post(context, paramsMap, ConstHost.MODIFY_USER_URL, NetDialogUtil.showLoadDialog(context, R.string.text_loading), new XICallbackString() {
-                    @Override
-                    public void onSuccess(String result) {
-                        if (getView() != null) {
-                            if (!TextUtils.isEmpty(result)) {
+                if (TextUtils.equals(entity.getRoleid(), getView().getRole()) && TextUtils.equals(entity.getUnitid(), getView().getUnit())
+                        && TextUtils.equals(entity.getPhone(), getView().getTelephone()) && TextUtils.equals(entity.getUserstr(), getView().getUsername())) {
+                    XToastUtil.showToast("暂无修改任何数据");
+                } else {
+                    //当前页面是编辑页面时
+                    ParamsMap paramsMap = new ParamsMap();
+                    paramsMap.put("oid", entity.getOid());//用户 ID
+                    paramsMap.put("roleid", getView().getRole());
+                    paramsMap.put("userstr", getView().getUsername());//创建人 ID
+                    paramsMap.put("unitid", getView().getUnit());//单位
+                    paramsMap.put("phone", getView().getTelephone());//用户电话
+                    // paramsMap.put("remark", TextUtils.isEmpty(entity.getRemark()) ? null : entity.getRemark());//备注
+                    XHttpUtils.post(context, paramsMap, ConstHost.MODIFY_USER_URL, NetDialogUtil.showLoadDialog(context, R.string.text_loading), new XICallbackString() {
+                        @Override
+                        public void onSuccess(String result) {
+                            if (getView() != null) {
+                                if (!TextUtils.isEmpty(result)) {
 //                                if (TextUtils.equals(result, "0")) {
 //                                    XToastUtil.showToast("修改失败");
 //                                } else {
-                                XToastUtil.showToast(result);
-                                //更新上一个页面
+                                    XToastUtil.showToast(result);
+                                    //更新上一个页面
 //                                context.startActivity(new Intent(context, SystemManagementActivity.class)
 //                                        .putExtra("curTab", 2));
 //                                context.finish();
-                                EventBus.getDefault().post(new ItemEvent(ItemEvent.ACTIVITY.SystemManagementFragment, ItemEvent.ACTION.refreshing));
-                                context.finish();
+                                    EventBus.getDefault().post(new ItemEvent(ItemEvent.ACTIVITY.SystemManagementFragment, ItemEvent.ACTION.refreshing));
+                                    context.finish();
 //                                }
+                                }
                             }
                         }
-                    }
 
-                    @Override
-                    public void onFail(String msg) {
+                        @Override
+                        public void onFail(String msg) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onFinished() {
+                        @Override
+                        public void onFinished() {
 
-                    }
-                });
+                        }
+                    });
+                }
             }
         }
     }

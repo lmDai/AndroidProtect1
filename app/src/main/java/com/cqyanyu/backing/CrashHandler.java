@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.cqyanyu.backing.utils.TerminalUtils;
 import com.cqyanyu.backing.utils.XAppUtils;
+import com.cqyanyu.mvpframework.utils.XDateUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -187,8 +188,9 @@ public class CrashHandler implements UncaughtExceptionHandler {
         sb.append(result);
         try {
             long timestamp = System.currentTimeMillis();
+            String formatTime = XDateUtil.getStringByFormat(timestamp, "yyyy-MM-dd-HH-mm-ss");
             String time = formatter.format(new Date());
-            String fileName = "/" + CommonInfo.getInstance().getUserInfo().getPhone() + "_" + TerminalUtils.getTerminalName() + timestamp + ".log";
+            String fileName = "/" + CommonInfo.getInstance().getUserInfo().getPhone() + "_" + TerminalUtils.getTerminalName() + formatTime + ".log";
             String path = XAppUtils.instance().getFileKeep(mContext);
             File dir = new File(path);
             if (!dir.exists()) {

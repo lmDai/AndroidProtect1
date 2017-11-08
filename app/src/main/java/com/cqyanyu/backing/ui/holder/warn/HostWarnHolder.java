@@ -2,18 +2,17 @@ package com.cqyanyu.backing.ui.holder.warn;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.cqyanyu.backing.CommonInfo;
 import com.cqyanyu.backing.R;
 import com.cqyanyu.backing.ui.activity.alarm.PositionActivity;
 import com.cqyanyu.backing.ui.activity.home.WarnReportActivity;
 import com.cqyanyu.backing.ui.entity.warn.HostWarnEntity;
 import com.cqyanyu.backing.ui.widget.app.XTextView;
 import com.cqyanyu.backing.utils.MyDate;
+import com.cqyanyu.backing.utils.MyPosition;
 import com.cqyanyu.mvpframework.utils.XScreenUtils;
 import com.cqyanyu.mvpframework.view.recyclerView.IViewHolder;
 import com.cqyanyu.mvpframework.view.recyclerView.XViewHolder;
@@ -69,13 +68,14 @@ public class HostWarnHolder extends IViewHolder {
             tvTitle.setText(itemData.getTypestr());
             /**设置设备编号*/
             tvSn.setText(itemData.getSn());
-            if (!TextUtils.isEmpty(itemData.getPosition()) && CommonInfo.getInstance().getUserInfo().isnode()) {
-                tvLocal.setText(itemData.getBuildstr() + "@" + itemData.getPosition());
-            }else if (CommonInfo.getInstance().getUserInfo().isnode()) {
-                tvLocal.setText(itemData.getBuildstr());
-            }  else {
-                tvLocal.setText(itemData.getUnitstr() + "@" + itemData.getBuildstr() + "@" + itemData.getPosition());
-            }
+            tvLocal.setText(MyPosition.formatPosition(itemData.getUnitstr(), itemData.getBuildstr(), itemData.getPosition()));
+//            if (!TextUtils.isEmpty(itemData.getPosition()) && CommonInfo.getInstance().getUserInfo().isnode()) {
+//                tvLocal.setText(itemData.getBuildstr() + "@" + itemData.getPosition());
+//            }else if (CommonInfo.getInstance().getUserInfo().isnode()) {
+//                tvLocal.setText(itemData.getBuildstr());
+//            }  else {
+//                tvLocal.setText(itemData.getUnitstr() + "@" + itemData.getBuildstr() + "@" + itemData.getPosition());
+//            }
             tvReportCount.setText(itemData.getTotalcount());
             /**设置时间*/
             tvDate.setText(MyDate.getFormatDate(itemData.getLastdate()));

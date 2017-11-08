@@ -1,0 +1,47 @@
+apply plugin: 'com.android.library'
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'hellodaemon'
+
+    publishedGroupId = 'com.xdandroid'
+    libraryName = 'HelloDaemon'
+    artifact = 'hellodaemon'
+
+    libraryDescription = 'Android service daemon using JobScheduler.'
+
+    siteUrl = 'https://github.com/xingda920813/HelloDaemon'
+    gitUrl = 'https://github.com/xingda920813/HelloDaemon.git'
+
+    libraryVersion = '1.2.2'
+
+    developerId = 'xingda920813'
+    developerName = 'Da Xing'
+    developerEmail = '570396198@qq.com'
+
+    licenseName = 'The MIT License (MIT)'
+    licenseUrl = 'https://opensource.org/licenses/MIT'
+    allLicenses = ["MIT"]
+}
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION as int
+    buildToolsVersion BUILD_TOOLS_VERSION
+    defaultPublishConfig "debug"
+    defaultConfig {
+        minSdkVersion MIN_SDK_VERSION as int
+        targetSdkVersion TARGET_SDK_VERSION as int
+        versionCode VERSION_CODE as int
+        versionName VERSION_NAME
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile 'io.reactivex.rxjava2:rxjava:2.0.5'
+}

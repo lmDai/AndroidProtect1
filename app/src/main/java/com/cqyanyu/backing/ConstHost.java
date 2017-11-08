@@ -287,7 +287,7 @@ public final class ConstHost {
      * 获取宣传文档
      */
     public static final String GET_TRAINING_URL = XMeatUrl.getHostUrl() + "/lierature/getliteraturefile";
-    public static final String GET_VOICE=XMeatUrl.getHostUrl()+"/lierature/getliteraturefilewithcondition";
+    public static final String GET_VOICE = XMeatUrl.getHostUrl() + "/lierature/getliteraturefilewithcondition";
 
     /**
      * 根据条件获取主机告警信息
@@ -296,6 +296,7 @@ public final class ConstHost {
     public static final String GET_HOST_ALARM_URL = XMeatUrl.getHostUrl() + "/alarm/getAlarmDevice";
     public static final String GET_HOST_ALARM_REPORT_URL = XMeatUrl.getHostUrl() + "/alarm/getAlarmDeviceDetails";
     public static final String GET_WARN_SYSTEM_URL = XMeatUrl.getHostUrl() + "/alarm/getWarnDevice";
+    public static final String GET_WARN_New_URL = XMeatUrl.getHostUrl() + "/alarm/getWarnReportNHDetails";
     public static final String GET_WARN_REPORT_URL = XMeatUrl.getHostUrl() + "/alarm/getWarnDeviceDetails ";
 
     /**
@@ -303,6 +304,7 @@ public final class ConstHost {
      */
     public static final String GET_Home_Alarm_URL = XMeatUrl.getHostUrl() + "/alarm/getAlarmReportNHDetails";
     public static final String GET_Home_Warn_URL = XMeatUrl.getHostUrl() + "/alarm/getWarnReportNHDetails";
+    public static final String GET_Home_Warn_NEW_URL = XMeatUrl.getHostUrl() + "/alarm/getWarnReportNHDetails";
     /**
      * 根据条件获取预警告警信息
      */

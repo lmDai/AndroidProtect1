@@ -6,11 +6,11 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.cqyanyu.backing.CommonInfo;
 import com.cqyanyu.backing.R;
 import com.cqyanyu.backing.ui.activity.alarm.PositionActivity;
 import com.cqyanyu.backing.ui.activity.home.WaterSystemReportActivity;
 import com.cqyanyu.backing.ui.entity.warn.WaterSystemEntity;
+import com.cqyanyu.backing.utils.MyPosition;
 import com.cqyanyu.backing.utils.NumberUtils;
 import com.cqyanyu.mvpframework.utils.XDateUtil;
 import com.cqyanyu.mvpframework.utils.XScreenUtils;
@@ -63,13 +63,14 @@ public class WaterSystemHolder extends IViewHolder {
         protected void onBindData(WaterSystemEntity itemData) {
             tvCount.setText(NumberUtils.setDecimal((float) (itemData.getTotalcount() * 10 / 60.0 / 24.0)) + "天");
             /**设置位置*/
-            if (!TextUtils.isEmpty(itemData.getPosition()) && CommonInfo.getInstance().getUserInfo().isnode()) {
-                tvPosition.setText(itemData.getBuildstr() + "@" + itemData.getPosition());
-            } else if (CommonInfo.getInstance().getUserInfo().isnode()) {
-                tvPosition.setText(itemData.getBuildstr());
-            } else {
-                tvPosition.setText(itemData.getUnitstr() + "@" + itemData.getBuildstr() + "@" + itemData.getPosition());
-            }
+            tvPosition.setText(MyPosition.formatPosition(itemData.getUnitstr(), itemData.getBuildstr(), itemData.getPosition()));
+//            if (!TextUtils.isEmpty(itemData.getPosition()) && CommonInfo.getInstance().getUserInfo().isnode()) {
+//                tvPosition.setText(itemData.getBuildstr() + "@" + itemData.getPosition());
+//            } else if (CommonInfo.getInstance().getUserInfo().isnode()) {
+//                tvPosition.setText(itemData.getBuildstr());
+//            } else {
+//                tvPosition.setText(itemData.getUnitstr() + "@" + itemData.getBuildstr() + "@" + itemData.getPosition());
+//            }
             tvReportDate.setText(XDateUtil.getStringByFormatFromStr(String.valueOf(itemData.getLastdate()), "yyyy-MM-dd HH:mm:ss"));
             tvPosition.setOnClickListener(this);
             tvCount.setOnClickListener(this);
@@ -80,7 +81,8 @@ public class WaterSystemHolder extends IViewHolder {
 
         //设置标题图片
         private void setTitleIcon() {
-            String val = setDecimalFloat((float) itemData.getVal() / 1000f);
+            short hval = (short) itemData.getVal();
+            String val = setDecimalFloat((float) hval / 1000f);
             if (TextUtils.equals("66", itemData.getTypeid() + "")) {
                 tvSn.setText("水压：" + val + "MPa" + "\n" + itemData.getSn());
                 tvSn.setCompoundDrawablePadding(XScreenUtils.dip2px(mContext, 4));

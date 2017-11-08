@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.cqyanyu.backing.R;
 import com.cqyanyu.backing.ui.activity.alarm.PositionActivity;
 import com.cqyanyu.backing.ui.entity.warn.WaterSystemEntity;
+import com.cqyanyu.backing.utils.MyPosition;
 import com.cqyanyu.backing.utils.NumberUtils;
 import com.cqyanyu.mvpframework.utils.XDateUtil;
 import com.cqyanyu.mvpframework.utils.XScreenUtils;
@@ -59,9 +60,10 @@ public class CountWarnHolder extends IViewHolder {
         @Override
         protected void onBindData(WaterSystemEntity itemData) {
             tvNum.setText(getAdapterPosition() + 1 + "");
-            tvCount.setText(NumberUtils.setDecimal((float) (itemData.getTotalcount() * 10 / 60.0 / 24.0)) + "天");
-            tvPosition.setText(!TextUtils.isEmpty(itemData.getPosition()) ? (itemData.getBuildstr() + "@" + itemData.getPosition()) : itemData.getBuildstr());
-            tvReportDate.setText(XDateUtil.getStringByFormatFromStr(String.valueOf(itemData.getLastdate()), "yyyy-MM-dd HH:mm:ss"));
+            tvCount.setText(NumberUtils.setDecimal((float) itemData.getDurationsec() / 86400) + "天");
+            tvPosition.setText(MyPosition.formatPosition(itemData.getUnitstr(), itemData.getBuildstr(), itemData.getPosition()));
+            //tvPosition.setText(!TextUtils.isEmpty(itemData.getPosition()) ? (itemData.getBuildstr() + "@" + itemData.getPosition()) : itemData.getBuildstr());
+            tvReportDate.setText(XDateUtil.getStringByFormatFromStr(String.valueOf(itemData.getReportlastdate()), "yyyy-MM-dd HH:mm:ss"));
             tvPosition.setOnClickListener(this);
             setStatus();
             setTitleIcon();
@@ -69,25 +71,31 @@ public class CountWarnHolder extends IViewHolder {
 
         //设置标题图片
         private void setTitleIcon() {
-            String val = itemData.getSn() + "  " + setDecimalFloat((float) itemData.getVal() / 1000f);
+            short hval = (short) itemData.getVal();
+            String val = itemData.getSn() + "  " + setDecimalFloat((float) hval / 1000f);
             if (TextUtils.equals("66", itemData.getTypeid() + "")) {
-                tvSn.setText(val + "MPa");
+                tvSn.setText("水压:" + val + "MPa" + "\n" + itemData.getSn());
+                //tvSn.setText(val + "MPa");
                 tvSn.setCompoundDrawablePadding(XScreenUtils.dip2px(mContext, 4));
                 tvSn.setCompoundDrawablesWithIntrinsicBounds(mContext.getResources().getDrawable(R.mipmap.ic_suiya), null, null, null);
             } else if (TextUtils.equals("67", itemData.getTypeid() + "")) {
-                tvSn.setText(val + "M");
+                tvSn.setText("液位:" + val + "M" + "\n" + itemData.getSn());
+                //tvSn.setText(val + "M");
                 tvSn.setCompoundDrawablePadding(XScreenUtils.dip2px(mContext, 4));
                 tvSn.setCompoundDrawablesWithIntrinsicBounds(mContext.getResources().getDrawable(R.mipmap.ic_yewei), null, null, null);
             }
         }
 
         private void setStatus() {
-            if (itemData.getReporteventid() == 2) {
+            int eventid = itemData.getReportevent();
+            if (eventid == 2) {
                 tvStatus.setText("偏低");
                 tvStatus.setOnClickListener(this);
-            } else if (itemData.getReporteventid() == 1) {
+                tvStatus.setTextColor(mContext.getResources().getColor(R.color.color_red));
+            } else if (eventid == 1) {
                 tvStatus.setText("偏高");
                 tvStatus.setOnClickListener(this);
+                tvStatus.setTextColor(mContext.getResources().getColor(R.color.color_red));
             } else {
                 tvStatus.setText("正常");
                 tvCount.setText(0 + "天");

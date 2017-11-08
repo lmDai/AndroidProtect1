@@ -21,16 +21,20 @@ public class ClearEditText extends EditText implements View.OnFocusChangeListene
     private Drawable mClearDrawable;
     // 控件是否有焦点
     private boolean hasFoucs;
+
     public ClearEditText(Context context) {
         this(context, null);
     }
+
     public ClearEditText(Context context, AttributeSet attrs) {
         this(context, attrs, android.R.attr.editTextStyle);
     }
+
     public ClearEditText(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
     }
+
     private void init() {
         // 获取EditText的DrawableRight,假如没有设置使用默认的图片
         mClearDrawable = getCompoundDrawables()[2];
@@ -47,6 +51,7 @@ public class ClearEditText extends EditText implements View.OnFocusChangeListene
         // 设置输入框里面内容发生改变的监听
         addTextChangedListener(this);
     }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -60,6 +65,7 @@ public class ClearEditText extends EditText implements View.OnFocusChangeListene
         }
         return super.onTouchEvent(event);
     }
+
     /**
      * 当ClearEditText焦点发生变化的时候，判断里面字符串长度设置清除图标的显示与隐藏
      */
@@ -72,6 +78,7 @@ public class ClearEditText extends EditText implements View.OnFocusChangeListene
             setClearIconVisible(false);
         }
     }
+
     /**
      * 设置清除图标的显示与隐藏，调用setCompoundDrawables为EditText绘制上去
      */
@@ -80,6 +87,7 @@ public class ClearEditText extends EditText implements View.OnFocusChangeListene
         setCompoundDrawables(getCompoundDrawables()[0],
                 getCompoundDrawables()[1], right, getCompoundDrawables()[3]);
     }
+
     /**
      * 当输入框里面内容发生变化的时候回调的方法
      */
@@ -89,10 +97,12 @@ public class ClearEditText extends EditText implements View.OnFocusChangeListene
             setClearIconVisible(s.length() > 0);
         }
     }
+
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count,
                                   int after) {
     }
+
     @Override
     public void afterTextChanged(Editable s) {
     }

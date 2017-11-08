@@ -14,7 +14,6 @@ import com.cqyanyu.backing.CommonInfo;
 import com.cqyanyu.backing.R;
 import com.cqyanyu.backing.ui.entity.home.ChildAlarmDetailsEntity;
 import com.cqyanyu.backing.ui.net.XHttpUtils;
-import com.cqyanyu.mvpframework.utils.XDateUtil;
 import com.cqyanyu.mvpframework.view.recyclerView.IViewHolder;
 import com.cqyanyu.mvpframework.view.recyclerView.XViewHolder;
 import com.pictureselect.photopicker.PhotoPreview;
@@ -34,12 +33,11 @@ public class ChildAlarmDeviceHolder extends IViewHolder {
 
     @Override
     public int getLayout() {
-        return R.layout.item_set_inspection;
+        return R.layout.item_child_alarm_device;
     }
 
     private class ViewHolder extends XViewHolder<ChildAlarmDetailsEntity> {
         TextView tvCode;
-        TextView tvDate;
         TextView tvSetPosition;
         ImageView imgOne, imgTwo, imgThere;
         TextView tvNum;
@@ -52,8 +50,6 @@ public class ChildAlarmDeviceHolder extends IViewHolder {
         @Override
         protected void initView(View rootView) {
             tvCode = (TextView) rootView.findViewById(R.id.tv_code);
-            tvDate = (TextView) rootView.findViewById(R.id.tv_date);
-            llModel = (LinearLayout) rootView.findViewById(R.id.ll_model);
             tvSetPosition = (TextView) rootView.findViewById(R.id.tv_set_position);
             imgOne = (ImageView) rootView.findViewById(R.id.img_one);
             imgTwo = (ImageView) rootView.findViewById(R.id.img_two);
@@ -66,13 +62,9 @@ public class ChildAlarmDeviceHolder extends IViewHolder {
 
         @Override
         protected void onBindData(ChildAlarmDetailsEntity itemData) {
-            llModel.setVisibility(View.GONE);
             /** 设置设备名称*/
             if (!TextUtils.isEmpty(itemData.getSn())) {
                 tvCode.setText(itemData.getSn());
-            }
-            if (!TextUtils.isEmpty(itemData.getCreatedate() + "")) {
-                tvDate.setText(XDateUtil.getStringByFormatFromStr(itemData.getCreatedate(), "yyyy-MM-dd"));
             }
             if (!TextUtils.isEmpty(itemData.getPosition())) {
                 tvSetPosition.setText(itemData.getPosition());

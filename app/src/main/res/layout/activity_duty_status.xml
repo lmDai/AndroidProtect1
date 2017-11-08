@@ -19,7 +19,42 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_4"
+                android:background="@drawable/bg_login_input"
+                android:paddingLeft="@dimen/dp_12">
 
+                <com.cqyanyu.backing.ui.widget.app.ClearableEditText
+                    android:id="@+id/edt_search"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp_36"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:padding="@dimen/dp_4"
+                    android:singleLine="true" />
+
+                <ImageView
+                    android:id="@+id/img_saoyisao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/common_margin"
+                    android:src="@mipmap/ic_sapyisao"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/img_search"
+                    android:layout_width="@dimen/dp_36"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:paddingLeft="@dimen/dp_4"
+                    android:paddingRight="@dimen/dp_4"
+                    android:src="@mipmap/ic_search" />
+            </LinearLayout>
             <include layout="@layout/recycler_view" />
 
         </LinearLayout>

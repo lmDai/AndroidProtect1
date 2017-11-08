@@ -52,6 +52,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     private XTextView tvWarning;
     private XTextView tvFault;
     private GridView gridView;
+    private boolean isFirstVisible = true;
+    private boolean isVisiBleToUser;
 
     @Override
     protected HomePresenter createPresenter() {
@@ -95,9 +97,22 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         if (mPresenter != null) mPresenter.init();
     }
 
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        if (isVisibleToUser && !isLoadData) {
+//            if (mPresenter != null) mPresenter.init();
+//            isLoadData = true;
+//        } else {
+//
+//        }
+//    }
+
     @Override
     public void onResume() {
-        if (mPresenter != null) mPresenter.refresh();
+        if (isVisiBleToUser && !isFirstVisible && mPresenter != null) {
+            if (mPresenter != null) mPresenter.refresh();
+        }
         super.onResume();
     }
 
@@ -143,7 +158,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
 
     @Override
     public void setHomeItem(List<HomeBean> mList) {
-        adapter.setList(mList);
+        if (adapter != null)
+            adapter.setList(mList);
     }
 
     @Override
@@ -179,52 +195,67 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.layout_total://设备数
-                if (InfoManger.getInstance().isPermission("44")) {
+            case R.id.layout_total:
+                if (InfoManger.getInstance().isPermission("44")) {//设备数
                     startActivity(new Intent(mContext, TotalSetActivity.class));
                 } else {
                     XToastUtil.showToast("暂不拥有该权限！");
                 }
                 break;
 
-            case R.id.layout_check://巡检率
-                if (InfoManger.getInstance().isPermission("45")) {
+            case R.id.layout_check:
+                if (InfoManger.getInstance().isPermission("45")) {//巡检率
                     startActivity(new Intent(mContext, CheckRateActivity.class));
                 } else {
                     XToastUtil.showToast("暂不拥有该权限！");
                 }
                 break;
 
-            case R.id.layout_prefect://完好率
-                if (InfoManger.getInstance().isPermission("46")) {
+            case R.id.layout_prefect:
+                if (InfoManger.getInstance().isPermission("46")) {//完好率
                     startActivity(new Intent(mContext, PrefectRateActivity.class));
                 } else {
                     XToastUtil.showToast("暂不拥有该权限！");
                 }
                 break;
-            case R.id.tv_fire://火警
-                if (InfoManger.getInstance().isPermission("47")) {
+            case R.id.tv_fire:
+                if (InfoManger.getInstance().isPermission("47")) {//火警
                     startActivity(new Intent(mContext, FireActivity.class));
                 } else {
                     XToastUtil.showToast("暂不拥有该权限！");
                 }
                 break;
 
-            case R.id.tv_warning://预警
-                if (InfoManger.getInstance().isPermission("48")) {
+            case R.id.tv_warning:
+                if (InfoManger.getInstance().isPermission("48")) {//预警
                     startActivity(new Intent(mContext, WarningActivity.class));
                 } else {
                     XToastUtil.showToast("暂不拥有该权限！");
                 }
                 break;
 
-            case R.id.tv_fault://故障
-                if (InfoManger.getInstance().isPermission("49")) {
+            case R.id.tv_fault:
+                if (InfoManger.getInstance().isPermission("49")) {//故障
                     startActivity(new Intent(mContext, FaultActivity.class));
                 } else {
                     XToastUtil.showToast("暂不拥有该权限！");
                 }
                 break;
         }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        this.isVisiBleToUser = isVisibleToUser;
+        if (isVisibleToUser) {
+            if (isFirstVisible) {
+                if (mPresenter != null) mPresenter.refresh();
+                isFirstVisible = false;
+            }
+        } else {
+            isFirstVisible = true;
+            this.isVisiBleToUser = false;
+        }
+        super.setUserVisibleHint(isVisibleToUser);
     }
 }

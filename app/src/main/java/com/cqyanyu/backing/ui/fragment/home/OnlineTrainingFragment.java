@@ -54,14 +54,14 @@ public class OnlineTrainingFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iov_online_answer:
-                if (InfoManger.getInstance().isPermission("55")) {
+                if (InfoManger.getInstance().isPermission("178")) {//在线答题
                     startActivity(new Intent(mContext, OnLineAnswerActivity.class));
                 } else {
                     XToastUtil.showToast("暂不拥有该权限！");
                 }
                 break;
             case R.id.iov_fire_knowledge:
-                if (InfoManger.getInstance().isPermission("54")) {
+                if (InfoManger.getInstance().isPermission("177")) {//消防知识
                     startActivity(new Intent(mContext, FireKnowledgeActivity.class));
                 } else {
                     XToastUtil.showToast("暂不拥有该权限！");

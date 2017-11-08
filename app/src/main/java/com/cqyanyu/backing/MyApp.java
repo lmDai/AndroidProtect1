@@ -10,9 +10,11 @@ import com.alibaba.sdk.android.push.register.HuaWeiRegister;
 import com.alibaba.sdk.android.push.register.MiPushRegister;
 import com.baidu.mapapi.SDKInitializer;
 import com.cqyanyu.backing.ui.activity.login.LoginActivity;
+import com.cqyanyu.backing.ui.socket.SocketServer;
 import com.cqyanyu.backing.utils.XMetaUtil;
 import com.cqyanyu.mvpframework.X;
 import com.cqyanyu.mvpframework.XApplication;
+import com.xdandroid.hellodaemon.DaemonEnv;
 
 /**
  * 入口
@@ -28,12 +30,16 @@ public class MyApp extends XApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        //需要在 Application 的 onCreate() 中调用一次 DaemonEnv.initialize()
+        DaemonEnv.initialize(this, SocketServer.class, DaemonEnv.DEFAULT_WAKE_UP_INTERVAL);
+        SocketServer.sShouldStopService = false;
+        DaemonEnv.startServiceMayBind(SocketServer.class);
         instance = this;
         initSDK();
         initBaiDuMap();
         initCloudChannel(this);
-        CrashHandler crashHandler = CrashHandler.getInstance();
-        crashHandler.init(getApplicationContext());
+//        CrashHandler crashHandler = CrashHandler.getInstance();
+//        crashHandler.init(getApplicationContext());
     }
 
     /**

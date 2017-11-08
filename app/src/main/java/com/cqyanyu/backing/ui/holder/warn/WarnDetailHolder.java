@@ -11,7 +11,6 @@ import com.cqyanyu.mvpframework.view.recyclerView.IViewHolder;
 import com.cqyanyu.mvpframework.view.recyclerView.XViewHolder;
 
 
-
 /**
  * 预警item view
  * Created by Administrator on 2017/6/11 0011.

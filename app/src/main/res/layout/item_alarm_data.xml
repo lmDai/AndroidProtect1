@@ -22,12 +22,12 @@
         android:background="@color/color_line" />
 
     <LinearLayout
-        android:id="@+id/ll_alarm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <!--报警总数-->
         <LinearLayout
+            android:id="@+id/ll_alarm"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -57,6 +57,7 @@
             android:background="@color/color_line" />
         <!--报警未处理-->
         <LinearLayout
+            android:id="@+id/ll_no_alarm"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -78,6 +79,7 @@
                 android:layout_height="@dimen/dp_36"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="@color/color_red"
                 android:hint="1" />
         </LinearLayout>
     </LinearLayout>
@@ -88,12 +90,12 @@
         android:background="@color/color_line" />
 
     <LinearLayout
-        android:id="@+id/ll_problem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <!-- 故障总数-->
         <LinearLayout
+            android:id="@+id/ll_problem"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -123,6 +125,7 @@
             android:background="@color/color_line" />
         <!--故障未处理-->
         <LinearLayout
+            android:id="@+id/ll_no_problem"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -144,6 +147,7 @@
                 android:layout_height="@dimen/dp_36"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="@color/color_red"
                 android:hint="3" />
         </LinearLayout>
     </LinearLayout>
@@ -154,12 +158,12 @@
         android:background="@color/color_line" />
 
     <LinearLayout
-        android:id="@+id/ll_other"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <!--报警总数-->
         <LinearLayout
+            android:id="@+id/ll_other"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -189,6 +193,7 @@
             android:background="@color/color_line" />
         <!--报警未处理-->
         <LinearLayout
+            android:id="@+id/ll_no_other"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -210,6 +215,7 @@
                 android:layout_height="@dimen/dp_36"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="@color/color_red"
                 android:hint="1" />
         </LinearLayout>
     </LinearLayout>

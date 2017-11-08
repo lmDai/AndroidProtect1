@@ -28,24 +28,26 @@ public class SystemManagementPresenter extends BasePresenter<SystemManagementVie
         if (getView() != null) {
             xFragment = new ArrayList<>();
             titles = new ArrayList<>();
-            if (InfoManger.getInstance().isPermission("39")) {
-                addListFragment(SystemManagementFragment.LABEL_VALUE_UNIT);
+            int position = 0;
+            if (InfoManger.getInstance().isPermission("39")) {//单位管理
+                addListFragment(SystemManagementFragment.LABEL_VALUE_UNIT, position++);
             }
-            if (InfoManger.getInstance().isPermission("42")) {
-                addListFragment(SystemManagementFragment.LABEL_VALUE_SET);
+            if (InfoManger.getInstance().isPermission("41")) {//设备管理
+                addListFragment(SystemManagementFragment.LABEL_VALUE_SET, position++);
             }
-            if (InfoManger.getInstance().isPermission("41")) {
-                addListFragment(SystemManagementFragment.LABEL_VALUE_USER);
+            if (InfoManger.getInstance().isPermission("40")) {//用户管理
+                addListFragment(SystemManagementFragment.LABEL_VALUE_USER, position++);
             }
             getView().setViewPage(titles, xFragment);
         }
     }
 
-    private void addListFragment(String label) {
+    private void addListFragment(String label, int tab) {
         SystemManagementFragment mFragment = new SystemManagementFragment();
         Bundle bundle = new Bundle();
         bundle.putString(AlarmFragment.LABEL, label);
         mFragment.setArguments(bundle);
+        mFragment.setTabPos(tab);
         xFragment.add(mFragment);
         titles.add(label);
     }

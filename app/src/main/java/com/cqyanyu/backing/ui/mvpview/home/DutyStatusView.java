@@ -7,4 +7,5 @@ import com.cqyanyu.backing.ui.presenter.base.XPageView;
  * Created by Administrator on 2017/7/10.
  */
 public interface DutyStatusView extends XPageView {
+    String getmCondition();
 }

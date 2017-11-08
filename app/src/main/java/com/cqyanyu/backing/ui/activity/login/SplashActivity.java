@@ -26,6 +26,7 @@ public class SplashActivity extends XBaseActivity<LoginPresenter> implements Log
     @Override
     public void onCreate(Bundle savedInstanceState) {
         startServer();
+//        AppStatusManager.getInstance().setAppStatus(Constant.STATUS_NORMAL);
         super.onCreate(savedInstanceState);
     }
 
@@ -67,7 +68,9 @@ public class SplashActivity extends XBaseActivity<LoginPresenter> implements Log
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 if (!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(passWord)) {
-                    mPresenter.requestLoin();
+                    if (getIntent() != null)
+                        //初始化
+                        if (mPresenter != null) mPresenter.init(true);
                 } else {
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));//跳转到登陆界面
                     finish();
@@ -108,9 +111,9 @@ public class SplashActivity extends XBaseActivity<LoginPresenter> implements Log
     }
 
     @Override
-    public void loginFail(String info) {
-        XToastUtil.showToast(info);
-        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+    public void loginFailed(String msg) {
+        XToastUtil.showToast(msg);
+        startActivity(new Intent(SplashActivity.this, LoginActivity.class).putExtra("autoLogin", false));
         finish();
     }
 }

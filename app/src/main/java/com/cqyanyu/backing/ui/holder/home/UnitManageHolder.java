@@ -71,11 +71,11 @@ public class UnitManageHolder extends IViewHolder {
 
         @Override
         public void onClick(View v) {
-            if (InfoManger.getInstance().isPermission("60")) {
+            if (InfoManger.getInstance().isPermission("61")) {//修改单位
                 mContext.startActivity(new Intent(mContext, AddUnitActivity.class)
                         .putExtra(AddUnitActivity.LABEL, AddUnitActivity.LABEL_VALUE_EDIT)
                         .putExtra("oid", itemData.getOid())
-                        .putExtra("unit",itemData)
+                        .putExtra("unit", itemData)
                 );
             } else {
                 XToastUtil.showToast("暂不拥有编辑权限！");

@@ -53,7 +53,7 @@ public class SharedPreferencesUtils {
         }
     }
 
-    public static void setParam(Context context, String key, String object, String FILE_NAME,int mode) {
+    public static void setParam(Context context, String key, String object, String FILE_NAME, int mode) {
         if (object != null) {
             SharedPreferences sp = context.getSharedPreferences(FILE_NAME, mode);
             SharedPreferences.Editor editor = sp.edit();

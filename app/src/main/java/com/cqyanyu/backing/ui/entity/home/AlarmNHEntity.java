@@ -21,6 +21,15 @@ public class AlarmNHEntity implements Serializable {
     private long reportdate;
     private double longitude;
     private double latitude;
+    private int ishandle;
+
+    public int getIshandle() {
+        return ishandle;
+    }
+
+    public void setIshandle(int ishandle) {
+        this.ishandle = ishandle;
+    }
 
     public String getUnitstr() {
         return unitstr;

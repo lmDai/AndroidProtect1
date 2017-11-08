@@ -3,13 +3,11 @@ package com.cqyanyu.backing.ui.presenter.statistics;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
-import com.cqyanyu.backing.CommonInfo;
 import com.cqyanyu.backing.ConstHost;
 import com.cqyanyu.backing.ui.entity.statistics.AlarmDataEntity;
 import com.cqyanyu.backing.ui.holder.statistics.AlarmDataHolder;
 import com.cqyanyu.backing.ui.mvpview.statistics.AlarmView;
 import com.cqyanyu.backing.ui.presenter.base.XPagePresenter;
-import com.cqyanyu.backing.utils.MyDate;
 import com.cqyanyu.mvpframework.utils.http.ParamsMap;
 
 import java.util.List;
@@ -36,14 +34,14 @@ public class AlarmPresenter extends XPagePresenter<AlarmView> {
     protected ParamsMap getParamsMap() {
         ParamsMap paramsMap = new ParamsMap();
         paramsMap.put("type", String.valueOf(getView().getType()));
-        paramsMap.put("unitid", CommonInfo.getInstance().getUserInfo().getUnitid());
-        if (getView().getType() == 1) {//按日查询
-            paramsMap.put("startdate", MyDate.getFirstOfMonthZero() / 1000 + "");
-            paramsMap.put("enddate", (MyDate.getTodayZero() / 1000) + "");
-        } else if (getView().getType() == 2) {//按月查询
-            paramsMap.put("startdate", MyDate.getFirstOfYearZero() / 1000 + "");
-            paramsMap.put("enddate", MyDate.getEndOfMonthZero() / 1000 + "" + "");
-        }
+        // paramsMap.put("unitid", CommonInfo.getInstance().getUserInfo().getUnitid());
+//        if (getView().getType() == 1) {//按日查询
+//            paramsMap.put("startdate", MyDate.getFirstOfMonthZero() / 1000 + "");
+//            paramsMap.put("enddate", (MyDate.getTodayZero() / 1000) + "");
+//        } else if (getView().getType() == 2) {//按月查询
+//            paramsMap.put("startdate", MyDate.getFirstOfYearZero() / 1000 + "");
+//            paramsMap.put("enddate", MyDate.getEndOfMonthZero() / 1000 + "" + "");
+//        }
         return paramsMap;
     }
 

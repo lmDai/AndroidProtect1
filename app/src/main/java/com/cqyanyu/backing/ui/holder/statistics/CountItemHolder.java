@@ -57,8 +57,8 @@ public class CountItemHolder extends XViewHolder<CountBean> {
     @Override
     public void onClick(View view) {
         switch (itemEntity.getKey_id()) {
-            case 1://设备总数
-                if (InfoManger.getInstance().isPermission("77")) {
+            case 1:
+                if (InfoManger.getInstance().isPermission("73")) {//设备总数
                     if (activity != null) {
                         mContext.startActivity(new Intent(mContext, TotalSetActivity.class));
                     }
@@ -67,16 +67,16 @@ public class CountItemHolder extends XViewHolder<CountBean> {
                 }
                 break;
 
-            case 2://联网单位
-                if (InfoManger.getInstance().isPermission("75")) {
+            case 2:
+                if (InfoManger.getInstance().isPermission("74")) {//联网单位
                     mContext.startActivity(new Intent(mContext, GridSatisticsActivity.class));
                 } else {
                     XToastUtil.showToast("暂不拥有该权限！");
                 }
                 break;
 
-            case 3://告警统计
-                if (InfoManger.getInstance().isPermission("73")) {
+            case 3:
+                if (InfoManger.getInstance().isPermission("75")) {//告警统计
                     mContext.startActivity(new Intent(mContext, AlarmActivity.class));
                 } else {
                     XToastUtil.showToast("暂不拥有该权限！");
@@ -84,16 +84,16 @@ public class CountItemHolder extends XViewHolder<CountBean> {
 
                 break;
 
-            case 6://联网用户(网格员)
-                if (InfoManger.getInstance().isPermission("76")) {
+            case 6:
+                if (InfoManger.getInstance().isPermission("78")) {//联网用户(网格员)
                     mContext.startActivity(new Intent(mContext, GriderActivity.class));
                 } else {
                     XToastUtil.showToast("暂不拥有该权限！");
                 }
                 break;
 
-            case 5://设施巡检
-                if (InfoManger.getInstance().isPermission("74")) {
+            case 5:
+                if (InfoManger.getInstance().isPermission("77")) {//设施巡检
                     mContext.startActivity(new Intent(mContext, InspectionTaskActivity.class));
                 } else {
                     XToastUtil.showToast("暂不拥有该权限！");

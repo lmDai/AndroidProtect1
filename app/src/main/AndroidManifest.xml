@@ -157,7 +157,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.home.SystemManagementActivity"
-            android:label="@string/title_system_management"
+            android:label=""
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.home.MyTaskActivity"
@@ -166,7 +166,8 @@
         <activity
             android:name=".ui.activity.home.DutyStatusActivity"
             android:label="@string/title_duty_status"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateHidden|adjustResize" />
         <activity
             android:name=".ui.activity.home.PropagandaTrainingActivity"
             android:label="@string/title_propaganda_training"
@@ -329,6 +330,15 @@
             android:enabled="true"
             android:exported="true" />
 
+        <receiver android:name=".ui.socket.BootReceiver">
+            <!--<intent-filter>-->
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.BOOT_COMPLETED" />-->
+            <!--<action android:name="android.intent.action.USER_PRESENT" />-->
+            <!--&lt;!&ndash;<action android:name="com.cqyanyu.backing.ui.socket.BootReceiver" />&ndash;&gt;-->
+            <!--</intent-filter>-->
+            <!--</intent-filter>-->
+        </receiver>
         <receiver android:name=".ui.socket.NotificationFireReceiver" />
         <receiver android:name=".ui.socket.NotificationWFaultReceiver" />
         <receiver android:name=".ui.socket.NotificationWarnReceiver" />
@@ -583,7 +593,6 @@
                 android:resource="@xml/file_paths"
                 tools:replace="name,resource" />
         </provider>
-
     </application>
 
 </manifest>

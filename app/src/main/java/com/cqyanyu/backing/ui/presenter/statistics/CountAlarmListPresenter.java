@@ -4,6 +4,8 @@ import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.cqyanyu.backing.ConstHost;
+import com.cqyanyu.backing.ui.activity.statistics.CountFaultActivity;
+import com.cqyanyu.backing.ui.activity.statistics.CountFireActivity;
 import com.cqyanyu.backing.ui.entity.home.AlarmNHEntity;
 import com.cqyanyu.backing.ui.entity.warn.WaterSystemEntity;
 import com.cqyanyu.backing.ui.holder.statistics.CountAlarmHolder;
@@ -53,12 +55,21 @@ public class CountAlarmListPresenter extends XPagePresenter<CountAlarmView> impl
         switch (getView().getType()) {
             //消息类型 0：主机 1：预警
             case 1: //火警
+                if (!TextUtils.equals(getView().getLabel(), CountFireActivity.HANDLE)) {
+                    paramsMap.put("nohandle", "1");
+                }
                 paramsMap.put("affairid", "1");
                 break;
             case 2: //故障
+                if (!TextUtils.equals(getView().getLabel(), CountFaultActivity.HANDLE)) {
+                    paramsMap.put("nohandle", "1");
+                }
                 paramsMap.put("affairid", "2");
                 break;
             case 4: //其他
+                if (!TextUtils.equals(getView().getLabel(), CountFireActivity.HANDLE)) {
+                    paramsMap.put("nohandle", "1");
+                }
                 paramsMap.put("affairid", "3");
                 break;
             case 3://预警
@@ -80,7 +91,7 @@ public class CountAlarmListPresenter extends XPagePresenter<CountAlarmView> impl
             case 4: //其他
                 return ConstHost.GET_ALARM_URL;
             case 3://预警
-                return ConstHost.GET_WARN_SYSTEM_URL;
+                return ConstHost.GET_WARN_New_URL;
         }
         return "";
     }

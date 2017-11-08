@@ -127,6 +127,7 @@ public class NumberUtils {
         DecimalFormat decimalFormat = new DecimalFormat("0.00");//构造方法的字符格式这里如果小数不足2位,会以0补足.
         return decimalFormat.format(params);//format 返回的是字符串
     }
+
     /**
      * 小数点构造
      *
@@ -137,6 +138,7 @@ public class NumberUtils {
         DecimalFormat decimalFormat = new DecimalFormat("0.0");//构造方法的字符格式这里如果小数不足2位,会以0补足.
         return decimalFormat.format(params);//format 返回的是字符串
     }
+
     /**
      * 限制EditText输入数值到小数点后几位
      *

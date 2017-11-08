@@ -88,8 +88,8 @@
     <string name="text_return_num">回复次数</string>
     <string name="text_choice_all">全选</string>
     <string name="text_send">发送</string>
-    <string name="title_check_post">一键查岗</string>
-    <string name="title_local">实时定位</string>
+    <string name="title_check_post">查岗</string>
+    <string name="title_local">定位</string>
     <string name="text_finish_local">结束定位</string>
     <string name="text_device_num">设备数</string>
     <string name="text_check_rate">巡检率</string>

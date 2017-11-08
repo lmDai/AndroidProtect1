@@ -27,18 +27,10 @@ public class MsgCenterPresenter extends BasePresenter<MsgCenterView> {
         if (getView() != null) {
             xFragment = new ArrayList<>();
             titles = new ArrayList<>();
-            if (InfoManger.getInstance().isPermission("90"))
+            if (InfoManger.getInstance().isPermission("82")){//查岗记录
                 addListFragment(MsgCenterFragment.LABEL_VALUE_RECORDS);
-//            if (InfoManger.getInstance().isPermission("82"))
-//                //TODO addListFragment(MsgCenterFragment.LABEL_VALUE_CONSULATION);
-//                if (InfoManger.getInstance().isPermission("83")) {
-//                    //假页面，占位使用
-//                    ExerciseFragment exerciseFragment = new ExerciseFragment();
-//                    xFragment.add(exerciseFragment);
-//                    titles.add(MsgCenterFragment.LABEL_VALUE_SYSTEMINFO);
-//                    // addListFragment(MsgCenterFragment.LABEL_VALUE_SYSTEMINFO);
-//                }
-            if (InfoManger.getInstance().isPermission("84")) {
+            }
+            if (InfoManger.getInstance().isPermission("83")) {//通知通告
                 //假页面，占位使用
                 ExerciseFragment exerciseFragment = new ExerciseFragment();
                 xFragment.add(exerciseFragment);

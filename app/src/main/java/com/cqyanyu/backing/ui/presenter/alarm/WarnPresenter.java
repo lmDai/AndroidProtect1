@@ -25,10 +25,10 @@ public class WarnPresenter extends BasePresenter<WarnView> {
         if (getView() != null) {
             xFragment = new ArrayList<>();
             titles = new ArrayList<>();
-            if (InfoManger.getInstance().isPermission("65")) {
+            if (InfoManger.getInstance().isPermission("161")) {//消防主机
                 addListFragment(AlarmFragment.LABEL_VALUE_HOST);
             }
-            if (InfoManger.getInstance().isPermission("66")) {
+            if (InfoManger.getInstance().isPermission("162")) {//水系统
                 addListFragment(AlarmFragment.LABEL_VALUE_WATER_SYSTEM);
             }
             getView().setViewPage(titles, xFragment);

@@ -13,6 +13,12 @@ public class Constant {
     public static final String MSG = "msg";
     private static final int code = 200;
 
+    public static final int STATUS_FORCE_KILLED = -1;//应用放在后台被强杀了
+    public static final int STATUS_NORMAL = 2; //APP正常态//intent到MainActivity区分跳转目的
+    public static final String KEY_HOME_ACTION = "key_home_action";//返回到主页面
+    public static final int ACTION_BACK_TO_HOME = 0;//默认值
+    public static final int ACTION_RESTART_APP = 1;//被强杀
+
     public static final String KEY_USERNAME = "username";
     public static final String KEY_REMEMBER = "remember_password";
     public static final int PushServer_CMD_Push = 143;
@@ -22,7 +28,11 @@ public class Constant {
     public static final int PushServer_Type_Alarm = 133;
     public static final int PushServer_Type_Duty = 132;
     public static final int PushServer_Type_Inspense = 134;//任务单
-    public static final int PushServer_Type_ReportPosition=135;
+    public static final int PushServer_Type_ReportPosition = 135;
+    public static final int PushServer_Type_Inspection = 136;//巡检提交
+    public static final int PushServer_Type_DeviceUpdate = 137;//设备状态信息改变
+    public static final int PushServer_Type_NoticeHandleAlarm = 138;//通知处理告警消息
+
     /**
      * 是否是有效的网络请求码
      *

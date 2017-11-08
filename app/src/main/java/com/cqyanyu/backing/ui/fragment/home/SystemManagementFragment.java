@@ -1,6 +1,8 @@
 package com.cqyanyu.backing.ui.fragment.home;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,6 +33,10 @@ public class SystemManagementFragment extends BaseFragment<SystemManagementLPres
     private ImageView ivNotData;
     private TextView tvNotData;
     private LinearLayout layoutNotData;
+    private boolean IS_LOADED = false;
+    private static int mSerial = 0;
+    private int mTabPos = 0;
+    private boolean isFirst = true;
 
     @Override
     protected SystemManagementLPresenter createPresenter() {
@@ -58,7 +64,7 @@ public class SystemManagementFragment extends BaseFragment<SystemManagementLPres
 
     @Override
     protected void initData() {
-        if (mPresenter != null) mPresenter.initPresenter();
+//        if (mPresenter != null) mPresenter.initPresenter();
     }
 
     @Override
@@ -81,7 +87,9 @@ public class SystemManagementFragment extends BaseFragment<SystemManagementLPres
         if (itemEvent != null) {
             if (itemEvent.getActivity() == ItemEvent.ACTIVITY.SystemManagementFragment) {
                 if (itemEvent.getAction() == ItemEvent.ACTION.refreshing) {
-                    if (mPresenter != null) mPresenter.refresh();
+                    if (mTabPos == mSerial) {
+                        if (mPresenter != null) mPresenter.refresh();
+                    }
                 }
             }
         }
@@ -89,7 +97,44 @@ public class SystemManagementFragment extends BaseFragment<SystemManagementLPres
 
     @Override
     public void onDestroy() {
+        mTabPos = 0;
+        mSerial = 0;
         EventBus.getDefault().unregister(this);
         super.onDestroy();
+    }
+
+    private Handler handler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            if (!IS_LOADED) {
+                IS_LOADED = true;
+                //这里执行加载数据的操作
+                if (mPresenter != null) mPresenter.initPresenter();
+            }
+            return;
+        }
+    };
+
+    public void setTabPos(int mTabPos) {
+        this.mTabPos = mTabPos;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (isFirst && mTabPos == mSerial) {
+            isFirst = false;
+            sendMessage(mSerial);
+        }
+    }
+
+    public void sendMessage(int mSerial) {
+        this.mSerial = mSerial;
+        Message message = handler.obtainMessage();
+        message.sendToTarget();
     }
 }

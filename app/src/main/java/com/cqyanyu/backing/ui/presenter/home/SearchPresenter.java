@@ -18,7 +18,6 @@ import com.cqyanyu.backing.ui.holder.warn.HostWarnHolder;
 import com.cqyanyu.backing.ui.holder.warn.WaterSystemHolder;
 import com.cqyanyu.backing.ui.mvpview.home.SearchView;
 import com.cqyanyu.backing.ui.presenter.base.XPagePresenter;
-import com.cqyanyu.mvpframework.utils.XLog;
 import com.cqyanyu.mvpframework.utils.http.ParamsMap;
 
 import java.util.List;
@@ -124,7 +123,6 @@ public class SearchPresenter extends XPagePresenter<SearchView> {
                 int count = object.optInt("count");
                 String trueResult = object.optString("rows");
                 List mList = JSON.parseArray(trueResult, getClazz());
-                XLog.i(mList.size() + "");
                 if (mList != null && mList.size() > 0) {
                     /**显示数据*/
                     if (getView() != null) {

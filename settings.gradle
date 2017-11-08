@@ -1,1 +1,1 @@
-include ':app', ':libzxing', ':baidumap', ':socketclient', ':pictureselect'
+include ':app', ':libzxing', ':baidumap', ':socketclient', ':pictureselect', ':hellodaemon'

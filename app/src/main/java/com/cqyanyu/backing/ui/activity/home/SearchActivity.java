@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cqyanyu.backing.R;
+import com.cqyanyu.backing.event.ItemEvent;
 import com.cqyanyu.backing.ui.activity.base.BaseActivity;
 import com.cqyanyu.backing.ui.mvpview.home.SearchView;
 import com.cqyanyu.backing.ui.presenter.home.SearchPresenter;
@@ -21,6 +22,10 @@ import com.cqyanyu.backing.ui.widget.app.ClearableEditText;
 import com.cqyanyu.mvpframework.utils.PermissionUtil;
 import com.cqyanyu.mvpframework.view.recyclerView.XRecyclerView;
 import com.xys.libzxing.zxing.activity.CaptureActivity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class SearchActivity extends BaseActivity<SearchPresenter> implements SearchView {
     private XRecyclerView recyclerView;
@@ -48,6 +53,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
 
     @Override
     public void initView() {
+        EventBus.getDefault().register(this);
         recyclerView = (XRecyclerView) findViewById(R.id.recycler_view);
         ivNotData = (ImageView) findViewById(R.id.iv_not_data);
         tvNotData = (TextView) findViewById(R.id.tv_not_data);
@@ -90,6 +96,17 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
                 search();
             }
         });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void itemEvent(ItemEvent itemEvent) {
+        if (itemEvent != null) {
+            if (itemEvent.getActivity() == ItemEvent.ACTIVITY.SystemManagementFragment) {
+                if (itemEvent.getAction() == ItemEvent.ACTION.refreshing) {
+                    if (mPresenter != null) mPresenter.refresh();
+                }
+            }
+        }
     }
 
     /**
@@ -155,6 +172,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     @Override
     protected void onDestroy() {
         FirstClick = false;
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 
@@ -173,4 +191,5 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
             }
         }
     }
+
 }

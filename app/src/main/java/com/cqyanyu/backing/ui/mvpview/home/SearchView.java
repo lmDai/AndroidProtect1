@@ -8,5 +8,6 @@ import com.cqyanyu.backing.ui.presenter.base.XPageView;
  */
 public interface SearchView extends XPageView {
     String getLabel();
+
     String getSearchText();
 }

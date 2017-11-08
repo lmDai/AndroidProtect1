@@ -20,14 +20,14 @@ import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.cqyanyu.backing.R;
-import com.cqyanyu.backing.manger.InfoManger;
 import com.cqyanyu.backing.ui.activity.base.BaseMapActivity;
+import com.cqyanyu.backing.ui.entity.home.MapDeviceInfo;
+import com.cqyanyu.backing.ui.entity.home.MapUnitInfo;
 import com.cqyanyu.backing.ui.entity.home.MarkInfo;
 import com.cqyanyu.backing.ui.entity.home.PublicResourceEntity;
 import com.cqyanyu.backing.ui.mvpview.home.PublicResourceView;
 import com.cqyanyu.backing.ui.presenter.home.PublicResourcePresenter;
 import com.cqyanyu.backing.ui.server.MyServer;
-import com.cqyanyu.mvpframework.utils.XToastUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -42,6 +42,8 @@ public class PublicResourceActivity extends BaseMapActivity<PublicResourcePresen
     private CheckBox btnOther, btnFire, btnBuild;
     private BDLocation location;
     private List<PublicResourceEntity> bList = new ArrayList<>();
+    private List<MapUnitInfo> mListUnit;
+    private List<MapDeviceInfo> mList;
 
     @Override
     protected PublicResourcePresenter createPresenter() {
@@ -81,13 +83,9 @@ public class PublicResourceActivity extends BaseMapActivity<PublicResourcePresen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_water:
-                if (InfoManger.getInstance().isPermission("52")) {
-                    startActivity(new Intent(mContext, DetailsResourceActivity.class)
-                            .putExtra(DetailsResourceActivity.LABEL, DetailsResourceActivity.LABEL_VALUE_WATER)
-                    );
-                } else {
-                    XToastUtil.showToast("暂不拥有该权限！");
-                }
+                startActivity(new Intent(mContext, DetailsResourceActivity.class)
+                        .putExtra(DetailsResourceActivity.LABEL, DetailsResourceActivity.LABEL_VALUE_WATER)
+                );
                 break;
         }
     }
@@ -168,6 +166,16 @@ public class PublicResourceActivity extends BaseMapActivity<PublicResourcePresen
         this.location = location;
     }
 
+    @Override
+    public void setUnitList(List<MapUnitInfo> mListUnit) {
+        this.mListUnit = mListUnit;
+    }
+
+    @Override
+    public void setDeviceList(List<MapDeviceInfo> mList) {
+        this.mList = mList;
+    }
+
 
     @Override
     public boolean onMarkerClicked(Marker marker) {
@@ -188,10 +196,13 @@ public class PublicResourceActivity extends BaseMapActivity<PublicResourcePresen
             if (poi != null && poi.location != null) {
                 if (TextUtils.equals(searchKey, "医院")) {
                     setMark(2, poi.name, poi.address, poi.location.latitude, poi.location.longitude);
+                    bList.add(new PublicResourceEntity(2, poi.name, poi.address, poi.location.latitude, poi.location.longitude));
                 } else if (TextUtils.equals(searchKey, "消防队")) {
                     setMark(3, poi.name, poi.address, poi.location.latitude, poi.location.longitude);
+                    bList.add(new PublicResourceEntity(3, poi.name, poi.address, poi.location.latitude, poi.location.longitude));
                 } else if (TextUtils.equals(searchKey, "卫生所")) {
                     setMark(5, poi.name, poi.address, poi.location.latitude, poi.location.longitude);
+                    bList.add(new PublicResourceEntity(5, poi.name, poi.address, poi.location.latitude, poi.location.longitude));
                 }
             }
         }
@@ -203,53 +214,96 @@ public class PublicResourceActivity extends BaseMapActivity<PublicResourcePresen
             case R.id.btn_other:
                 mBaiDuMap.clear();
                 if (btnFire.isChecked()) {
-                    mPresenter.getFire();
+                    getDeviceInfo();
                 }
                 if (btnBuild.isChecked()) {
-                    mPresenter.getBuild();
+                    getUnitInfo();
                 }
                 if (isChecked) {
-                    getPoi();
+                    if (bList != null && bList.size() > 0) {
+                        getPoiList();
+                    } else {
+                        getPoi();
+                    }
                 }
                 if (!btnFire.isChecked() && !btnBuild.isChecked()) {
-                    mPresenter.init();
+                    getDeviceInfo();
+                    getUnitInfo();
                 }
                 break;
             case R.id.btn_fire:
                 mBaiDuMap.clear();
                 if (btnOther.isChecked()) {
-                    getPoi();
+                    getPoiList();
                 }
                 if (btnBuild.isChecked()) {
-                    mPresenter.getBuild();
+                    getUnitInfo();
                 }
                 if (isChecked) {
-                    mPresenter.getFire();
+                    getDeviceInfo();
                 } else if (!btnOther.isChecked() && !btnBuild.isChecked()) {
-                    mPresenter.init();
+                    getUnitInfo();
+                    getDeviceInfo();
                 }
                 break;
             case R.id.btn_build:
                 mBaiDuMap.clear();
                 if (btnOther.isChecked()) {
-                    getPoi();
+                    getPoiList();
                 }
                 if (btnFire.isChecked()) {
-                    mPresenter.getFire();
+                    getDeviceInfo();
                 }
                 if (isChecked) {
-                    mPresenter.getBuild();
+                    getUnitInfo();
                 } else if (!btnOther.isChecked() && !btnFire.isChecked()) {
-                    mPresenter.init();
+                    getUnitInfo();
+                    getDeviceInfo();
                 }
                 break;
         }
     }
 
-    public void getPoi() {
-        onLoadData("医院", 3000, location.getLatitude(), location.getLongitude());
-        /**收搜周边加油站*/
-        onLoadData("消防队", 3000, location.getLatitude(), location.getLongitude());
-        onLoadData("卫生所", 3000, location.getLatitude(), location.getLongitude());
+    public void getPoi() { //根据关键字获取百度poi
+        if (location != null) {
+            onLoadData("医院", 3000, location.getLatitude(), location.getLongitude());
+            /**收搜周边加油站*/
+            onLoadData("消防队", 3000, location.getLatitude(), location.getLongitude());
+            onLoadData("卫生所", 3000, location.getLatitude(), location.getLongitude());
+        }
     }
+
+    /**
+     * 获取周边
+     */
+    public void getPoiList() {
+        if (bList != null && bList.size() > 0) {
+            for (PublicResourceEntity entity : bList) {
+                setMark(entity.getType(), entity.getName(), entity.getDescribe(), entity.getLatitude(), entity.getLongitude());
+            }
+        }
+    }
+
+    /**
+     * 获取设备
+     */
+    public void getDeviceInfo() {
+        if (mList != null && mList.size() > 0) {
+            for (MapDeviceInfo entity : mList) {
+                setMark(4, "", "", entity.getLatitude(), entity.getLongitude());
+            }
+        }
+    }
+
+    /**
+     * 获取单位
+     */
+    public void getUnitInfo() {
+        if (mListUnit != null && mListUnit.size() > 0) {
+            for (MapUnitInfo entity : mListUnit) {
+                setMark(1, entity.getUnitName(), entity.getPosition(), entity.getLatitude(), entity.getLongitude());
+            }
+        }
+    }
+
 }

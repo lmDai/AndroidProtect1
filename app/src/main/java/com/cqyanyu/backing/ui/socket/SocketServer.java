@@ -3,7 +3,6 @@ package com.cqyanyu.backing.ui.socket;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -25,9 +24,11 @@ import com.cqyanyu.backing.ui.socket.entity.EntityFrameJson;
 import com.cqyanyu.backing.ui.socket.entity.ResponseAlarmEntity;
 import com.cqyanyu.backing.utils.MyDate;
 import com.cqyanyu.backing.utils.Utils;
+import com.cqyanyu.mvpframework.utils.XLog;
 import com.cqyanyu.mvpframework.utils.XPreferenceUtil;
 import com.cqyanyu.mvpframework.utils.XToastUtil;
 import com.cqyanyu.mvpframework.utils.http.ParamsMap;
+import com.xdandroid.hellodaemon.AbsWorkService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,14 +40,19 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.UnknownHostException;
+import java.util.concurrent.TimeUnit;
 
 import baidumap.LocationInfo;
+import io.reactivex.Flowable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 
 /**
  * Socket通讯服务
  * Created by Administrator on 2017/7/28.
  */
-public class SocketServer extends Service {
+public class SocketServer extends AbsWorkService {
 
     private int notificationId = 0;
 
@@ -64,6 +70,61 @@ public class SocketServer extends Service {
         super.onCreate();
     }
 
+    //是否 任务完成, 不再需要服务运行?
+    public static boolean sShouldStopService;
+    public static Disposable sDisposable;
+
+    @Override
+    public Boolean shouldStopService(Intent intent, int flags, int startId) {
+        return sShouldStopService;
+    }
+
+    @Override
+    public void startWork(Intent intent, int flags, int startId) {
+        sDisposable = Flowable.interval(3, TimeUnit.SECONDS)
+                .doOnCancel(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        cancelJobAlarmSub();
+                    }
+                }).subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+                        if (aLong > 0 && aLong % 18 == 0)
+                            System.out.println("保存数据到磁盘。 saveCount = " + (aLong / 18 - 1));
+                    }
+                });
+    }
+
+    @Override
+    public void stopWork(Intent intent, int flags, int startId) {
+        stopService();
+    }
+
+    public static void stopService() {
+        //我们现在不再需要服务运行了, 将标志位置为 true
+        sShouldStopService = true;
+        //取消对任务的订阅
+        if (sDisposable != null) sDisposable.dispose();
+        //取消 Job / Alarm / Subscription
+        cancelJobAlarmSub();
+    }
+
+    @Override
+    public Boolean isWorkRunning(Intent intent, int flags, int startId) {
+        return sDisposable != null && !sDisposable.isDisposed();
+    }
+
+    @Override
+    public IBinder onBind(Intent intent, Void alwaysNull) {
+        return null;
+    }
+
+    @Override
+    public void onServiceKilled(Intent rootIntent) {
+        System.out.println("保存数据到磁盘。");
+    }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(TAG, "SocketServer onStartCommand");
@@ -72,8 +133,8 @@ public class SocketServer extends Service {
 
 
     private final String TAG = "socketServer";
-    //private static final String REMOTE_IP = "119.23.51.26";
-    private static final String REMOTE_IP = "192.168.0.2";
+    private static final String REMOTE_IP = "119.23.51.26";//正式ip
+    //    private static final String REMOTE_IP = "192.168.0.2";//测试ip
     private static final int REMOTE_PORT = 12001;
     private Socket serverSocket = null;
     private InputStream rfd = null;
@@ -270,8 +331,13 @@ public class SocketServer extends Service {
             case Constant.PushServer_Type_Alarm:
                 ret = true;
                 try {
-                    JSONObject mobj = node.obj.getJSONObject("msg");
-                    alarmResponse(mobj.toString());
+                    if (node.obj != null) {
+                        JSONObject mobj = node.obj.getJSONObject("msg");
+                        if (mobj != null)
+                            alarmResponse(mobj.toString());
+                    } else {
+                        ret = false;
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -279,8 +345,10 @@ public class SocketServer extends Service {
             case Constant.PushServer_Type_Duty:
                 ret = true;//replyDuty(String oid, String launchManId, String launchUnitId)
                 try {
-                    JSONObject mobj = node.obj.getJSONObject("msg");
-                    replyDuty(mobj.get("oid").toString(), mobj.get("launchmanid").toString(), mobj.get("launchunitid").toString());
+                    if (node.obj != null) {
+                        JSONObject mobj = node.obj.getJSONObject("msg");
+                        replyDuty(mobj.get("oid").toString(), mobj.get("launchmanid").toString(), mobj.get("launchunitid").toString());
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -288,11 +356,26 @@ public class SocketServer extends Service {
             case Constant.PushServer_Type_ReportPosition:
                 lastReportPositionSec = sec + reportIntervalTime;
                 break;
+            case Constant.PushServer_Type_NoticeHandleAlarm:
+                JSONObject mobj = null;
+                int userid = 0;
+                try {
+                    if (node.obj != null) {
+                        mobj = node.obj.getJSONObject("msg");
+                        userid = mobj.getInt("handlemanid");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                notification("警情处理都督", "你有一条告警很久没有处理了，请及时处理!", "user_" + userid);
+                ret = true;
+                break;
         }
         if (!ret)
             return;
         try {
-            msgsn = node.obj.getInt("sn");
+            if (node.obj != null)
+                msgsn = node.obj.getInt("sn");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -303,7 +386,7 @@ public class SocketServer extends Service {
             e.printStackTrace();
         }
         JSONObject pobj = MyJson.makePushParameterJsonNode(msgsn, obj);
-        byte[] frame = MyJson.makeJsonFrame(Constant.PushServer_CMD_Push, Constant.PushServer_Type_Alarm, pobj);
+        byte[] frame = MyJson.makeJsonFrame(Constant.PushServer_CMD_Push, type, pobj);
         SocketSend(frame, frame.length);
     }
 
@@ -363,12 +446,15 @@ public class SocketServer extends Service {
      * @param message 响应信息
      */
     private void alarmResponse(String message) {
-        ResponseAlarmEntity entity = JSON.parseObject(message, ResponseAlarmEntity.class);
-        //告警信息显示
-        notification(entity.getAffairstr(),
-                entity.getPosition(),
-                "warn_" + entity.getAffairid());
-
+        if (!TextUtils.isEmpty(message)) {
+            ResponseAlarmEntity entity = JSON.parseObject(message, ResponseAlarmEntity.class);
+            //告警信息显示
+            notification(entity.getAffairstr(),
+                    entity.getPosition(),
+                    "warn_" + entity.getAffairid());
+        } else {
+            XLog.i("messag 为null");
+        }
     }
 
 /*********************************************************************************************/
@@ -504,6 +590,10 @@ public class SocketServer extends Service {
             serviceThread.stop();
             heartbeatThread.stop();
         }
+        stopForeground(true);
+        Intent intent = new Intent("com.cqyanyu.backing.ui.socket.BootReceiver");
+        intent.setAction("com.cqyanyu.backing.ui.socket.SocketServer");
+        sendBroadcast(intent);
         super.onDestroy();
     }
 }

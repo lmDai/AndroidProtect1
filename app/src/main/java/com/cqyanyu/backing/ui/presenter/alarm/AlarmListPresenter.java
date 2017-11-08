@@ -54,18 +54,18 @@ public class AlarmListPresenter extends XPagePresenter<WarnListView> implements 
             //消息类型 0：主机 1：预警
             case 1: //火警
                 paramsMap.put("affairid", "1");
-                paramsMap.put("ishandle","1");
+                paramsMap.put("ishandle", "1");
                 break;
             case 2: //故障
                 paramsMap.put("affairid", "2");
-                paramsMap.put("ishandle","1");
+                paramsMap.put("ishandle", "1");
                 break;
             case 4: //其他
                 paramsMap.put("affairid", "3");
-                paramsMap.put("ishandle","1");
+                paramsMap.put("ishandle", "1");
                 break;
             case 3://预警
-                paramsMap.put("isreportlasthandle","1");
+                paramsMap.put("isrecovery", "0");
                 break;
         }
         paramsMap.put("pageindex", pageindex + "");
@@ -81,7 +81,7 @@ public class AlarmListPresenter extends XPagePresenter<WarnListView> implements 
             case 4: //其他
                 return ConstHost.GET_Home_Alarm_URL;
             case 3://预警
-                return ConstHost.GET_Home_Warn_URL;
+                return ConstHost.GET_Home_Warn_NEW_URL;
         }
         return "";
     }

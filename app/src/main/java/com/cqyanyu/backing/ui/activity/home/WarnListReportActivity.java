@@ -1,5 +1,6 @@
 package com.cqyanyu.backing.ui.activity.home;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -7,12 +8,13 @@ import android.widget.TextView;
 
 import com.cqyanyu.backing.R;
 import com.cqyanyu.backing.ui.activity.base.BaseActivity;
-import com.cqyanyu.backing.ui.entity.warn.WaterSystemEntity;
+import com.cqyanyu.backing.ui.entity.home.WarnNHEntity;
 import com.cqyanyu.backing.ui.mvpview.home.WarnListReportView;
 import com.cqyanyu.backing.ui.presenter.home.WarnListReprotPresenter;
 import com.cqyanyu.backing.ui.widget.app.XTextView;
 import com.cqyanyu.backing.utils.MPChartHelper;
 import com.cqyanyu.backing.utils.MyDate;
+import com.cqyanyu.backing.utils.NumberUtils;
 import com.cqyanyu.mvpframework.utils.XDateUtil;
 import com.github.mikephil.charting.charts.LineChart;
 
@@ -25,12 +27,12 @@ import java.util.List;
 
 public class WarnListReportActivity extends BaseActivity<WarnListReprotPresenter> implements WarnListReportView {
     private TextView txtUnit, txtSn, txtValue, txtType, txtDate;
-    private XTextView txtShuiya, txtCount, txtHigh, txtLow, txtWaterHigh, txtWaterLow;
+    private XTextView txtShuiya, txtCount, txtWaterHigh, txtWaterLow;
     private LineChart barChart1;
     private ImageButton ibAdd, ibDel;
     private int clickable = 1;
     private LinearLayout llNoData;
-    private WaterSystemEntity waterSystemEntity;
+    private WarnNHEntity waterSystemEntity;
 
     @Override
     protected WarnListReprotPresenter createPresenter() {
@@ -50,21 +52,21 @@ public class WarnListReportActivity extends BaseActivity<WarnListReprotPresenter
         txtType = (TextView) findViewById(R.id.txt_type);
         txtDate = (TextView) findViewById(R.id.txt_date);
         txtShuiya = (XTextView) findViewById(R.id.txt_shuiya);
-        txtCount = (XTextView) findViewById(R.id.txt_count);
-        txtHigh = (XTextView) findViewById(R.id.txt_high);
-        txtLow = (XTextView) findViewById(R.id.txt_low);
         txtWaterHigh = (XTextView) findViewById(R.id.water_high);
         txtWaterLow = (XTextView) findViewById(R.id.water_low);
         barChart1 = (LineChart) findViewById(R.id.barChart1);
         ibAdd = (ImageButton) findViewById(R.id.ib_add);
         ibDel = (ImageButton) findViewById(R.id.ib_del);
         llNoData = (LinearLayout) findViewById(R.id.layout_not_data);
-        waterSystemEntity = (WaterSystemEntity) getIntent().getSerializableExtra("item");
+        waterSystemEntity = (WarnNHEntity) getIntent().getSerializableExtra("item");
         setTxtUnit(waterSystemEntity.getUnitstr());
         setTxtSn(waterSystemEntity.getSn());
-        setTxtDate(XDateUtil.getStringByFormatFromStr(String.valueOf(waterSystemEntity.getLastdate()), "yyyy-MM-dd"));
-        setTxtValue(waterSystemEntity.getVal() + "");
-        setTxtCount(waterSystemEntity.getTotalcount() + "");
+        setTxtDate(XDateUtil.getStringByFormatFromStr(String.valueOf(waterSystemEntity.getReportlastdate()), "yyyy-MM-dd"));
+        if (TextUtils.equals(waterSystemEntity.getTypeid(), "66")) {
+            setTxtValue(NumberUtils.setDecimalFloat((float) waterSystemEntity.getVal() / 1000f) + "Mpa");
+        } else {
+            setTxtValue(NumberUtils.setDecimalFloat((float) waterSystemEntity.getVal() / 1000f) + "M");
+        }
     }
 
     @Override
@@ -80,7 +82,7 @@ public class WarnListReportActivity extends BaseActivity<WarnListReprotPresenter
 
     @Override
     public String getPid() {
-        return waterSystemEntity.getPid();
+        return waterSystemEntity.getOid();
     }
 
     /**
@@ -100,7 +102,7 @@ public class WarnListReportActivity extends BaseActivity<WarnListReprotPresenter
         yAxisValue.add(alarmTotals);
         MPChartHelper.setLinesChart(barChart1, xValues,
                 yAxisValue, titles, false, null,
-                Float.valueOf(waterSystemEntity.getMaxval()), Float.valueOf(waterSystemEntity.getMinval()));
+                Float.valueOf(waterSystemEntity.getMaxval()) / 1000.0f, Float.valueOf(waterSystemEntity.getMinval()) / 1000.0f);
     }
 
     @Override
@@ -130,7 +132,7 @@ public class WarnListReportActivity extends BaseActivity<WarnListReprotPresenter
 
     @Override
     public void setTxtShuiya(String Shuiya) {
-        if (waterSystemEntity.getTypeid() == 66) {
+        if (TextUtils.equals(waterSystemEntity.getTypeid(), "66")) {
             txtShuiya.setXText("平均水压：" + Shuiya);
         } else {
             txtShuiya.setXText("平均液位：" + Shuiya);
@@ -143,18 +145,8 @@ public class WarnListReportActivity extends BaseActivity<WarnListReprotPresenter
     }
 
     @Override
-    public void setTxtHigh(String High) {
-        txtHigh.setXText(High);
-    }
-
-    @Override
-    public void setTxtLow(String Low) {
-        txtLow.setXText(Low);
-    }
-
-    @Override
     public void setTxtWaterHigh(String WaterHigh) {
-        if (waterSystemEntity.getTypeid() == 66) {
+        if (TextUtils.equals(waterSystemEntity.getTypeid(), "66")) {
             txtWaterHigh.setXText("水压峰值：" + WaterHigh);
         } else {
             txtWaterHigh.setXText("液位峰值：" + WaterHigh);
@@ -163,7 +155,7 @@ public class WarnListReportActivity extends BaseActivity<WarnListReprotPresenter
 
     @Override
     public void setTxtWaterLow(String WaterLow) {
-        if (waterSystemEntity.getTypeid() == 66) {
+        if (TextUtils.equals(waterSystemEntity.getTypeid(), "66")) {
             txtWaterLow.setXText("水压谷值：" + WaterLow);
         } else {
             txtWaterLow.setXText("液位谷值：" + WaterLow);

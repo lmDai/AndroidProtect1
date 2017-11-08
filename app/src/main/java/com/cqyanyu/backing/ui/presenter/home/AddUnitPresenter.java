@@ -16,7 +16,6 @@ import com.cqyanyu.backing.utils.NetDialogUtil;
 import com.cqyanyu.backing.utils.SharedPreferencesUtils;
 import com.cqyanyu.mvpframework.X;
 import com.cqyanyu.mvpframework.presenter.BasePresenter;
-import com.cqyanyu.mvpframework.utils.XLog;
 import com.cqyanyu.mvpframework.utils.XToastUtil;
 import com.cqyanyu.mvpframework.utils.http.ParamsMap;
 import com.cqyanyu.mvpframework.utils.http.XCallback;
@@ -127,7 +126,7 @@ public class AddUnitPresenter extends BasePresenter<AddUnitView> {
 
                     @Override
                     public void onFail(String msg) {
-                        XLog.e(msg);
+
                     }
 
                     @Override
@@ -177,14 +176,10 @@ public class AddUnitPresenter extends BasePresenter<AddUnitView> {
                         public void onSuccess(String result) {
                             if (getView() != null) {
                                 if (!TextUtils.isEmpty(result)) {
-//                                    if (TextUtils.equals(result, "0")) {
-//                                        XToastUtil.showToast("提交失败");
-//                                    } else {
                                     XToastUtil.showToast(result);
                                     //更新上一个页面
                                     EventBus.getDefault().post(new ItemEvent(ItemEvent.ACTIVITY.SystemManagementFragment, ItemEvent.ACTION.refreshing));
                                     context.finish();
-//                                    }
                                 }
                             }
                         }
@@ -209,49 +204,58 @@ public class AddUnitPresenter extends BasePresenter<AddUnitView> {
         if (getView() != null && entity != null) {
             if (TextUtils.equals(getView().getLabel(), AddUnitActivity.LABEL_VALUE_EDIT) && entity != null) {
                 //当前页面是编辑页面时
-                ParamsMap paramsMap = new ParamsMap();
-                paramsMap.put("typeid", getView().getUnitType());//单位类型
-                paramsMap.put("oid", getView().getOid());//本单位 ID
-                paramsMap.put("pid", getView().getPresentUnit());//上级单位 ID
-                paramsMap.put("selevelid", getView().getRegulatoryLevel());//监管等级
-                paramsMap.put("name", getView().getUnitName());//单位名称
-                paramsMap.put("position", getView().getUnitPosition());//单位位置
-                paramsMap.put("createmanid", entity.getCreatemanid());//创建人 ID
-                paramsMap.put("createdate", entity.getCreatedate());//创建日期，单位：秒
-                paramsMap.put("picpath", paths);//图片路径，多个图片用“;”隔开
-                paramsMap.put("linkman", getView().getContact());//联系人
-                paramsMap.put("linkphone", getView().getContactTel());//联系电话
-                paramsMap.put("longitude", "" + getView().getLongitude());//经度
-                paramsMap.put("latitude", "" + getView().getLatitude());//纬度
-                //paramsMap.put("area", entity.getArea());//单位面积
-                //paramsMap.put("remark", entity.getRemark());//备注
-                XHttpUtils.post(context, paramsMap, ConstHost.MODIFY_UNIT_URL, NetDialogUtil.showLoadDialog(context, R.string.text_loading), new XICallbackString() {
-                    @Override
-                    public void onSuccess(String result) {
-                        if (getView() != null) {
-                            if (!TextUtils.isEmpty(result)) {
+                if (TextUtils.equals(entity.getTypeid(), getView().getUnitType()) && TextUtils.equals(entity.getOid(), getView().getOid()) &&
+                        TextUtils.equals(entity.getPid(), getView().getPresentUnit()) && TextUtils.equals(entity.getSelevelid(), getView().getRegulatoryLevel()) &&
+                        TextUtils.equals(entity.getName(), getView().getUnitName()) && TextUtils.equals(entity.getPosition(), getView().getUnitPosition()) &&
+                        TextUtils.equals(entity.getPicpath(), paths) && TextUtils.equals(entity.getLinkman(), getView().getContact()) &&
+                        TextUtils.equals(entity.getLinkphone(), getView().getContactTel()) && entity.getLatitude() == getView().getLatitude() &&
+                        entity.getLongitude() == getView().getLongitude()) {
+                    XToastUtil.showToast("暂无修改任何数据");
+                } else {
+                    ParamsMap paramsMap = new ParamsMap();
+                    paramsMap.put("typeid", getView().getUnitType());//单位类型
+                    paramsMap.put("oid", getView().getOid());//本单位 ID
+                    paramsMap.put("pid", getView().getPresentUnit());//上级单位 ID
+                    paramsMap.put("selevelid", getView().getRegulatoryLevel());//监管等级
+                    paramsMap.put("name", getView().getUnitName());//单位名称
+                    paramsMap.put("position", getView().getUnitPosition());//单位位置
+                    paramsMap.put("createmanid", entity.getCreatemanid());//创建人 ID
+                    paramsMap.put("createdate", entity.getCreatedate());//创建日期，单位：秒
+                    paramsMap.put("picpath", paths);//图片路径，多个图片用“;”隔开
+                    paramsMap.put("linkman", getView().getContact());//联系人
+                    paramsMap.put("linkphone", getView().getContactTel());//联系电话
+                    paramsMap.put("longitude", "" + getView().getLongitude());//经度
+                    paramsMap.put("latitude", "" + getView().getLatitude());//纬度
+                    //paramsMap.put("area", entity.getArea());//单位面积
+                    //paramsMap.put("remark", entity.getRemark());//备注
+                    XHttpUtils.post(context, paramsMap, ConstHost.MODIFY_UNIT_URL, NetDialogUtil.showLoadDialog(context, R.string.text_loading), new XICallbackString() {
+                        @Override
+                        public void onSuccess(String result) {
+                            if (getView() != null) {
+                                if (!TextUtils.isEmpty(result)) {
 //                                if (TextUtils.equals(result, "0")) {
 //                                    XToastUtil.showToast("修改失败");
 //                                } else {
-                                XToastUtil.showToast(result);
-                                //更新上一个页面
-                                EventBus.getDefault().post(new ItemEvent(ItemEvent.ACTIVITY.SystemManagementFragment, ItemEvent.ACTION.refreshing));
-                                context.finish();
+                                    XToastUtil.showToast(result);
+                                    //更新上一个页面
+                                    EventBus.getDefault().post(new ItemEvent(ItemEvent.ACTIVITY.SystemManagementFragment, ItemEvent.ACTION.refreshing));
+                                    context.finish();
 //                                }
+                                }
                             }
                         }
-                    }
 
-                    @Override
-                    public void onFail(String msg) {
+                        @Override
+                        public void onFail(String msg) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onFinished() {
+                        @Override
+                        public void onFinished() {
 
-                    }
-                });
+                        }
+                    });
+                }
             }
         }
     }

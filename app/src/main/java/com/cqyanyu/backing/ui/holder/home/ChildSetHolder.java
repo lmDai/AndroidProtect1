@@ -105,7 +105,7 @@ public class ChildSetHolder extends IViewHolder {
                             .putExtra("unitId", itemData.getUnitid()));
                     break;
                 default:
-                    if (InfoManger.getInstance().isPermission("62")) {
+                    if (InfoManger.getInstance().isPermission("67")) {//修改设备
                         mContext.startActivity(new Intent(mContext, AddSetActivity.class)
                                 .putExtra(AddSetActivity.LABEL, AddSetActivity.LABEL_VALUE_EDIT)
                                 .putExtra("oid", itemData.getOid())

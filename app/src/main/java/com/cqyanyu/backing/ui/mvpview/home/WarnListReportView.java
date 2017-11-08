@@ -29,12 +29,6 @@ public interface WarnListReportView extends IBaseView {
     void setTxtCount(String txtCount);
 
 
-    void setTxtHigh(String txtHigh);
-
-
-    void setTxtLow(String txtLow);
-
-
     void setTxtWaterHigh(String txtWaterHigh);
 
 

@@ -38,11 +38,11 @@ public class PositionPresenter extends BasePresenter<WarnPositionView> {
                                 entity.getUnitstr(),
                                 entity.getPosition(),
                                 entity.getLatitude(), entity.getLongitude());
-                    }else {
+                    } else {
                         getView().setMark(1,
                                 getView().getBuildStr(),
                                 getView().getPosition(),
-                                getView().getLatitude(),  getView().getLongitude());
+                                getView().getLatitude(), getView().getLongitude());
                     }
                 }
 

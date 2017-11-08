@@ -159,43 +159,6 @@
                     android:gravity="center|start"
                     android:textSize="@dimen/text_size_14" />
 
-                <com.cqyanyu.backing.ui.widget.app.XTextView
-                    android:id="@+id/txt_count"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center|start"
-                    android:text="0"
-                    android:textSize="@dimen/text_size_14"
-                    app:x_front_value="上报次数：" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_8"
-                android:layout_marginRight="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_2">
-
-                <com.cqyanyu.backing.ui.widget.app.XTextView
-                    android:id="@+id/txt_high"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center|start"
-                    android:text="122"
-                    android:textSize="@dimen/text_size_14"
-                    app:x_front_value="预警上限：" />
-
-                <com.cqyanyu.backing.ui.widget.app.XTextView
-                    android:id="@+id/txt_low"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center|start"
-                    android:text="0.1100"
-                    android:textSize="@dimen/text_size_14"
-                    app:x_front_value="预警下限：" />
             </LinearLayout>
 
             <LinearLayout

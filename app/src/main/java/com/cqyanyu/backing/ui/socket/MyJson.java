@@ -4,6 +4,7 @@ import com.cqyanyu.backing.CommonInfo;
 import com.cqyanyu.backing.manger.InfoManger;
 import com.cqyanyu.backing.ui.socket.entity.EntityUnits;
 import com.cqyanyu.backing.utils.MyDate;
+import com.cqyanyu.mvpframework.utils.XPreferenceUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -110,11 +111,11 @@ public class MyJson {
     public static JSONObject makeLoginJson() {
         JSONObject obj = new JSONObject();
         try {
-            obj.put("loginname", CommonInfo.getInstance().getUserInfo().getPhone());
-            obj.put("loginpwd", CommonInfo.getInstance().getUserInfo().getPassword());
-            obj.put("unitid", CommonInfo.getInstance().getUserInfo().getUnitid());
-            obj.put("userid", CommonInfo.getInstance().getUserInfo().getUserid());
-            obj.put("roleid", CommonInfo.getInstance().getUserInfo().getRoleid());
+            obj.put("loginname", XPreferenceUtil.getInstance().getString("loginname"));
+            obj.put("loginpwd", XPreferenceUtil.getInstance().getString("loginpwd"));
+            obj.put("unitid", XPreferenceUtil.getInstance().getString("unitid"));
+            obj.put("userid", XPreferenceUtil.getInstance().getString("userid"));
+            obj.put("roleid", XPreferenceUtil.getInstance().getString("roleid"));
             obj.put("devicetoken", InfoManger.getInstance().getPushToken());
             obj.put("pushtype", 1);
             obj.put("terminaltype", 1);
@@ -179,7 +180,7 @@ public class MyJson {
 	}*/
 
 	/*public static EntityLoginInfo getLoginInfo(String json) {
-		EntityLoginInfo node = new EntityLoginInfo();
+        EntityLoginInfo node = new EntityLoginInfo();
 		try {//{"result":true,"info":"","userid":2,"unitid":2370,"roleid":42,"permission":[]}
 			JSONObject obj = new JSONObject(json);
 			node.setResult(obj.getBoolean("result"));

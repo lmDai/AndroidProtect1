@@ -125,7 +125,6 @@ public abstract class XPagePresenter<T extends XPageView> extends BasePresenter<
 
     private void onXFail(String msg) {
         onLoadNoData();
-        XLog.e(msg);
     }
 
     protected void onXFinished() {

@@ -20,6 +20,16 @@ public class UnitManageEntity implements Serializable {
     private String selevelid;
     private int childdevicecount;
     private String childusercount;
+    private String childbuildcount;
+
+    public String getChildbuildcount() {
+        return childbuildcount;
+    }
+
+    public void setChildbuildcount(String childbuildcount) {
+        this.childbuildcount = childbuildcount;
+    }
+
     private String statusid;
     private String childunitcount;
     private String name;

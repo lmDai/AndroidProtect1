@@ -45,11 +45,17 @@ public class PublicResourcePresenter extends BasePresenter<PublicResourceView> {
                         String trueUnit = object.optString("build");
                         List<MapUnitInfo> mListUnit = JSON.parseArray(trueUnit, MapUnitInfo.class);
                         List<MapDeviceInfo> mList = JSON.parseArray(trueDevice, MapDeviceInfo.class);
-                        for (MapDeviceInfo entity : mList) {
-                            getView().setMark(4, "", "", entity.getLatitude(), entity.getLongitude());
+                        if (mListUnit.size() > 0) {
+                            getView().setUnitList(mListUnit);
+                            for (MapUnitInfo entity : mListUnit) {
+                                getView().setMark(1, entity.getUnitName(), entity.getPosition(), entity.getLatitude(), entity.getLongitude());
+                            }
                         }
-                        for (MapUnitInfo entity : mListUnit) {
-                            getView().setMark(1, entity.getUnitName(), entity.getPosition(), entity.getLatitude(), entity.getLongitude());
+                        if (mList.size() > 0) {
+                            for (MapDeviceInfo entity : mList) {
+                                getView().setMark(4, "", "", entity.getLatitude(), entity.getLongitude());
+                            }
+                            getView().setDeviceList(mList);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -104,76 +110,4 @@ public class PublicResourcePresenter extends BasePresenter<PublicResourceView> {
         }
     }
 
-    /**
-     * 消防栓
-     */
-    public void getFire() {
-        if (getView() != null) {
-            ParamsMap paramsMap = new ParamsMap();
-            XHttpUtils.post(context, paramsMap, ConstHost.GET_MAP_TABLE_DATA, new XICallbackString() {
-                @Override
-                public void onSuccess(String result) {
-                    try {
-                        org.json.JSONObject object = new org.json.JSONObject(result);
-                        String trueDevice = object.optString("device");
-                        String trueUnit = object.optString("build");
-                        List<MapUnitInfo> mListUnit = JSON.parseArray(trueUnit, MapUnitInfo.class);
-                        List<MapDeviceInfo> mList = JSON.parseArray(trueDevice, MapDeviceInfo.class);
-                        for (MapDeviceInfo entity : mList) {
-                            getView().setMark(4, "", "", entity.getLatitude(), entity.getLongitude());
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-
-                @Override
-                public void onFail(String msg) {
-
-                }
-
-                @Override
-                public void onFinished() {
-
-                }
-            });
-        }
-    }
-
-    /**
-     * 建筑
-     */
-    public void getBuild() {
-        if (getView() != null) {
-            ParamsMap paramsMap = new ParamsMap();
-            XHttpUtils.post(context, paramsMap, ConstHost.GET_MAP_TABLE_DATA, new XICallbackString() {
-                @Override
-                public void onSuccess(String result) {
-                    try {
-                        org.json.JSONObject object = new org.json.JSONObject(result);
-                        String trueUnit = object.optString("build");
-                        List<MapUnitInfo> mListUnit = JSON.parseArray(trueUnit, MapUnitInfo.class);
-                        for (MapUnitInfo entity : mListUnit) {
-                            getView().setMark(1, entity.getUnitName(), entity.getPosition(), entity.getLatitude(), entity.getLongitude());
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-
-                @Override
-                public void onFail(String msg) {
-
-                }
-
-                @Override
-                public void onFinished() {
-
-                }
-            });
-        }
-        ;
-    }
 }

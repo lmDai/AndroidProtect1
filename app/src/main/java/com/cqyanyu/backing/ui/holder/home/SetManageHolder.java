@@ -107,7 +107,7 @@ public class SetManageHolder extends IViewHolder {
                             .putExtra("unitId", itemData.getUnitid()));
                     break;
                 default:
-                    if (InfoManger.getInstance().isPermission("62")) {
+                    if (InfoManger.getInstance().isPermission("67")) {//编辑设备
                         mContext.startActivity(new Intent(mContext, AddSetActivity.class)
                                 .putExtra(AddSetActivity.LABEL, AddSetActivity.LABEL_VALUE_EDIT)
                                 .putExtra("oid", itemData.getOid())

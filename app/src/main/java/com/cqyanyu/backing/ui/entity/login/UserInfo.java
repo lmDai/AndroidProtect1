@@ -2,13 +2,14 @@ package com.cqyanyu.backing.ui.entity.login;
 
 import com.cqyanyu.mvpframework.bean.UserInfoEntity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/5/15 0015.
  */
 
-public class UserInfo extends UserInfoEntity {
+public class UserInfo extends UserInfoEntity implements Serializable {
     private String phone;
     private String password;
 
@@ -103,7 +104,7 @@ public class UserInfo extends UserInfoEntity {
         this.roleid = roleid;
     }
 
-    public static class PermissionBean {
+    public static class PermissionBean implements Serializable {
         private String pid;
         private String oid;
         private String menu;

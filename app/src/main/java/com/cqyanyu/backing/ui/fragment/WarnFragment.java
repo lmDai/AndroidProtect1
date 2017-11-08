@@ -38,6 +38,7 @@ public class WarnFragment extends BaseFragment<WarnPresenter> implements WarnVie
     public int totalTabNum = 2;//假如有四个Fragment页面
     public int openTabNum = 0;//当前已打开的页面数量
     private TabFragmentPagerAdapter fragmentPagerAdapter;
+    private boolean isLoadData = false;
 
     @Override
     protected WarnPresenter createPresenter() {
@@ -140,4 +141,14 @@ public class WarnFragment extends BaseFragment<WarnPresenter> implements WarnVie
     public void gotoFragment(int position) {
         this.position = position;
     }
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        if (isVisibleToUser && !isLoadData) {
+//            if (mPresenter != null) mPresenter.init();
+//            isLoadData = true;
+//        } else {
+//
+//        }
+//    }
 }

@@ -75,6 +75,7 @@ public class FaultActivity extends BaseActivity<AlarmListPresenter> implements W
     public int getType() {
         return 2;
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void itemEvent(ItemEvent itemEvent) {
         if (itemEvent != null) {
@@ -85,6 +86,7 @@ public class FaultActivity extends BaseActivity<AlarmListPresenter> implements W
             }
         }
     }
+
     @Override
     public void onDestroy() {
         EventBus.getDefault().unregister(this);

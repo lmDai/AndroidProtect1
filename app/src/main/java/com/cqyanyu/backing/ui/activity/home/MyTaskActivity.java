@@ -2,22 +2,16 @@ package com.cqyanyu.backing.ui.activity.home;
 
 import android.content.Intent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.cqyanyu.backing.R;
 import com.cqyanyu.backing.ui.activity.base.BaseActivity;
-import com.cqyanyu.backing.ui.entity.statistics.TypeEntity;
 import com.cqyanyu.backing.ui.mvpview.home.MyTaskView;
 import com.cqyanyu.backing.ui.presenter.home.MyTaskPresenter;
 import com.cqyanyu.mvpframework.view.recyclerView.XRecyclerView;
 import com.xys.libzxing.zxing.activity.CaptureActivity;
-
-import java.util.ArrayList;
 
 /**
  * 我的任务
@@ -29,7 +23,7 @@ public class MyTaskActivity extends BaseActivity<MyTaskPresenter> implements MyT
     private ImageView ivNotData;
     private TextView tvNotData;
     private LinearLayout layoutNotData;
-    private Spinner spinSelector;
+    //    private Spinner spinSelector;
     private String type = "1";
     private String taskId;
 
@@ -49,42 +43,42 @@ public class MyTaskActivity extends BaseActivity<MyTaskPresenter> implements MyT
         ivNotData = (ImageView) findViewById(R.id.iv_not_data);
         tvNotData = (TextView) findViewById(R.id.tv_not_data);
         layoutNotData = (LinearLayout) findViewById(R.id.layout_not_data);
-        spinSelector = (Spinner) findViewById(R.id.spin_time);
+//        spinSelector = (Spinner) findViewById(R.id.spin_time);
     }
 
-    /**
-     * 下拉选择列表
-     */
-    private void setSpinner() {
-        ArrayList<TypeEntity> list = new ArrayList<>();
-        TypeEntity month = new TypeEntity();
-        month.setContent("月");
-        month.setType(2);
-        TypeEntity date = new TypeEntity();
-        date.setContent("日");
-        date.setType(1);
-        list.add(month);
-        list.add(date);
-        //为下拉列表定义一个适配器
-        final ArrayAdapter<TypeEntity> adapter = new ArrayAdapter<>(mContext, R.layout.item_spinner, list);
-        //为适配器设置下拉列表下拉时的菜单样式。
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //将适配器添加到下拉列表上
-        spinSelector.setAdapter(adapter);
-        spinSelector.setSelection(1, true);
-        spinSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                type = "" + adapter.getItem(position).getType();
-                mPresenter.refresh();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }
+//    /**
+//     * 下拉选择列表
+//     */
+//    private void setSpinner() {
+//        ArrayList<TypeEntity> list = new ArrayList<>();
+//        TypeEntity month = new TypeEntity();
+//        month.setContent("月");
+//        month.setType(2);
+//        TypeEntity date = new TypeEntity();
+//        date.setContent("日");
+//        date.setType(1);
+//        list.add(month);
+//        list.add(date);
+//        //为下拉列表定义一个适配器
+//        final ArrayAdapter<TypeEntity> adapter = new ArrayAdapter<>(mContext, R.layout.item_spinner, list);
+//        //为适配器设置下拉列表下拉时的菜单样式。
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        //将适配器添加到下拉列表上
+//        spinSelector.setAdapter(adapter);
+//        spinSelector.setSelection(1, true);
+//        spinSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                type = "" + adapter.getItem(position).getType();
+//                mPresenter.refresh();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//    }
 
     @Override
     protected void initListener() {
@@ -94,13 +88,7 @@ public class MyTaskActivity extends BaseActivity<MyTaskPresenter> implements MyT
     @Override
     protected void initData() {
         if (mPresenter != null) mPresenter.initPresenter();
-        setSpinner();
-    }
-
-    @Override
-    protected void onResume() {
-        if (mPresenter != null) mPresenter.refresh();
-        super.onResume();
+//        setSpinner();
     }
 
     @Override
